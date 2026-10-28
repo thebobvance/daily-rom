@@ -1,0 +1,1169 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0B0C0E"><meta name="apple-mobile-web-app-capable" content="yes">
+<title>Daily ROM · Evening</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700&family=Barlow+Condensed:wght@600;700;800&family=Barlow+Semi+Condensed:ital,wght@0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0B0C0E;--panel:#14171C;--panel2:#1C2027;--line:#262A31;--text:#F4F5F7;--muted:#9AA0A8;--acc:#C8FF2E;--acc2:#FFB02B;--acc-dim:rgba(200,255,46,.14)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg)}
+body{font-family:'Barlow Semi Condensed','Barlow','Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;color:var(--text);-webkit-tap-highlight-color:transparent;user-select:none}
+.cond,h1,h2,.name,.tm,.btn,.seg,.eye{font-family:'Barlow Condensed','Barlow Semi Condensed','Arial Narrow','Segoe UI',sans-serif}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;overflow:hidden;
+  background:radial-gradient(1200px 700px at 28% 55%,#13170D 0%,var(--bg) 60%)}
+.portrait#stage{width:1080px;height:1920px}
+.screen{position:absolute;inset:0;padding:48px 72px 40px;display:none;flex-direction:column}
+.screen.on{display:flex}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+[data-f]{outline:none;transition:transform .12s,box-shadow .12s}
+[data-f]:focus{box-shadow:0 0 0 6px var(--bg),0 0 0 12px var(--acc),0 0 40px rgba(200,255,46,.45);transform:scale(1.03);z-index:2}
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;padding-bottom:26px;border-bottom:2px solid var(--line);gap:30px}
+.eye{font-weight:700;font-size:26px;letter-spacing:5px;text-transform:uppercase;color:var(--acc)}
+.ttl h1{font-weight:800;font-size:58px;line-height:1;letter-spacing:.5px;margin-top:4px;white-space:nowrap}
+.chips{display:flex;gap:12px;flex-wrap:wrap}
+.chip{font-weight:600;font-size:24px;padding:8px 20px;border-radius:999px;background:var(--panel2);color:#DDE1E6;border:1px solid #2E333B;white-space:nowrap}
+.lefttop{display:flex;align-items:flex-end;gap:44px;min-width:0}
+.righttop{display:flex;align-items:center;gap:44px}
+.prog .lbl{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:26px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-align:right}
+.prog .lbl b{color:var(--text)}
+.segs{display:flex;gap:8px;margin-top:10px;justify-content:flex-end}
+.segs i{width:52px;height:10px;border-radius:5px;background:#2A2E35}
+.segs i.d{background:#6A7A2C}.segs i.n{background:var(--acc);box-shadow:0 0 18px rgba(200,255,46,.5)}
+.streak{display:flex;align-items:center;gap:12px;padding:12px 22px;border-radius:16px;background:var(--panel);border:1px solid var(--line)}
+.streak .n{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:40px;line-height:1}
+.streak .t{font-size:18px;color:var(--muted);font-weight:600;line-height:1.1;text-transform:uppercase;letter-spacing:1.5px}
+/* footer */
+.bot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:22px;border-top:2px solid var(--line);gap:30px}
+.hints{display:flex;gap:16px;flex-wrap:wrap}
+.h{display:flex;align-items:center;gap:14px;font-size:28px;font-weight:600;color:#D5D9DE;padding:8px 16px 8px 8px;border-radius:999px}
+button.h{background:var(--panel);border:1px solid var(--line)}
+.g{display:inline-flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:800;color:#0B0C0E;flex:none}
+.g.a{width:46px;height:46px;border-radius:50%;background:#5DC21E;font-size:28px}
+.g.bb{width:46px;height:46px;border-radius:50%;background:#E8413A;font-size:28px}
+.g.x{width:46px;height:46px;border-radius:50%;background:#2F7BE8;font-size:28px}
+.g.y{width:46px;height:46px;border-radius:50%;background:#F2C230;font-size:28px}
+.g.rb{height:40px;padding:0 12px;border-radius:12px 12px 8px 8px;background:#D8DCE1;font-size:24px}
+.g.dp{height:40px;padding:0 12px;border-radius:10px;background:#3A4048;color:#E5E8EB;font-size:24px}
+/* ---------- HOME ---------- */
+.hmain{flex:1;display:grid;grid-template-columns:1fr 560px;gap:56px;padding-top:34px;min-height:0}
+.hero{display:flex;flex-direction:column;min-width:0}
+.kick{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:28px;letter-spacing:5px;text-transform:uppercase;color:var(--muted)}
+.kick b{color:var(--acc2)}
+.hero h2{font-weight:800;font-size:128px;line-height:.9;letter-spacing:1px;margin-top:8px}
+.quote{font-size:34px;font-weight:500;font-style:italic;color:#D6DADF;margin-top:22px;max-width:1080px;line-height:1.25}
+.quote cite{display:block;font-style:normal;font-size:24px;color:var(--muted);margin-top:8px;letter-spacing:1px}
+.meta{display:flex;align-items:center;gap:26px;margin-top:26px}
+.meta .dur{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:44px}
+.meta .dur span{color:var(--acc)}
+.thumbs{display:flex;gap:18px;margin-top:auto}
+.thumb{flex:1;min-width:0;max-width:300px;border-radius:22px;background:linear-gradient(180deg,#121510,#0F1113);border:1px solid #22261E;padding:0 0 14px;overflow:hidden}
+.thumb .svg{height:250px}.thumb .svg svg{width:100%;height:100%}
+.thumb .n{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:28px;padding:0 16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.thumb .d{font-size:21px;color:var(--muted);font-weight:600;padding:0 16px}
+.side-col{display:flex;flex-direction:column;gap:22px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:22px 24px}
+.opt .k{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.seg{display:flex;gap:12px}
+.seg button{flex:1;height:88px;border-radius:18px;background:#0F1114;border:2px solid #2E333B;font-weight:800;font-size:36px;color:#C9CDD3;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.seg button small{font-family:'Barlow Semi Condensed',sans-serif;font-size:20px;font-weight:600;color:var(--muted);margin-top:4px}
+.seg button.on{background:var(--acc-dim);border-color:var(--acc);color:var(--text)}
+.seg button.on small{color:#DDEFB0}
+.btn{height:96px;border-radius:22px;font-weight:800;font-size:40px;letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:18px;background:var(--panel2);border:2px solid #343A42}
+.btn.go{height:150px;background:var(--acc);color:#0B0C0E;border:0;font-size:64px;letter-spacing:4px;box-shadow:0 10px 60px rgba(200,255,46,.25)}
+.btn.go svg{width:54px;height:54px}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.day{border-radius:14px;background:#0F1114;border:1px solid #2A2F37;padding:10px 6px;text-align:center;min-width:0}
+.day .w{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:20px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}
+.day .r{font-size:18px;font-weight:600;color:#C4C9CF;line-height:1.1;margin-top:4px;height:40px;overflow:hidden}
+.day.today{border-color:var(--acc);background:var(--acc-dim)}.day.today .w{color:var(--acc)}
+.day.done .w::after{content:' ✓';color:var(--acc)}
+/* ---------- BROWSE ---------- */
+.bgrid{flex:1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:20px;padding:30px 0 24px;min-height:0}
+.card{overflow:hidden;border-radius:22px;background:var(--panel);border:1px solid var(--line);padding:20px 22px;text-align:left;display:flex;flex-direction:column;gap:6px;min-width:0}
+.card .w{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
+.card.today{border-color:var(--acc)}.card.today .w{color:var(--acc)}
+.card.warrior .w{color:var(--acc2)}
+.card .n{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:42px;line-height:1}
+.card .p{font-size:20px;color:#BFC4CA;line-height:1.25;margin-top:auto;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.card .m{font-size:22px;font-weight:700;color:var(--acc)}
+/* ---------- PLAYER ---------- */
+.pmain{flex:1;display:grid;grid-template-columns:860px 1fr;gap:52px;padding-top:30px;min-height:0}
+.art{position:relative;border-radius:28px;background:linear-gradient(180deg,#121510 0%,#0F1113 100%);border:1px solid #22261E;overflow:hidden}
+.art .fig{position:absolute;inset:0}.art .fig svg{width:100%;height:100%}
+.art .side{position:absolute;left:34px;top:30px;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:24px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);z-index:1}
+.art .side b{color:var(--acc)}
+.art .ready{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:34px;letter-spacing:6px;text-transform:uppercase;color:#0B0C0E;background:var(--acc2);padding:8px 28px;border-radius:12px;display:none;white-space:nowrap}
+.prep .art .ready{display:block}
+.prep .art .fig{opacity:.8}
+.right{display:flex;flex-direction:column;min-height:0;min-width:0}
+.name{font-weight:800;font-size:150px;line-height:.85;letter-spacing:2px;text-transform:uppercase}
+.name.long{font-size:112px}.name.xlong{font-size:92px}
+.sub{font-size:36px;font-weight:600;color:#C9CDD3;margin-top:12px}
+.sub b{color:var(--acc);font-weight:700}
+.prep .sub b{color:var(--acc2)}
+.meters{display:flex;gap:30px;margin-top:30px;align-items:center}
+.ring{position:relative;width:300px;height:300px;flex:none}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .arc{transition:stroke-dasharray .25s linear}
+.prep .ring .arc{stroke:var(--acc2)}
+.ring .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.tm{font-weight:800;font-size:100px;line-height:.9;font-variant-numeric:tabular-nums}
+.ring .of{font-size:24px;color:var(--muted);font-weight:600;letter-spacing:1px;margin-top:6px}
+.breath{flex:1;min-width:0;height:300px;border-radius:24px;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:18px}
+.orb{position:relative;width:150px;height:150px;flex:none;display:flex;align-items:center;justify-content:center}
+.orb .gd{position:absolute;inset:0;border-radius:50%;border:3px dashed #343A42}
+.orb .b{width:108px;height:108px;border-radius:50%;background:radial-gradient(circle at 40% 35%,rgba(200,255,46,.55),rgba(200,255,46,.16) 70%);border:3px solid var(--acc);box-shadow:0 0 50px rgba(200,255,46,.25);transform:scale(.45);will-change:transform}
+.bt{text-align:center}.bt .now{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:46px;line-height:1;margin-top:2px;white-space:nowrap}
+.bt .now span{color:var(--acc)}
+.pat{display:flex;gap:8px;margin-top:12px;justify-content:center}
+.pat div{white-space:nowrap;font-size:21px;font-weight:700;padding:6px 14px;border-radius:10px;background:#0F1114;border:1px solid #2E333B;color:#BFC4CA}
+.pat div.on{background:var(--acc);color:#0B0C0E;border-color:var(--acc)}
+.cues{margin-top:30px;display:flex;flex-direction:column;gap:16px}
+.cue{display:flex;align-items:center;gap:20px;font-size:34px;font-weight:600;line-height:1.15}
+.cue i{flex:none;width:14px;height:14px;border-radius:50%;background:var(--acc)}
+.kidline{margin-top:30px;font-size:36px;font-weight:600;line-height:1.25;color:#E6F7B8;padding:20px 26px;border-radius:20px;border:2px dashed #4A5A20;background:rgba(200,255,46,.06)}
+.kidline b{display:block;font-family:'Barlow Condensed',sans-serif;font-size:24px;letter-spacing:4px;text-transform:uppercase;color:var(--acc);margin-bottom:6px}
+.next{display:flex;align-items:center;gap:22px;white-space:nowrap}
+.next .k{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:24px;letter-spacing:4px;text-transform:uppercase;color:var(--muted)}
+.next .v{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:40px}
+.next .v span{color:var(--acc);font-weight:700}
+.paused-tag{position:absolute;right:30px;top:24px;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:30px;letter-spacing:5px;color:#0B0C0E;background:#F4F5F7;padding:6px 20px;border-radius:10px;display:none;z-index:1}
+.paused .paused-tag{display:block}
+.paused .orb .b,.paused .ring .arc{opacity:.5}
+.kidsbadge{display:none;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;letter-spacing:3px;color:#0B0C0E;background:var(--acc);padding:4px 12px;border-radius:8px;margin-left:16px;vertical-align:middle}
+.kids .kidsbadge{display:inline-block}
+/* ---------- FINISH ---------- */
+.fmain{flex:1;display:grid;grid-template-columns:1fr 640px;gap:60px;align-items:center;min-height:0}
+.done h2{font-weight:800;font-size:200px;line-height:.85;letter-spacing:2px}
+.done h2 span{color:var(--acc)}
+.done .what{font-size:40px;font-weight:600;color:#C9CDD3;margin-top:20px}
+.stats{display:flex;gap:22px;margin-top:44px}
+.stat{flex:1;max-width:300px;border-radius:24px;background:var(--panel);border:1px solid var(--line);padding:24px 28px}
+.stat .v{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:96px;line-height:1}
+.stat .v.acc{color:var(--acc)}
+.stat .k{font-size:22px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-top:4px}
+.stars{display:flex;gap:18px;margin-top:40px;flex-wrap:wrap}
+.stars svg{width:96px;height:96px;filter:drop-shadow(0 0 18px rgba(255,176,43,.45))}
+.closing{display:flex;flex-direction:column;align-items:center;gap:26px;padding:44px;border-radius:30px;background:var(--panel);border:1px solid var(--line)}
+.closing .orb{width:260px;height:260px}.closing .orb .b{width:190px;height:190px}
+.closing .t{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:54px;text-align:center;line-height:1}
+.closing .s{font-size:28px;color:var(--muted);text-align:center}
+.fbtns{display:flex;gap:20px;width:100%}.fbtns .btn{flex:1}
+/* ---------- modal ---------- */
+#modal{position:absolute;inset:0;background:rgba(5,6,8,.78);display:none;align-items:center;justify-content:center;z-index:10}
+#modal.on{display:flex}
+#modal .box{width:900px;padding:56px;border-radius:30px;background:var(--panel);border:2px solid var(--line);text-align:center}
+#modal h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:76px;line-height:1}
+#modal p{font-size:30px;color:var(--muted);margin-top:14px}
+#modal .row{display:flex;gap:24px;margin-top:40px}#modal .row .btn{flex:1}
+/* ---------- pose sheet ---------- */
+.sheet{flex:1;display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(4,1fr);gap:14px;padding-top:20px;min-height:0}
+.sheet .c{position:relative;border-radius:18px;background:linear-gradient(180deg,#121510,#0F1113);border:1px solid #22261E;overflow:hidden}
+.sheet .c svg{position:absolute;left:0;right:0;bottom:0;top:34px;width:100%;height:calc(100% - 34px)}
+.sheet .c .l{position:absolute;left:16px;top:10px;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:26px;z-index:1}
+.sheet .c .l small{font-family:'Barlow Semi Condensed',sans-serif;font-weight:600;font-size:18px;color:var(--muted);margin-left:8px}
+/* ---------- portrait (phones) ---------- */
+.portrait .screen{padding:40px 44px 34px}
+.portrait .top{flex-wrap:wrap}.portrait .lefttop{flex-direction:column;align-items:flex-start;gap:14px}
+.portrait .hmain{grid-template-columns:1fr;grid-template-rows:auto auto;gap:34px}
+.portrait .hero h2{font-size:104px}
+.portrait .thumbs{flex-wrap:wrap;margin-top:28px}.portrait .thumb{flex:1 1 30%}
+.portrait .pmain{grid-template-columns:1fr;grid-template-rows:720px 1fr;gap:30px}
+.portrait .name{font-size:120px}.portrait .name.long{font-size:96px}.portrait .name.xlong{font-size:80px}
+.portrait .bgrid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(7,minmax(0,1fr))}
+.portrait .fmain{grid-template-columns:1fr;align-content:center}
+.portrait .sheet{grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(5,1fr)}
+.portrait .bot{flex-wrap:wrap}
+.portrait .ttl h1{white-space:normal}
+.portrait #home .bot{display:none}.portrait #home .thumb svg{height:210px}
+
+</style></head>
+<body>
+<div id="stage">
+<!-- HOME -->
+<section id="home" class="screen">
+  <header class="top">
+    <div class="lefttop"><div class="ttl"><div class="eye">Daily ROM · Evening</div><h1 id="hDate">Tonight</h1></div></div>
+    <div class="righttop">
+      <div class="streak"><svg width="30" height="38" viewBox="0 0 30 38"><path d="M15 2c2 7 11 11 11 21a11 11 0 0 1-22 0c0-6 4-9 5-14 2 3 3 5 3 8 3-4 4-9 3-15z" fill="#C8FF2E"/></svg>
+        <div><div class="n" id="hStreak">0</div><div class="t">night streak</div></div></div>
+      <div class="streak"><div><div class="n" id="hNights">0</div><div class="t">nights total</div></div></div>
+    </div>
+  </header>
+  <div class="hmain">
+    <div class="hero">
+      <div class="kick" id="hKick">Tonight’s session</div>
+      <h2 id="hName">Hips Don't Lie</h2>
+      <div class="quote" id="hQuote"></div>
+      <div class="meta"><div class="dur" id="hDur"></div><div class="chips" id="hTags"></div></div>
+      <div class="thumbs" id="hThumbs"></div>
+    </div>
+    <div class="side-col">
+      <div class="opt"><div class="k">Session length</div>
+        <div class="seg"><button data-f id="bFull" class="on">Full<small id="bFullT">20 min</small></button><button data-f id="bShort">Short<small id="bShortT">11 min</small></button></div></div>
+      <div class="opt"><div class="k">Mode</div>
+        <div class="seg"><button data-f id="bAdult" class="on">Grown-up<small>long holds</small></button><button data-f id="bKids">Kids<small>50 s · animals</small></button></div></div>
+      <button data-f class="btn go" id="bStart"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z" fill="#0B0C0E"/></svg>Start</button>
+      <div class="seg"><button data-f id="bBrowse" style="height:84px">Browse sessions</button><button data-f id="bVoice" style="height:84px;flex:.7">Voice <small id="bVoiceT">on</small></button></div>
+      <div class="opt"><div class="k">This week</div><div class="week" id="hWeek"></div></div>
+    </div>
+  </div>
+  <footer class="bot">
+    <div class="hints"><div class="h"><span class="g a">A</span>Select</div><div class="h"><span class="g dp">✚</span>Move</div><div class="h"><span class="g y">Y</span>Kids mode</div></div>
+    <div class="next"><span class="k">Tomorrow</span><span class="v" id="hTomorrow"></span></div>
+  </footer>
+</section>
+<!-- BROWSE -->
+<section id="browse" class="screen">
+  <header class="top"><div class="lefttop"><div class="ttl"><div class="eye">Daily ROM · Library</div><h1>Pick a session</h1></div></div>
+    <div class="righttop"><div class="kick">14-day rotation · Sundays are Warrior nights</div></div></header>
+  <div class="bgrid" id="bGrid"></div>
+  <footer class="bot"><div class="hints"><div class="h"><span class="g a">A</span>Choose</div><button data-f class="h" id="bBack"><span class="g bb">B</span>Back</button></div><div></div></footer>
+</section>
+<!-- PLAYER -->
+<section id="player" class="screen">
+  <header class="top">
+    <div class="lefttop"><div class="ttl"><div class="eye">Daily ROM · Evening<span class="kidsbadge">KIDS</span></div><h1 id="pRoutine"></h1></div><div class="chips" id="pTags"></div></div>
+    <div class="righttop"><div class="prog"><div class="lbl">Pose <b id="pIdx">1</b> of <span id="pCnt">4</span></div><div class="segs" id="pSegs"></div></div>
+      <div class="streak"><svg width="30" height="38" viewBox="0 0 30 38"><path d="M15 2c2 7 11 11 11 21a11 11 0 0 1-22 0c0-6 4-9 5-14 2 3 3 5 3 8 3-4 4-9 3-15z" fill="#C8FF2E"/></svg><div><div class="n" id="pStreak">0</div><div class="t">night streak</div></div></div></div>
+  </header>
+  <section class="pmain">
+    <div class="art"><div class="side" id="pShown"></div><div class="paused-tag">PAUSED</div><div class="fig" id="pFig"></div><div class="ready">Get into position</div></div>
+    <div class="right">
+      <div class="name" id="pName">PIGEON</div>
+      <div class="sub" id="pSub"></div>
+      <div class="meters">
+        <div class="ring"><svg viewBox="0 0 330 330"><circle cx="165" cy="165" r="146" fill="none" stroke="#22262D" stroke-width="22"/>
+          <circle class="arc" id="pArc" cx="165" cy="165" r="146" fill="none" stroke="#C8FF2E" stroke-width="22" stroke-linecap="round" stroke-dasharray="917.3 917.3"/></svg>
+          <div class="c"><div class="tm" id="pTime">0:00</div><div class="of" id="pOf"></div></div></div>
+        <div class="breath"><div class="orb"><div class="gd"></div><div class="b" id="pOrb"></div></div>
+          <div class="bt"><div class="now" id="pBreath">Breathe in · <span>8</span></div><div class="pat" id="pPat"><div>8 in</div><div>4 hold</div><div>10 out</div></div></div></div>
+      </div>
+      <div class="cues" id="pCues"></div>
+    </div>
+  </section>
+  <footer class="bot">
+    <div class="hints">
+      <button data-f class="h" id="cPause"><span class="g a">A</span><span id="cPauseT">Pause</span></button>
+      <button data-f class="h" id="cBack"><span class="g bb">B</span>Back</button>
+      <button data-f class="h" id="cPrev"><span class="g rb">LB</span>Prev</button>
+      <button data-f class="h" id="cSkip"><span class="g rb">RB</span>Skip</button>
+      <button data-f class="h" id="cMute"><span class="g x">X</span><span id="cMuteT">Mute</span></button>
+    </div>
+    <div class="next"><span class="k">Up next</span><span class="v" id="pNext"></span></div>
+  </footer>
+</section>
+<!-- FINISH -->
+<section id="finish" class="screen">
+  <header class="top"><div class="lefttop"><div class="ttl"><div class="eye">Daily ROM · Evening</div><h1 id="fRoutine"></h1></div></div>
+    <div class="righttop"><div class="kick" id="fDate"></div></div></header>
+  <div class="fmain">
+    <div class="done"><h2 id="fHead">Done<span>.</span></h2><div class="what" id="fWhat"></div>
+      <div class="stats" id="fStats"></div><div class="stars" id="fStars"></div></div>
+    <div class="closing"><div class="orb"><div class="gd"></div><div class="b" id="fOrb"></div></div>
+      <div class="t" id="fBreath">One last breath</div><div class="s" id="fBreathS">In for 8 · hold 4 · out for 10</div>
+      <div class="fbtns"><button data-f class="btn go" id="fHome" style="height:110px;font-size:44px">Home</button><button data-f class="btn" id="fAgain" style="height:110px">Again</button></div></div>
+  </div>
+  <footer class="bot"><div class="hints"><div class="h"><span class="g a">A</span>Select</div><div class="h"><span class="g bb">B</span>Home</div></div><div class="next"><span class="k">Tomorrow</span><span class="v" id="fTomorrow"></span></div></footer>
+</section>
+<!-- POSE SHEET (reference / QA) -->
+<section id="poses" class="screen">
+  <header class="top"><div class="lefttop"><div class="ttl"><div class="eye">Daily ROM · Pose library</div><h1>Every pose, right side shown</h1></div></div><div class="righttop"><div class="kick" id="sCount"></div></div></header>
+  <div class="sheet" id="sGrid"></div>
+</section>
+<div id="modal"><div class="box"><h3>End session?</h3><p>Press B again to end, or A to keep going.</p>
+  <div class="row"><button data-f class="btn go" id="mKeep" style="height:110px;font-size:44px">Keep going</button><button data-f class="btn" id="mEnd" style="height:110px">End session</button></div></div></div>
+</div>
+
+<script>
+/* Swole · Daily ROM — parametric 3D wooden-mannequin renderer (SVG)  v3
+ * Pose: absolute 3D direction per segment in world frame [forward, up, right].
+ *   pelvis/chest/neck/head = spine directions; pelvisRight/chestRight = the body's right-hand vector (lets the torso lie, roll, twist).
+ * Camera: {yaw, pitch}. yaw 0 = side view from the figure's right (faces screen-left); +90 = from the front; 180 = from its left.
+ * opts.mirror: render the opposite side (left/right swap) — physically mirrored rig + camera, lighting kept top-left.
+ * Units: H = head height; ~7.5 H tall.
+ */
+(function (global) {
+  const H = 100, D = Math.PI / 180;
+  const LEN = { pelvis: 0.95, chest: 1.55, neck: 0.24, thigh: 1.95, shin: 1.9, foot: 0.95, upper: 1.42, fore: 1.22, hand: 0.72 };
+  // limb profile: [r0, r1, anteriorBulge, antPeak, posteriorBulge, postPeak] in H
+  const PROF = {
+    thigh: [0.38, 0.24, 0.07, 0.40, 0.07, 0.35],
+    shin:  [0.23, 0.13, 0.03, 0.30, 0.11, 0.27],
+    foot:  [0.14, 0.08, 0.04, 0.45, 0.00, 0.50],
+    upper: [0.21, 0.15, 0.04, 0.50, 0.05, 0.40],
+    fore:  [0.16, 0.10, 0.05, 0.25, 0.04, 0.30],
+    hand:  [0.10, 0.08, 0.02, 0.40, 0.02, 0.40],
+    neck:  [0.21, 0.18, 0, .5, 0, .5],
+    yoke:  [0.21, 0.21, 0, .5, 0, .5],
+  };
+  // torso blocks: depth radii (front-back) & width radii (side-side) at [bottom, top]
+  const TORSO = {
+    pelvis: { d: [0.42, 0.34], w: [0.52, 0.47], ab: 0.02, ap: 0.5, pb: 0.12, pp: 0.32 },
+    chest:  { d: [0.32, 0.44], w: [0.40, 0.62], ab: 0.13, ap: 0.66, pb: 0.07, pp: 0.6 },
+  };
+  const TONE = { lit: '#F6F7F9', mid: '#C3C9D0', dark: '#8A919A', joint: '#9AA1AA', far: '#5A6068' };
+  const LIGHT = nrm2([-0.55, -0.85]);
+  function nrm2(v) { const l = Math.hypot(v[0], v[1]) || 1; return [v[0] / l, v[1] / l]; }
+  const v3 = {
+    n(a) { const l = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / l, a[1] / l, a[2] / l]; },
+    add(a, b, s = 1) { return [a[0] + b[0] * s, a[1] + b[1] * s, a[2] + b[2] * s]; },
+    dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2]; },
+    cross(a, b) { return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]; },
+    perp(a, ref) { return v3.add(a, ref, -v3.dot(a, ref)); },
+    neg(a) { return [-a[0], -a[1], -a[2]]; },
+  };
+  const add2 = (p, v, s = 1) => [p[0] + v[0] * s, p[1] + v[1] * s];
+  function mix(c1, c2, t) { const a = parseInt(c1.slice(1), 16), b = parseInt(c2.slice(1), 16);
+    const r = (x, s) => (x >> s) & 255; const m = s => Math.round(r(a, s) + (r(b, s) - r(a, s)) * t);
+    return '#' + ((1 << 24) | (m(16) << 16) | (m(8) << 8) | m(0)).toString(16).slice(1); }
+
+  // ---------- skeleton ----------
+  function solve(p) {
+    const J = {}, segs = [];
+    const L = (k, o) => LEN[k] * H * (o == null ? 1 : o);
+    const root = [0, 0, 0];
+    const pd = v3.n(p.pelvis), cd = v3.n(p.chest), nd = v3.n(p.neck), hd = v3.n(p.head);
+    const pR = v3.n(v3.perp(v3.n(p.pelvisRight || [0, 0, 1]), pd));
+    const cR = v3.n(v3.perp(v3.n(p.chestRight || p.pelvisRight || [0, 0, 1]), cd));
+    const pf = v3.n(v3.cross(pd, pR)), cf = v3.n(v3.cross(cd, cR));
+    J.root = root;
+    J.waist = v3.add(root, pd, L('pelvis'));
+    const chestBase = v3.add(J.waist, cd, 0.06 * H);
+    J.neckBase = v3.add(chestBase, cd, L('chest'));
+    J.headBase = v3.add(v3.add(J.neckBase, nd, L('neck')), cf, 0.02 * H);
+    J.head = v3.add(J.headBase, hd, 0.46 * H);
+    J.glute = v3.add(v3.add(root, pf, -0.32 * H), pd, 0.1 * H);
+    J.belly = v3.add(J.waist, cf, 0.3 * H);
+    J.chestC = v3.add(J.waist, cd, 0.8 * H);
+    const shBase = v3.add(v3.add(J.neckBase, cd, -0.3 * H), cf, -0.04 * H);
+    const fold = (a, b, fb) => { const q = v3.perp(b, a); return Math.hypot(...q) > 0.15 ? v3.n(q) : fb; };
+    for (const side of ['right', 'left']) {
+      const sg = side === 'right' ? 1 : -1;
+      const leg = p.legs[side], arm = p.arms[side], lo = leg.len || {}, ao = arm.len || {};
+      const hip = v3.add(v3.add(root, pR, sg * 0.36 * H), pd, 0.02 * H);
+      const t = v3.n(leg.thigh), s = v3.n(leg.shin), f = v3.n(leg.foot);
+      const knee = v3.add(hip, t, L('thigh', lo.thigh)), ankle = v3.add(knee, s, L('shin', lo.shin)), toe = v3.add(ankle, f, L('foot', lo.foot));
+      const sh = v3.add(shBase, cR, sg * 0.86 * H);
+      const u = v3.n(arm.upper), fo = v3.n(arm.fore), ha = v3.n(arm.hand);
+      const elbow = v3.add(sh, u, L('upper', ao.upper)), wrist = v3.add(elbow, fo, L('fore', ao.fore)), fing = v3.add(wrist, ha, L('hand', ao.hand));
+      Object.assign(J, { [side + 'Hip']: hip, [side + 'Knee']: knee, [side + 'Ankle']: ankle, [side + 'Toe']: toe,
+        [side + 'Shoulder']: sh, [side + 'Elbow']: elbow, [side + 'Wrist']: wrist, [side + 'Fingers']: fing });
+      const thighAnt = v3.neg(fold(t, s, v3.n(v3.perp(v3.neg(pf), t))));
+      const shinAnt = v3.neg(fold(s, v3.neg(t), v3.n(v3.perp(v3.neg(pf), s))));
+      const footTop = v3.n(v3.perp(v3.add(s, [0, 1e-4, 0]), f));
+      const upperAnt = fold(u, fo, v3.n(v3.perp(cf, u)));
+      const foreAnt = v3.n(v3.perp(upperAnt, fo));
+      const handTop = v3.n(v3.perp(v3.add(v3.neg(fo), [0, 1e-4, 0]), ha));
+      segs.push(
+        { id: side + 'Thigh', k: 'thigh', a: hip, b: knee, ant: thighAnt, ja: 0.29, jb: 0.21, side },
+        { id: side + 'Shin', k: 'shin', a: knee, b: ankle, ant: shinAnt, jb: 0.12, side },
+        { id: side + 'Foot', k: 'foot', a: ankle, b: toe, ant: footTop, side },
+        { id: side + 'Upper', k: 'upper', a: sh, b: elbow, ant: upperAnt, ja: 0.22, jb: 0.14, side },
+        { id: side + 'Fore', k: 'fore', a: elbow, b: wrist, ant: foreAnt, jb: 0.09, side },
+        { id: side + 'Hand', k: 'hand', a: wrist, b: fing, ant: handTop, side });
+    }
+    segs.push(
+      { id: 'pelvis', k: 'pelvis', torso: true, a: v3.add(v3.add(root, pd, 0.04 * H), pf, -0.06 * H), b: v3.add(J.waist, pd, -0.36 * H), ant: pf, right: pR },
+      { id: 'waist', k: 'waistBall', ball: 0.31, at: J.waist, ant: pf },
+      { id: 'chest', k: 'chest', torso: true, a: v3.add(J.waist, cd, 0.42 * H), b: v3.add(J.neckBase, cd, -0.56 * H), ant: cf, right: cR },
+      { id: 'yoke', k: 'yoke', a: J.rightShoulder, b: J.leftShoulder, ant: cd, zb: -0.35 },
+      { id: 'neck', k: 'neck', a: v3.add(J.neckBase, cd, -0.25 * H), b: J.headBase, ant: cf, zb: -0.5 },
+      { id: 'head', head: true, a: J.headBase, b: J.head, ant: cf });
+    return { J, segs };
+  }
+
+  function mirrorPose(p) {
+    const q = JSON.parse(JSON.stringify(p));
+    const fz = v => v && [v[0], v[1], -v[2]];
+    for (const k of ['pelvis', 'chest', 'neck', 'head']) q[k] = fz(p[k]);
+    // right-hand vector of a mirrored body = mirror of the original LEFT vector = -(mirror of right)
+    q.pelvisRight = p.pelvisRight ? fz(p.pelvisRight).map(x => -x) : [0, 0, 1];
+    q.chestRight = p.chestRight ? fz(p.chestRight).map(x => -x) : (p.pelvisRight ? q.pelvisRight : [0, 0, 1]);
+    q.legs = { right: mirLimb(p.legs.left, fz), left: mirLimb(p.legs.right, fz) };
+    q.arms = { right: mirLimb(p.arms.left, fz), left: mirLimb(p.arms.right, fz) };
+    q.camera = Object.assign({}, p.camera || {}, { yaw: 180 - ((p.camera && p.camera.yaw) || 0) });
+    q.props = (p.props || []).map(pr => mirProp(pr, fz));
+    return q;
+  }
+  const swapLR = s => typeof s === 'string' ? s.replace(/^right/, '__L').replace(/^left/, 'right').replace(/^__L/, 'left') : s;
+  function mirLimb(l, fz) { const o = {}; for (const k in l) o[k] = Array.isArray(l[k]) ? fz(l[k]) : l[k]; return o; }
+  function mirProp(pr, fz) { const o = Object.assign({}, pr); if (o.from) o.from = swapLR(o.from); if (o.to) o.to = swapLR(o.to);
+    if (o.to2) o.to2 = swapLR(o.to2); if (o.from2) o.from2 = swapLR(o.from2); if (o.z) o.z = [-o.z[1], -o.z[0]]; return o; }
+
+  function camera(c = {}) {
+    const yaw = (c.yaw || 0) * D, pitch = (c.pitch == null ? 12 : c.pitch) * D;
+    const cam = [Math.sin(yaw) * Math.cos(pitch), Math.sin(pitch), Math.cos(yaw) * Math.cos(pitch)];
+    const up = v3.n(v3.add([0, 1, 0], cam, -cam[1]));
+    const right = v3.cross(cam, up);
+    return { cam, P: q => [v3.dot(q, right), -v3.dot(q, up)], Z: q => v3.dot(q, cam) };
+  }
+
+  function capsule(c0, c1, r0, r1, bp, pp, bm, pm) {
+    const dx = c1[0] - c0[0], dy = c1[1] - c0[1], d = Math.hypot(dx, dy);
+    if (d < Math.abs(r0 - r1) + 2) { const r = Math.max(r0, r1), pts = [], c = d > 0.1 ? (r0 > r1 ? c0 : c1) : c0;
+      for (let i = 0; i < 32; i++) { const a = i / 32 * 2 * Math.PI; pts.push([c[0] + Math.cos(a) * r, c[1] + Math.sin(a) * r]); }
+      return { pts, mid: c, v: [0, -1], r }; }
+    const u = [dx / d, dy / d], v = [-u[1], u[0]];
+    const sa = Math.max(-0.95, Math.min(0.95, (r0 - r1) / d)), ca = Math.sqrt(1 - sa * sa);
+    const S = [1, -1].map(s => [u[0] * sa + s * v[0] * ca, u[1] * sa + s * v[1] * ca]);
+    const bump = (t, pk) => { const k = Math.log(0.5) / Math.log(Math.min(.95, Math.max(.05, pk))); return Math.sin(Math.PI * Math.pow(t, k)); };
+    const pts = [], N = 20, fade = Math.min(1, d / (2 * Math.max(r0, r1)));
+    const edge = (m, t) => add2(add2(c0, m, r0), [(c1[0] + m[0] * r1) - (c0[0] + m[0] * r0), (c1[1] + m[1] * r1) - (c0[1] + m[1] * r0)], t);
+    for (let i = 0; i <= N; i++) { const t = i / N; pts.push(add2(edge(S[0], t), v, fade * bp * bump(t, pp))); }
+    arc(pts, c1, r1, Math.atan2(S[0][1], S[0][0]), Math.atan2(S[1][1], S[1][0]), u);
+    for (let i = N; i >= 0; i--) { const t = i / N; pts.push(add2(edge(S[1], t), v, -fade * bm * bump(t, pm))); }
+    arc(pts, c0, r0, Math.atan2(S[1][1], S[1][0]), Math.atan2(S[0][1], S[0][0]), [-u[0], -u[1]]);
+    return { pts, mid: [(c0[0] + c1[0]) / 2, (c0[1] + c1[1]) / 2], v, r: Math.max(r0, r1) + Math.max(bp, bm) };
+  }
+  function arc(pts, c, r, a0, a1, through) {
+    const at = Math.atan2(through[1], through[0]);
+    let d1 = a1 - a0; while (d1 < 0) d1 += 2 * Math.PI;
+    let dt = at - a0; while (dt < 0) dt += 2 * Math.PI;
+    if (dt > d1) d1 -= 2 * Math.PI;
+    for (let i = 1; i < 14; i++) { const a = a0 + d1 * i / 14; pts.push([c[0] + Math.cos(a) * r, c[1] + Math.sin(a) * r]); }
+  }
+  const P2 = pts => 'M' + pts.map(q => q[0].toFixed(1) + ' ' + q[1].toFixed(1)).join('L') + 'Z';
+
+  let uid = 0;
+  function render(pose0, opts = {}) {
+    const pose = opts.mirror ? mirrorPose(pose0) : pose0;
+    const { J, segs } = solve(pose);
+    const C = camera(Object.assign({}, pose.camera || {}, opts.camera || {}));
+    const id = 'mq' + (uid++), defs = [], items = [], all = [];
+    const hi = new Set(opts.highlight || []);
+    const OUT = '#0B0C0E', SW = 0.05 * H;
+    for (const sg of segs) {
+      if (sg.ball) { const c = C.P(sg.at); items.push({ z: C.Z(sg.at) - 0.3 * H, id: sg.id, mk: (veil) => `<circle cx="${c[0].toFixed(1)}" cy="${c[1].toFixed(1)}" r="${(sg.ball * H).toFixed(1)}" fill="${mix(TONE.joint, TONE.far, veil)}" stroke="${OUT}" stroke-width="${SW}"/>` }); continue; }
+      const A = C.P(sg.a), B = C.P(sg.b);
+      const z = (C.Z(sg.a) + C.Z(sg.b)) / 2 + (sg.zb || 0) * H + ((opts.zbias || pose.zbias || {})[sg.id] || 0) * H;
+      if (sg.head) {
+        let hu = nrm2([B[0] - A[0], B[1] - A[1]]); if (Math.hypot(B[0] - A[0], B[1] - A[1]) < 8) hu = [0, -1];
+        const hv = [-hu[1], hu[0]]; const a2 = C.P(sg.ant); const fs = Math.sign(a2[0] * hv[0] + a2[1] * hv[1]) || 1;
+        const fwdAmt = Math.min(1, Math.hypot(a2[0], a2[1]));
+        const hc = add2(B, hv, -fs * 0.03 * H);
+        const ang = Math.atan2(hu[1], hu[0]) / D + 90;
+        const gid = id + 'hd' + items.length;
+        // egg: cranium wider, jaw narrower and shifted toward the face
+        const jx = fs * 0.08 * H * fwdAmt;
+        const egg = `M0 ${-0.5 * H} C${0.4 * H} ${-0.5 * H} ${0.42 * H} ${0.0 * H} ${(jx + 0.22 * H).toFixed(1)} ${0.3 * H} C${(jx + 0.12 * H).toFixed(1)} ${0.45 * H} ${(jx - 0.12 * H).toFixed(1)} ${0.45 * H} ${(jx - 0.22 * H).toFixed(1)} ${0.3 * H} C${-0.42 * H} ${0.0 * H} ${-0.4 * H} ${-0.5 * H} 0 ${-0.5 * H}Z`;
+        for (let i = 0; i < 24; i++) { const a = i / 24 * 2 * Math.PI; all.push([hc[0] + Math.cos(a) * 0.5 * H, hc[1] + Math.sin(a) * 0.55 * H]); }
+        items.push({ z: z + 0.1 * H, id: sg.id, mk: (veil) => { defs.push(`<radialGradient id="${gid}" cx="36%" cy="28%" r="85%"><stop offset="0" stop-color="${mix(TONE.lit, TONE.far, veil)}"/><stop offset=".45" stop-color="${mix(TONE.lit, TONE.far, veil)}"/><stop offset="1" stop-color="${mix(TONE.dark, TONE.far, veil)}"/></radialGradient>`);
+          return `<g transform="translate(${hc[0].toFixed(1)} ${hc[1].toFixed(1)}) rotate(${ang.toFixed(1)})"><path d="${egg}" fill="url(#${gid})" stroke="${OUT}" stroke-width="${SW}"/></g>`; } });
+        continue;
+      }
+      let r0, r1, ab, ap, pb, pp;
+      if (sg.torso) {
+        const T = TORSO[sg.k]; const s = Math.abs(v3.dot(sg.right, C.cam)), c = Math.sqrt(Math.max(0, 1 - s * s));
+        r0 = Math.hypot(T.d[0] * s, T.w[0] * c) * H; r1 = Math.hypot(T.d[1] * s, T.w[1] * c) * H;
+        ab = T.ab * H * s; pb = T.pb * H * s; ap = T.ap; pp = T.pp;
+      } else { const P = PROF[sg.k]; r0 = P[0] * H; r1 = P[1] * H; ab = P[2] * H; ap = P[3]; pb = P[4] * H; pp = P[5]; }
+      const len = Math.hypot(B[0] - A[0], B[1] - A[1]);
+      const d2 = len > 0.5 ? [(B[0] - A[0]) / len, (B[1] - A[1]) / len] : [0, 1], vv = [-d2[1], d2[0]];
+      const an = C.P(sg.ant), k = Math.max(-1, Math.min(1, an[0] * vv[0] + an[1] * vv[1]));
+      const side0 = (ab + pb) / 2 * 0.5 * (1 - Math.abs(k));
+      const bp = k >= 0 ? ab * k + side0 : pb * -k + side0, pP = k >= 0 ? ap : pp;
+      const bm = k >= 0 ? pb * k + side0 : ab * -k + side0, pM = k >= 0 ? pp : ap;
+      const gap = 0.05 * H;
+      const A2 = sg.ja && len > 3 * gap ? add2(A, d2, gap) : A, B2 = sg.jb && len > 3 * gap ? add2(B, d2, -gap) : B;
+      const cap = capsule(A2, B2, r0, r1, bp, pP, bm, pM);
+      cap.pts.forEach(q => all.push(q));
+      const lit = (cap.v[0] * LIGHT[0] + cap.v[1] * LIGHT[1]) > 0 ? 1 : -1;
+      const g1 = add2(cap.mid, cap.v, lit * cap.r), g2 = add2(cap.mid, cap.v, -lit * cap.r);
+      const isHi = hi.has(sg.id);
+      items.push({ z, id: sg.id, mk: (veil) => {
+        const gid = `${id}g${defs.length}`;
+        const t0 = isHi ? '#F3FFD0' : TONE.lit, t1 = isHi ? '#C9E77A' : TONE.mid;
+        defs.push(`<linearGradient id="${gid}" gradientUnits="userSpaceOnUse" x1="${g1[0].toFixed(1)}" y1="${g1[1].toFixed(1)}" x2="${g2[0].toFixed(1)}" y2="${g2[1].toFixed(1)}"><stop offset="0" stop-color="${mix(t0, TONE.far, veil)}"/><stop offset=".35" stop-color="${mix(t0, TONE.far, veil)}"/><stop offset=".8" stop-color="${mix(t1, TONE.far, veil)}"/><stop offset="1" stop-color="${mix(TONE.dark, TONE.far, veil)}"/></linearGradient>`);
+        let j = '';
+        for (const [jp, jr] of [[A, sg.ja], [B, sg.jb]]) if (jr) j += `<circle cx="${jp[0].toFixed(1)}" cy="${jp[1].toFixed(1)}" r="${(jr * H).toFixed(1)}" fill="${mix(TONE.joint, TONE.far, veil)}" stroke="${OUT}" stroke-width="${0.045 * H}"/>`;
+        return j + `<path d="${P2(cap.pts)}" fill="url(#${gid})" stroke="${OUT}" stroke-width="${SW}" stroke-linejoin="round"/>`; } });
+    }
+    // floor
+    let floorY = Infinity; for (const k in J) floorY = Math.min(floorY, J[k][1]);
+    floorY -= 0.11 * H;
+    // props that are 3D-sorted (straps)
+    const props = pose.props || [];
+    for (const pr of props) if (pr.type === 'strap') {
+      const a3 = J[pr.from], b3 = J[pr.to]; const a = C.P(a3), b = C.P(b3);
+      const b2 = pr.to2 ? C.P(J[pr.to2]) : null, a2 = pr.from2 ? C.P(J[pr.from2]) : null;
+      items.push({ z: (C.Z(a3) + C.Z(b3)) / 2 + (pr.zb || 0) * H, id: 'strap', mk: () =>
+        `<path d="M${a[0].toFixed(1)} ${a[1].toFixed(1)} L${b[0].toFixed(1)} ${b[1].toFixed(1)}${a2 ? ` L${a2[0].toFixed(1)} ${a2[1].toFixed(1)}` : ''}" fill="none" stroke="#FFB02B" stroke-width="${0.09 * H}" stroke-linecap="round" stroke-linejoin="round"/>` });
+    }
+    const zs = items.map(i => i.z), zmin = Math.min(...zs), zmax = Math.max(...zs);
+    items.sort((a, b) => a.z - b.z);
+    const ds = opts.depthShade == null ? 0.5 : opts.depthShade;
+    const body = items.map(it => { const f = (zmax - it.z) / ((zmax - zmin) || 1); return it.mk(ds * Math.max(0, f - 0.4) / 0.6); }).join('');
+
+    // fit
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    const wallPts = [];
+    for (const pr of props) if (pr.type === 'wall') { const zr = pr.z || [-2.5, 2.5];
+      for (const [yy, zz] of [[0, zr[0]], [0, zr[1]], [pr.h || 5, zr[0]], [pr.h || 5, zr[1]]]) wallPts.push(C.P([pr.x * H, floorY + yy * H, zz * H])); }
+    for (const q of all) { x0 = Math.min(x0, q[0]); y0 = Math.min(y0, q[1]); x1 = Math.max(x1, q[0]); y1 = Math.max(y1, q[1]); }
+    const W = opts.width || 800, Hh = opts.height || 600, pad = opts.pad == null ? 40 : opts.pad, fg = opts.floor === false ? 0 : 0.5 * H;
+    // include the floor contact line in the fit (projected floor under body)
+    const fp = []; for (const k in J) fp.push(C.P([J[k][0], floorY, J[k][2]])); for (const q of fp) { y1 = Math.max(y1, q[1]); x0 = Math.min(x0, q[0]); x1 = Math.max(x1, q[0]); }
+    const s = Math.min((W - 2 * pad) / (x1 - x0), (Hh - 2 * pad) / (y1 - y0 + fg * 0.4)) * (opts.zoom || 1);
+    const tx = W / 2 - s * (x0 + x1) / 2 + (opts.dx || 0), ty = Hh / 2 - s * (y0 + y1 + fg * 0.4) / 2 + (opts.dy || 0);
+    const M = q => { const p2 = C.P(q); return [tx + s * p2[0], ty + s * p2[1]]; };
+    const Ms = p2 => [tx + s * p2[0], ty + s * p2[1]];
+    let under = '', over = '', tint = '';
+    if (opts.floor !== false) {
+      let mx0 = Infinity, mx1 = -Infinity, mz0 = Infinity, mz1 = -Infinity;
+      for (const k in J) { mx0 = Math.min(mx0, J[k][0]); mx1 = Math.max(mx1, J[k][0]); mz0 = Math.min(mz0, J[k][2]); mz1 = Math.max(mz1, J[k][2]); }
+      const m = pose.mat || {}; const ex = (m.x || 0.7) * H, ez = (m.z || 0.9) * H;
+      const cn = [[mx0 - ex, mz0 - ez], [mx1 + ex, mz0 - ez], [mx1 + ex, mz1 + ez], [mx0 - ex, mz1 + ez]].map(([x, zz]) => M([x, floorY, zz]));
+      under += `<path d="${P2(cn)}" fill="#171B14" stroke="#3B4430" stroke-width="2" stroke-linejoin="round"/>`;
+      defs.push(`<radialGradient id="${id}sh"><stop offset="0" stop-color="#000" stop-opacity=".5"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>`);
+      for (const k in J) if (J[k][1] - floorY < 0.6 * H && !/glute|belly|chestC/.test(k)) { const q = M([J[k][0], floorY, J[k][2]]);
+        under += `<ellipse cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" rx="${(0.7 * H * s).toFixed(1)}" ry="${(0.22 * H * s).toFixed(1)}" fill="url(#${id}sh)"/>`; }
+    }
+    for (const pr of props) if (pr.type === 'wall') {
+      const q = wallPts.splice(0, 4).map(Ms);
+      under = `<path d="${P2([q[0], q[1], q[3], q[2]])}" fill="#1A1E22" stroke="#353B43" stroke-width="2"/>` + under;
+    }
+    for (const g of (opts.glow || [])) {
+      const c = M(J[g.at]); const r = (g.r || 1.6) * H * s;
+      const gid = `${id}gl${g.at}`;
+      defs.push(`<radialGradient id="${gid}"><stop offset="0" stop-color="#C8FF2E" stop-opacity="${g.o || .5}"/><stop offset=".45" stop-color="#C8FF2E" stop-opacity="${(g.o || .5) * .35}"/><stop offset="1" stop-color="#C8FF2E" stop-opacity="0"/></radialGradient>`);
+      under += `<circle cx="${c[0].toFixed(1)}" cy="${c[1].toFixed(1)}" r="${r.toFixed(1)}" fill="url(#${gid})"/>`;
+      if (g.tint) { defs.push(`<radialGradient id="${gid}t"><stop offset="0" stop-color="#C8FF2E" stop-opacity="${g.tint}"/><stop offset=".6" stop-color="#C8FF2E" stop-opacity="${g.tint * .4}"/><stop offset="1" stop-color="#C8FF2E" stop-opacity="0"/></radialGradient>`);
+        tint += `<circle cx="${c[0].toFixed(1)}" cy="${c[1].toFixed(1)}" r="${((g.tr || 1.0) * H * s).toFixed(1)}" fill="url(#${gid}t)" style="mix-blend-mode:multiply"/>`; }
+    }
+    for (const lb of (opts.labels || [])) {
+      const c = M(J[opts.mirror ? swapLR(lb.at) : lb.at]); const e = [c[0] + (lb.dx || 0), c[1] + (lb.dy || 0)];
+      over += `<line x1="${c[0].toFixed(1)}" y1="${c[1].toFixed(1)}" x2="${e[0].toFixed(1)}" y2="${e[1].toFixed(1)}" stroke="${lb.acc ? '#C8FF2E' : '#6B717A'}" stroke-width="3"/><circle cx="${c[0].toFixed(1)}" cy="${c[1].toFixed(1)}" r="7" fill="${lb.acc ? '#C8FF2E' : '#9AA0A8'}" stroke="#0B0C0E" stroke-width="3"/>` +
+        `<text x="${(e[0] + (lb.tx || 0)).toFixed(1)}" y="${(e[1] + (lb.ty == null ? (lb.dy > 0 ? 30 : -12) : lb.ty)).toFixed(1)}" text-anchor="${lb.anchor || 'middle'}" font-family="Barlow Condensed, 'Barlow Semi Condensed', sans-serif" font-weight="700" font-size="${lb.size || 26}" letter-spacing="3" fill="#A3A9B1">${lb.text}</text>`;
+    }
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${Hh}" width="${W}" height="${Hh}" preserveAspectRatio="xMidYMid meet"><defs>${defs.join('')}</defs>${under}<g transform="translate(${tx.toFixed(1)} ${ty.toFixed(1)}) scale(${s.toFixed(4)})">${body}</g>${tint}${over}</svg>`;
+  }
+
+  function contacts(pose) { const { J } = solve(pose); let m = Infinity; for (const k in J) m = Math.min(m, J[k][1]); const o = {}; for (const k in J) o[k] = +((J[k][1] - m) / H).toFixed(2); return o; }
+  // settle: nudge one vector component until a joint sits at target height h (in H) above the floor defined by ref {joint,h}
+  function settle(pose, rules, ref, passes = 3) {
+    const y = k => solve(pose).J[k][1] / H; const floor = () => y(ref.joint) - ref.h;
+    for (let p = 0; p < passes; p++) for (const r of rules) {
+      const vec = r.path.reduce((o, k) => o[k], pose), c = r.comp == null ? 1 : r.comp;
+      let lo = r.lo == null ? -3 : r.lo, hi = r.hi == null ? 3 : r.hi;
+      vec[c] = lo; const ylo = y(r.joint) - floor(); vec[c] = hi; const yhi = y(r.joint) - floor(); const inc = yhi > ylo;
+      for (let i = 0; i < 44; i++) { const m = (lo + hi) / 2; vec[c] = m; if ((y(r.joint) - floor() > r.h) === inc) hi = m; else lo = m; }
+      vec[c] = +((lo + hi) / 2).toFixed(3);
+    }
+    return pose;
+  }
+  global.Mannequin = { render, solve, contacts, settle, mirrorPose, camera, LEN, PROF, TORSO, TONE, H, POSES: {} };
+})(typeof window !== 'undefined' ? window : globalThis);
+
+/* Pose rig library — every pose authored for the RIGHT side (mirror for left). [forward, up, right] */
+(function () {
+  const M = Mannequin, S = (a, b, c) => [a, b, c];
+  const R = (path, comp, joint, h, lo, hi) => ({ path: path.split('.'), comp, joint, h, lo, hi });
+  const arms = (ru, rf, rh, lu, lf, lh) => ({ right: { upper: ru, fore: rf, hand: rh }, left: { upper: lu, fore: lf, hand: lh } });
+  const legs = (rt, rs, rf, lt, ls, lf, rlen, llen) => ({ right: { thigh: rt, shin: rs, foot: rf, len: rlen }, left: { thigh: lt, shin: ls, foot: lf, len: llen } });
+  const P = {};
+  const SUPINE = [0, 0, -1]; // body-right vector when lying on the back, head toward +x
+  const PRONE = [0, 0, 1];
+
+  P.stand = { camera: { yaw: 60, pitch: 8 }, pelvis: S(0, 1, 0), chest: S(0, 1, 0), neck: S(0.05, 1, 0), head: S(0, 1, 0),
+    legs: legs(S(0, -1, 0.06), S(0, -1, 0), S(1, -0.05, 0.1), S(0, -1, -0.06), S(0, -1, 0), S(1, -0.05, -0.1)),
+    arms: arms(S(0, -1, 0.18), S(0.1, -1, 0.06), S(0.05, -1, 0), S(0, -1, -0.18), S(0.1, -1, -0.06), S(0.05, -1, 0)) };
+  P.pigeon = { camera: { yaw: 130, pitch: 22 }, pelvis: S(0.02, 1, 0), chest: S(-0.06, 1, 0), neck: S(0.1, 1, 0), head: S(0.02, 1, 0),
+    legs: legs(S(1, -0.157, 0.42), S(-0.28, -0.06, -1), S(-0.35, -0.066, -1), S(-1, -0.145, -0.02), S(-1, -0.058, 0), S(-1, -0.074, 0), { foot: 0.85 }),
+    arms: arms(S(0.02, -1, 0.13), S(0.02, -1, 0.13), S(1, -0.05, 0.1), S(0.02, -1, -0.13), S(0.02, -1, -0.13), S(1, -0.05, -0.1)),
+    settle: [[R('legs.right.thigh', 1, 'rightKnee', .24), R('legs.right.shin', 1, 'rightAnkle', .14), R('legs.left.thigh', 1, 'leftKnee', .24), R('legs.left.shin', 1, 'leftAnkle', .14), R('legs.left.foot', 1, 'leftToe', .08),
+      R('arms.right.upper', 1, 'rightWrist', .14, -3, -0.2), R('arms.left.upper', 1, 'leftWrist', .14, -3, -0.2)], { joint: 'root', h: 0.46 }] };
+
+  P.lizard = { camera: { yaw: -15, pitch: 30 }, pelvis: S(0.75, 0.66, 0), chest: S(1, 0.25, 0), neck: S(1, 0.55, 0), head: S(0.55, 1, 0),
+    legs: legs(S(1, -0.08, 0.62), S(0.05, -1, 0.04), S(1, -0.05, 0.3), S(-0.55, -0.8, -0.05), S(-1, -0.05, 0), S(-1, -0.1, 0)),
+    arms: arms(S(0.12, -1, -0.12), S(0.1, -1, -0.05), S(1, -0.05, 0), S(0.12, -1, 0.02), S(0.1, -1, 0.02), S(1, -0.05, 0)),
+    settle: [[R('legs.left.thigh', 1, 'leftKnee', .24, -3, 0), R('legs.left.shin', 1, 'leftAnkle', .14), R('legs.left.foot', 1, 'leftToe', .07), R('legs.right.foot', 1, 'rightToe', .08),
+      R('chest', 1, 'neckBase', 2.45, -1, 2), R('arms.right.upper', 0, 'rightWrist', .13, 0, 2), R('arms.left.upper', 0, 'leftWrist', .13, 0, 2)], { joint: 'rightAnkle', h: .14 }] };
+
+  P.dragon = { camera: { yaw: 22, pitch: 14 }, pelvis: S(0.15, 1, 0), chest: S(0.5, 1, 0), neck: S(0.6, 1, 0), head: S(0.4, 1, 0),
+    legs: legs(S(1, -0.2, 0.12), S(-0.22, -1, 0), S(1, -0.05, 0.05), S(-0.75, -0.65, -0.03), S(-1, -0.03, 0), S(-1, -0.1, 0)),
+    arms: arms(S(0.15, -1, -0.02), S(0.12, -1, -0.02), S(1, -0.05, 0), S(0.15, -1, 0.0), S(0.12, -1, 0.0), S(1, -0.05, 0)),
+    settle: [[R('chest', 0, 'rightWrist', .13, 0, 3), R('arms.left.upper', 0, 'leftWrist', .13, -1, 2), R('legs.left.thigh', 1, 'leftKnee', .24, -3, 0), R('legs.left.shin', 1, 'leftAnkle', .14), R('legs.left.foot', 1, 'leftToe', .07), R('legs.right.foot', 1, 'rightToe', .08)], { joint: 'rightAnkle', h: .14 }] };
+
+  P.halfSaddle = { camera: { yaw: 35, pitch: 22 }, pelvis: S(-0.5, 1, 0), chest: S(-0.8, 0.6, 0), neck: S(-0.2, 1, 0), head: S(0.2, 1, 0),
+    legs: legs(S(1, -0.05, 0.12), S(-1, -0.05, 0.3), S(-1, 0.05, 0.2), S(1, -0.05, -0.08), S(1, -0.03, 0), S(0.3, 1, 0)),
+    arms: arms(S(-0.15, -1, 0.15), S(1, -0.05, 0.1), S(1, -0.05, 0), S(-0.15, -1, -0.15), S(1, -0.05, -0.1), S(1, -0.05, 0)),
+    settle: [[R('legs.right.thigh', 1, 'rightKnee', .24), R('legs.right.shin', 1, 'rightAnkle', .14), R('legs.left.thigh', 1, 'leftKnee', .24), R('legs.left.shin', 1, 'leftAnkle', .14),
+      R('chest', 1, 'rightElbow', .16, -1, 2)], { joint: 'root', h: .46 }] };
+
+  P.frog = { camera: { yaw: -130, pitch: 58 }, pelvis: S(1, 0.0, 0), chest: S(1, 0.2, 0), neck: S(1, 0.25, 0), head: S(1, 0.1, 0), pelvisRight: PRONE,
+    legs: legs(S(0.05, -0.3, 1), S(-1, -0.03, 0.05), S(-0.1, -0.05, 1), S(0.05, -0.3, -1), S(-1, -0.03, -0.05), S(-0.1, -0.05, -1)),
+    arms: arms(S(0.1, -1, 0.05), S(1, -0.03, -0.05), S(1, -0.05, 0), S(0.1, -1, -0.05), S(1, -0.03, 0.05), S(1, -0.05, 0)),
+    settle: [[R('legs.right.shin', 1, 'rightAnkle', .14), R('legs.left.shin', 1, 'leftAnkle', .14), R('legs.left.thigh', 1, 'leftKnee', .24),
+      R('chest', 1, 'rightElbow', .16, -2, 2), R('arms.left.upper', 0, 'leftElbow', .16, -1, 1)], { joint: 'rightKnee', h: .24 }] };
+
+  // Twisted Cross: prone, right arm out to the side, rolled onto the right shoulder, left foot planted behind for leverage
+  P.twistedCross = { camera: { yaw: 0, pitch: 66 }, pelvis: S(1, 0, 0), chest: S(1, 0.02, 0), neck: S(1, 0.05, 0), head: S(1, 0.02, 0),
+    pelvisRight: S(0, -0.35, 0.94), chestRight: S(0, -0.8, 0.6),
+    legs: legs(S(-1, -0.02, 0.05), S(-1, 0, 0), S(-1, -0.25, 0), S(-0.35, 0.55, 0.75), S(-0.25, -0.9, 0.3), S(-0.2, -0.1, 1)),
+    arms: arms(S(0.05, -0.2, 1), S(0.05, -0.05, 1), S(0.2, -0.05, 1), S(0.35, -0.5, -0.7), S(0.1, -1, 0.1), S(1, -0.05, 0)),
+    settle: [[R('legs.right.thigh', 1, 'rightKnee', .24), R('legs.right.shin', 1, 'rightAnkle', .14), R('legs.left.shin', 1, 'leftAnkle', .14),
+      R('arms.right.upper', 1, 'rightElbow', .16), R('arms.right.fore', 1, 'rightWrist', .12), R('arms.left.fore', 1, 'leftWrist', .13)], { joint: 'root', h: .5 }] };
+
+  // Thread the Needle: tabletop, right arm threads under to the left, right shoulder + head down
+  P.threadNeedle = { camera: { yaw: -150, pitch: 30 }, pelvis: S(1, -0.15, 0), chest: S(1, -0.6, 0), neck: S(1, -0.2, 0), head: S(1, -0.1, 0),
+    pelvisRight: PRONE, chestRight: S(0, -0.75, 0.66),
+    legs: legs(S(0.02, -1, 0.05), S(-1, -0.03, 0), S(-1, -0.1, 0), S(0.02, -1, -0.05), S(-1, -0.03, 0), S(-1, -0.1, 0)),
+    arms: arms(S(0.05, -0.15, -1), S(0.05, -0.05, -1), S(0.1, 0, -1), S(0.85, 0.0, -0.05), S(1, -0.25, 0), S(1, -0.05, 0)),
+    settle: [[R('legs.right.shin', 1, 'rightAnkle', .14), R('legs.left.shin', 1, 'leftAnkle', .14), R('legs.right.foot', 1, 'rightToe', .07), R('legs.left.foot', 1, 'leftToe', .07),
+      R('chest', 1, 'rightShoulder', .3, -3, 0), R('arms.right.upper', 1, 'rightElbow', .15), R('arms.left.upper', 1, 'leftElbow', .9), R('arms.left.fore', 1, 'leftWrist', .13)], { joint: 'rightKnee', h: .24 }] };
+
+  P.puppy = { camera: { yaw: 28, pitch: 16 }, pelvis: S(1, 0.15, 0), chest: S(1, -0.45, 0), neck: S(1, -0.3, 0), head: S(1, -0.55, 0),
+    legs: legs(S(0.02, -1, 0.05), S(-1, -0.03, 0), S(-1, -0.1, 0), S(0.02, -1, -0.05), S(-1, -0.03, 0), S(-1, -0.1, 0)),
+    arms: arms(S(1, -0.1, 0.12), S(1, -0.1, 0.05), S(1, -0.05, 0), S(1, -0.1, -0.12), S(1, -0.1, -0.05), S(1, -0.05, 0)),
+    settle: [[R('legs.right.shin', 1, 'rightAnkle', .14), R('legs.left.shin', 1, 'leftAnkle', .14), R('legs.right.foot', 1, 'rightToe', .07), R('legs.left.foot', 1, 'leftToe', .07),
+      R('chest', 1, 'neckBase', .6), R('arms.right.upper', 1, 'rightElbow', .16), R('arms.left.upper', 1, 'leftElbow', .16), R('arms.right.fore', 1, 'rightWrist', .12), R('arms.left.fore', 1, 'leftWrist', .12)], { joint: 'rightKnee', h: .24 }] };
+
+  P.sphinx = { camera: { yaw: 25, pitch: 14 }, pelvis: S(1, 0.06, 0), chest: S(0.85, 0.5, 0), neck: S(0.55, 0.85, 0), head: S(0.2, 1, 0),
+    legs: legs(S(-1, -0.02, 0.06), S(-1, 0, 0.02), S(-1, -0.15, 0), S(-1, -0.02, -0.06), S(-1, 0, -0.02), S(-1, -0.15, 0)),
+    arms: arms(S(0.05, -1, 0.02), S(1, -0.02, 0), S(1, -0.05, 0), S(0.05, -1, -0.02), S(1, -0.02, 0), S(1, -0.05, 0)),
+    settle: [[R('legs.right.thigh', 1, 'rightKnee', .23), R('legs.left.thigh', 1, 'leftKnee', .23), R('legs.right.shin', 1, 'rightAnkle', .13), R('legs.left.shin', 1, 'leftAnkle', .13),
+      R('chest', 1, 'rightElbow', .16, 0, 3), R('arms.right.fore', 1, 'rightWrist', .11), R('arms.left.fore', 1, 'leftWrist', .11)], { joint: 'root', h: .44 }] };
+
+  // Supine twist: knees stacked and dropped to the LEFT, right shoulder stays heavy (stretches the right side)
+  P.supineTwist = { camera: { yaw: -90, pitch: 58 }, pelvis: S(1, 0, 0), chest: S(1, 0, 0), neck: S(1, 0, 0), head: S(1, 0.0, 0.3),
+    pelvisRight: S(0, 0.85, -0.5), chestRight: SUPINE,
+    legs: legs(S(0.45, 0.2, 1), S(-1, 0.05, 0.25), S(-1, 0, 0.2), S(0.45, -0.2, 1), S(-1, 0, 0.25), S(-1, -0.1, 0.2)),
+    arms: arms(S(0.05, -0.05, -1), S(0.05, -0.02, -1), S(0.1, 0, -1), S(0.05, -0.05, 1), S(0.05, -0.02, 1), S(0.1, 0, 1)),
+    settle: [[R('legs.left.thigh', 1, 'leftKnee', .24), R('legs.left.shin', 1, 'leftAnkle', .14), R('legs.right.thigh', 1, 'rightKnee', .58), R('legs.right.shin', 1, 'rightAnkle', .4),
+      R('arms.right.upper', 1, 'rightElbow', .15), R('arms.left.upper', 1, 'leftElbow', .15), R('arms.right.fore', 1, 'rightWrist', .12), R('arms.left.fore', 1, 'leftWrist', .12)], { joint: 'rightShoulder', h: .3 }] };
+
+  P.strapHamstring = { camera: { yaw: 160, pitch: 16 }, pelvis: S(1, 0, 0), chest: S(1, 0, 0), neck: S(1, 0, 0), head: S(1, 0.05, 0), pelvisRight: SUPINE,
+    legs: legs(S(0.22, 1, 0), S(0.22, 1, 0), S(1, 0.2, 0), S(-1, -0.02, 0), S(-1, 0, 0), S(-0.2, 1, 0)),
+    arms: arms(S(-0.35, 0.9, 0.05), S(-0.2, 1, 0.1), S(-0.1, 1, 0), S(-0.35, 0.9, -0.05), S(-0.2, 1, -0.1), S(-0.1, 1, 0)),
+    props: [{ type: 'strap', from: 'rightWrist', to: 'rightToe', from2: 'leftWrist', zb: 0.2 }],
+    settle: [[R('legs.left.thigh', 1, 'leftKnee', .23), R('legs.left.shin', 1, 'leftAnkle', .13)], { joint: 'root', h: .44 }] };
+
+  // Reclined figure-4: left foot on the floor, right ankle crossed over the left knee
+  P.figure4 = { camera: { yaw: 0, pitch: 25 }, pelvis: S(1, 0, 0), chest: S(1, 0, 0), neck: S(1, 0, 0), head: S(1, 0.05, 0), pelvisRight: SUPINE,
+    legs: legs(S(-0.3, 0.75, -0.75), S(-0.15, 0.05, 1), S(-0.2, 0.3, 1), S(-0.55, 0.85, 0.02), S(-0.45, -0.9, 0), S(-1, -0.05, 0)),
+    arms: arms(S(-1, -0.02, -0.25), S(-1, -0.02, -0.1), S(-1, -0.05, 0), S(-1, -0.02, 0.25), S(-1, -0.02, 0.1), S(-1, -0.05, 0)),
+    settle: [[R('legs.left.shin', 1, 'leftAnkle', .14), R('legs.left.foot', 1, 'leftToe', .08), R('arms.right.upper', 1, 'rightElbow', .15), R('arms.left.upper', 1, 'leftElbow', .15),
+      R('arms.right.fore', 1, 'rightWrist', .12), R('arms.left.fore', 1, 'leftWrist', .12)], { joint: 'root', h: .44 }] };
+
+  P.boundAngle = { camera: { yaw: 62, pitch: 14 }, pelvis: S(0, 1, 0), chest: S(-0.02, 1, 0), neck: S(0.08, 1, 0), head: S(0.02, 1, 0),
+    legs: legs(S(0.62, -0.28, 0.75), S(0.45, -0.1, -0.88), S(1, -0.05, -0.08), S(0.62, -0.28, -0.75), S(0.45, -0.1, 0.88), S(1, -0.05, 0.08)),
+    arms: arms(S(0.4, -0.9, 0.05), S(0.75, -0.55, -0.15), S(1, -0.2, 0), S(0.4, -0.9, -0.05), S(0.75, -0.55, 0.15), S(1, -0.2, 0)),
+    props: [{ type: 'wall', x: -0.62, h: 4.6, z: [-2.6, 2.6] }],
+    settle: [[R('legs.right.shin', 1, 'rightAnkle', .14), R('legs.left.shin', 1, 'leftAnkle', .14), R('legs.right.thigh', 1, 'rightKnee', .5), R('legs.left.thigh', 1, 'leftKnee', .5)], { joint: 'root', h: .46 }] };
+
+  P.toeSquat = { camera: { yaw: 22, pitch: 12 }, pelvis: S(0.02, 1, 0), chest: S(-0.02, 1, 0), neck: S(0.1, 1, 0), head: S(0.02, 1, 0),
+    legs: legs(S(1, -0.3, 0.04), S(-1, 0.22, 0), S(-0.1, -1, 0), S(1, -0.3, -0.04), S(-1, 0.22, 0), S(-0.1, -1, 0), { foot: 0.62 }, { foot: 0.62 }),
+    arms: arms(S(0.2, -1, 0.1), S(0.9, -0.35, -0.05), S(1, -0.2, 0), S(0.2, -1, -0.1), S(0.9, -0.35, 0.05), S(1, -0.2, 0)),
+    settle: [[R('legs.right.shin', 1, 'rightToe', .07), R('legs.left.shin', 1, 'leftToe', .07), R('legs.left.thigh', 1, 'leftKnee', .24)], { joint: 'rightKnee', h: .24 }] };
+
+  P.sumo = { camera: { yaw: 62, pitch: 10 }, pelvis: S(0.25, 1, 0), chest: S(0.12, 1, 0), neck: S(0.12, 1, 0), head: S(0.02, 1, 0),
+    legs: legs(S(0.62, 0.1, 0.78), S(-0.12, -1, 0.1), S(0.6, -0.05, 0.8), S(0.62, 0.1, -0.78), S(-0.12, -1, -0.1), S(0.6, -0.05, -0.8)),
+    arms: arms(S(0.4, -0.9, 0.3), S(0.5, 0.8, -0.35), S(0.1, 1, -0.1), S(0.4, -0.9, -0.3), S(0.5, 0.8, 0.35), S(0.1, 1, 0.1)),
+    settle: [[R('legs.left.foot', 1, 'leftToe', .08), R('legs.right.foot', 1, 'rightToe', .08)], { joint: 'rightAnkle', h: .14 }] };
+
+  P.childWide = { camera: { yaw: 40, pitch: 24 }, pelvis: S(0.9, 0.0, 0), chest: S(1, -0.32, 0), neck: S(1, -0.3, 0), head: S(1, -0.5, 0), pelvisRight: PRONE,
+    legs: legs(S(0.75, -0.22, 0.62), S(-1, -0.05, -0.3), S(-1, -0.1, -0.1), S(0.75, -0.22, -0.62), S(-1, -0.05, 0.3), S(-1, -0.1, 0.1)),
+    arms: arms(S(1, -0.15, 0.15), S(1, -0.1, 0.05), S(1, -0.05, 0), S(1, -0.15, -0.15), S(1, -0.1, -0.05), S(1, -0.05, 0)),
+    settle: [[R('legs.left.thigh', 1, 'leftKnee', .24), R('legs.right.shin', 1, 'rightAnkle', .14), R('legs.left.shin', 1, 'leftAnkle', .14),
+      R('chest', 1, 'neckBase', .55), R('arms.right.upper', 1, 'rightElbow', .16), R('arms.left.upper', 1, 'leftElbow', .16), R('arms.right.fore', 1, 'rightWrist', .12), R('arms.left.fore', 1, 'leftWrist', .12)], { joint: 'rightKnee', h: .24 }] };
+
+  P.wrist = { camera: { yaw: 25, pitch: 14 }, pelvis: S(1, 0.05, 0), chest: S(1, 0.05, 0), neck: S(1, 0.2, 0), head: S(1, -0.1, 0), pelvisRight: PRONE,
+    legs: legs(S(-0.1, -1, 0.05), S(-1, -0.03, 0), S(-1, -0.1, 0), S(-0.1, -1, -0.05), S(-1, -0.03, 0), S(-1, -0.1, 0)),
+    arms: arms(S(-0.05, -1, 0.04), S(-0.05, -1, 0.02), S(-1, -0.05, 0), S(-0.05, -1, -0.04), S(-0.05, -1, -0.02), S(-1, -0.05, 0)),
+    settle: [[R('legs.right.shin', 1, 'rightAnkle', .14), R('legs.left.shin', 1, 'leftAnkle', .14), R('legs.right.foot', 1, 'rightToe', .07), R('legs.left.foot', 1, 'leftToe', .07),
+      R('pelvis', 1, 'rightWrist', .11, -1, 1)], { joint: 'rightKnee', h: .24 }] };
+
+  P.legsWall = { camera: { yaw: 25, pitch: 12 }, pelvis: S(1, 0, 0), chest: S(1, 0, 0), neck: S(1, 0, 0), head: S(1, 0.05, 0), pelvisRight: SUPINE,
+    legs: legs(S(-0.06, 1, 0.03), S(-0.03, 1, 0), S(0.25, 1, 0), S(-0.06, 1, -0.03), S(-0.03, 1, 0), S(0.25, 1, 0)),
+    arms: arms(S(-0.35, -0.05, -1), S(-0.2, -0.02, -1), S(-0.1, 0, -1), S(-0.35, -0.05, 1), S(-0.2, -0.02, 1), S(-0.1, 0, 1)),
+    props: [{ type: 'wall', x: -0.62, h: 5.2, z: [-2, 2] }],
+    settle: [[R('arms.right.upper', 1, 'rightElbow', .15), R('arms.left.upper', 1, 'leftElbow', .15), R('arms.right.fore', 1, 'rightWrist', .12), R('arms.left.fore', 1, 'leftWrist', .12)], { joint: 'root', h: .44 }] };
+
+  // Couch stretch: right knee back at the wall, right shin up the wall, left foot planted
+  P.couch = { camera: { yaw: 8, pitch: 10 }, pelvis: S(0.03, 1, 0), chest: S(-0.02, 1, 0), neck: S(0.1, 1, 0), head: S(0.02, 1, 0),
+    legs: legs(S(-0.5, -0.87, 0.03), S(-0.02, 1, 0), S(0.1, 1, 0), S(1, -0.15, -0.05), S(-0.12, -1, 0), S(1, -0.05, 0)),
+    arms: arms(S(0.4, -0.9, 0.1), S(0.8, -0.55, -0.05), S(1, -0.25, 0), S(0.4, -0.9, -0.02), S(0.8, -0.55, 0.1), S(1, -0.25, 0)),
+    props: [{ type: 'wall', x: -1.22, h: 4.2, z: [-1.6, 1.6] }],
+    settle: [[R('legs.left.thigh', 1, 'leftAnkle', .14, -3, 0.5), R('legs.left.foot', 1, 'leftToe', .08)], { joint: 'rightKnee', h: .24 }] };
+
+  for (const k in P) { const p = P[k]; if (p.settle) M.settle(p, p.settle[0], p.settle[1]); delete p.settle; }
+  // walls are authored relative to the mirrored-safe x position; nothing else to fix
+  Object.assign(M.POSES, P);
+})();
+
+/* Daily ROM content: pose info, routines, 14-day schedule, quotes. Holds in seconds (per side when side:true). */
+const POSE_INFO = {
+  dragon:       { name: 'Low Dragon', kid: 'Sleepy Dragon', kidLine: 'Be a sleepy dragon. Sink your tummy toward the floor and let your back knee rest.', side: true, sideLabel: ['right foot forward', 'left foot forward'], tags: ['Hip flexors', 'Groin', 'Quads'], glow: 'leftHip',
+    cues: ['Hands down inside the front foot', 'Sink the hips, back knee heavy', 'Keep the chest long — no slump'] },
+  lizard:       { name: 'Lizard', kid: 'Sneaky Lizard', kidLine: 'Sneaky lizard! Front foot wide, hands down low, and stay very, very still.', side: true, sideLabel: ['right foot forward', 'left foot forward'], tags: ['Hips', 'Groin', 'Hip flexors'], glow: 'rightHip',
+    cues: ['Front foot outside the hands', 'Let the front knee fall open a little', 'Hands or a block — keep the back flat'] },
+  pigeon:       { name: 'Pigeon', kid: 'Pigeon on a Branch', kidLine: 'Be a pigeon on a branch. Sit tall, puff your chest, and coo quietly.', side: true, sideLabel: ['right leg forward', 'left leg forward'], tags: ['Glutes', 'Hips', 'Piriformis'], glow: 'rightHip',
+    cues: ['Stay tall on your hands — no folding forward', 'Front shin as parallel as your hips allow', 'Melt on every exhale'] },
+  halfSaddle:   { name: 'Half Saddle', kid: 'Saddle Up', kidLine: 'Saddle up, cowboy! One leg tucked back, lean back on your elbows and look at the sky.', side: true, sideLabel: ['right leg folded', 'left leg folded'], tags: ['Quads', 'Hip flexors', 'Knees'], glow: 'rightKnee',
+    cues: ['Supported: elbows or a bolster under your back', 'Squeeze the glutes to protect the low back', 'Stop where the knee is happy'] },
+  frog:         { name: 'Frog', kid: 'Froggy', kidLine: 'Froggy time! Knees wide, belly low, and croak on the out breath.', side: false, tags: ['Groin', 'Adductors', 'Hips'], glow: 'root',
+    cues: ['Forearms down, knees wide, shins parallel', 'Ankles in line with the knees', 'Rock back only as far as feels good'] },
+  twistedCross: { name: 'Twisted Cross', kid: 'Starfish Roll', kidLine: 'Starfish roll! One arm out like a starfish arm, then roll gently onto it.', side: true, sideLabel: ['right arm out', 'left arm out'], tags: ['Shoulders', 'Chest', 'Upper back'], glow: 'rightShoulder',
+    cues: ['Arm straight out, palm down', 'Use the top foot to roll in slowly', 'Rest the head — let the shoulder open'] },
+  threadNeedle: { name: 'Thread the Needle', kid: 'Peek-a-Boo', kidLine: 'Peek-a-boo! Slide your arm under like a secret tunnel and peek out the other side.', side: true, sideLabel: ['right arm under', 'left arm under'], tags: ['Upper back', 'Shoulders', 'Neck'], glow: 'rightShoulder',
+    cues: ['Hips stacked over knees', 'Shoulder and temple rest down', 'Top hand presses to deepen the twist'] },
+  puppy:        { name: 'Puppy Dog', kid: 'Puppy Stretch', kidLine: 'Puppy stretch! Tail up high, arms reach long, and give a tiny happy wag.', side: false, tags: ['Shoulders', 'Lats', 'Upper back'], glow: 'neckBase',
+    cues: ['Hips over knees, chest sinks to the floor', 'Arms long, forehead or chin down', 'Keep a soft belly — no low-back sag'] },
+  sphinx:       { name: 'Sphinx', kid: 'Lion', kidLine: 'Be a big lion resting in the sun. Chest proud, and let out a quiet roar.', side: false, tags: ['Low back', 'Abs', 'Hip flexors'], glow: 'waist',
+    cues: ['Elbows under the shoulders', 'Let the low back sag only gently', 'Back off to a lower prop if it pinches'] },
+  supineTwist:  { name: 'Supine Twist', kid: 'Noodle Twist', kidLine: 'Wiggle into a noodle twist. Knees fall to one side, arms out wide like a noodle.', side: true, sideLabel: ['knees to the left', 'knees to the right'], tags: ['Spine', 'Glutes', 'Chest'], glow: 'waist',
+    cues: ['Arms out in a T, shoulders heavy', 'Stack the knees — a pillow under them is fine', 'Breathe into the ribs'] },
+  strapHamstring:{ name: 'Strap Hamstring', kid: 'Rocket Leg', kidLine: 'Rocket leg! Point one leg up to space and hold your rocket with the strap.', side: true, sideLabel: ['right leg up', 'left leg up'], tags: ['Hamstrings', 'Calves'], glow: 'rightKnee',
+    cues: ['Back flat on the floor, head down', 'Strap around the ball of the foot', 'Leg straight-ish — bend the knee before the back rounds'] },
+  figure4:      { name: 'Reclined Figure-4', kid: 'Number Four', kidLine: 'Make a number four with your legs! Can you hold your four still?', side: true, sideLabel: ['right ankle crossed', 'left ankle crossed'], tags: ['Glutes', 'Piriformis', 'Hips'], glow: 'rightHip',
+    cues: ['Flex the crossed foot', 'Back flat — pull the bottom knee in only if it stays flat', 'Let the crossed knee open'] },
+  boundAngle:   { name: 'Bound Angle', kid: 'Butterfly', kidLine: 'Butterfly wings! Feet together, knees open, and flap your wings very slowly.', side: false, tags: ['Groin', 'Hips', 'Adductors'], glow: 'root',
+    cues: ['Sit tall against the wall', 'Soles together, knees fall open', 'No folding — let gravity do it'] },
+  toeSquat:     { name: 'Toe Squat', kid: 'Ninja Toes', kidLine: 'Ninja toes! Sit on your heels, toes tucked, and be a silent ninja.', side: false, tags: ['Feet', 'Toes', 'Ankles'], glow: 'rightToe',
+    cues: ['Tuck all ten toes, sit on the heels', 'Hands on the thighs, chest tall', 'Come up a little if it’s too spicy'] },
+  sumo:         { name: 'Sumo Squat', kid: 'Sumo Wrestler', kidLine: 'Sumo wrestler! Big wide squat, stomp your feet, and push your knees out.', side: false, tags: ['Hips', 'Ankles', 'Groin'], glow: 'root',
+    cues: ['Heels on a plate or sit on a block', 'Elbows gently press the knees out', 'Chest up, spine long'] },
+  childWide:    { name: "Wide-Knee Child's Pose", kid: 'Turtle Shell', kidLine: 'Turtle shell! Tuck in under your shell and rest, nice and cozy.', side: false, tags: ['Low back', 'Hips', 'Lats'], glow: 'root',
+    cues: ['Knees wide, big toes together', 'Hips back toward the heels', 'Arms long, forehead rests'] },
+  wrist:        { name: 'Wrist Stretch', kid: 'Paws Back', kidLine: 'Paws back! Turn your hands around like a kitty and lean back slowly.', side: false, tags: ['Wrists', 'Forearms'], glow: 'rightWrist',
+    cues: ['Fingers point back toward the knees', 'Lean back slowly, palms flat', 'Flip to backs of the hands halfway if you like'] },
+  legsWall:     { name: 'Legs Up the Wall', kid: 'Candle', kidLine: 'Be a candle! Legs up the wall and stay so still your flame does not flicker.', side: false, tags: ['Hamstrings', 'Low back', 'Recovery'], glow: 'waist',
+    cues: ['Scoot the hips close to the wall', 'Arms out, palms up', 'Let the legs go heavy'] },
+  couch:        { name: 'Couch Stretch', kid: 'Couch Potato', kidLine: 'Couch potato! Knee by the wall, foot up the wall, and sit up tall like a potato king.', side: true, sideLabel: ['right knee back', 'left knee back'], tags: ['Quads', 'Hip flexors'], glow: 'rightHip',
+    cues: ['Knee in the corner, shin up the wall', 'Squeeze the glute on the down leg', 'Ribs down — don’t arch the low back'] },
+};
+
+const ROUTINES = {
+  hips:      { name: "Hips Don't Lie", tags: ['Hips', 'Glutes', 'Hip flexors'], poses: [['dragon', 120], ['lizard', 120], ['pigeon', 180], ['halfSaddle', 120]] },
+  upper:     { name: 'Upper Deck', tags: ['Shoulders', 'Upper back', 'Wrists'], poses: [['wrist', 120], ['threadNeedle', 150], ['puppy', 180], ['twistedCross', 150], ['childWide', 150]] },
+  neutral:   { name: 'Neutral Ground', tags: ['Low back', 'Hamstrings', 'Glutes'], poses: [['sphinx', 240], ['strapHamstring', 150], ['figure4', 150], ['supineTwist', 120]] },
+  deep:      { name: 'Deep End', tags: ['Ankles', 'Groin', 'Hips'], poses: [['toeSquat', 150], ['sumo', 180], ['frog', 300], ['childWide', 180], ['legsWall', 240]] },
+  front:     { name: 'Front Line', tags: ['Quads', 'Hip flexors', 'Abs'], poses: [['couch', 150], ['dragon', 120], ['sphinx', 240], ['supineTwist', 120]] },
+  shoulder:  { name: 'Shoulder Season', tags: ['Shoulders', 'Chest', 'Lats'], poses: [['wrist', 150], ['puppy', 210], ['threadNeedle', 150], ['twistedCross', 150], ['childWide', 150]] },
+  ground:    { name: 'Ground Control', tags: ['Feet', 'Ankles', 'Hips'], poses: [['toeSquat', 150], ['sumo', 180], ['lizard', 150], ['figure4', 120], ['legsWall', 240]] },
+  open:      { name: 'Open House', tags: ['Groin', 'Adductors', 'Hips'], poses: [['boundAngle', 300], ['frog', 270], ['lizard', 150], ['childWide', 180]] },
+  backBurner:{ name: 'Back Burner', tags: ['Low back', 'Spine', 'Glutes'], poses: [['sphinx', 180], ['childWide', 150], ['supineTwist', 120], ['figure4', 120], ['legsWall', 240]] },
+  longGame:  { name: 'Long Game', tags: ['Hamstrings', 'Calves', 'Hip flexors'], poses: [['toeSquat', 120], ['strapHamstring', 180], ['dragon', 120], ['sphinx', 120], ['legsWall', 240]] },
+  sitBones:  { name: 'Sit Bones', tags: ['Glutes', 'Piriformis', 'Hips'], poses: [['pigeon', 180], ['figure4', 150], ['boundAngle', 180], ['supineTwist', 120]] },
+  reset:     { name: 'Reset Button', tags: ['Quads', 'Knees', 'Low back'], poses: [['couch', 150], ['halfSaddle', 120], ['sphinx', 180], ['childWide', 180], ['legsWall', 180]] },
+  theseus:   { name: 'Warrior: Theseus', warrior: true, tags: ['Hips', 'Lower body', 'Long hold'], poses: [['toeSquat', 180], ['sumo', 180], ['dragon', 150], ['lizard', 150], ['pigeon', 180], ['halfSaddle', 120], ['frog', 180], ['figure4', 120], ['supineTwist', 120], ['legsWall', 180]] },
+  achilles:  { name: 'Warrior: Achilles', warrior: true, tags: ['Full body', 'Shoulders', 'Long hold'], poses: [['wrist', 150], ['threadNeedle', 150], ['puppy', 180], ['twistedCross', 150], ['sphinx', 180], ['couch', 150], ['strapHamstring', 150], ['boundAngle', 240], ['childWide', 180], ['legsWall', 180]] },
+};
+// 14-day rotation (Mon..Sun x2). Anchor is a Monday.
+const ROTATION = ['hips', 'upper', 'neutral', 'deep', 'front', 'shoulder', 'theseus', 'ground', 'open', 'backBurner', 'longGame', 'sitBones', 'reset', 'achilles'];
+const ANCHOR = [2026, 0, 5]; // Mon 5 Jan 2026
+
+const QUOTES = [
+  ['Nature does not hurry, yet everything is accomplished.', 'Lao Tzu'],
+  ['The impediment to action advances action. What stands in the way becomes the way.', 'Marcus Aurelius'],
+  ['We suffer more often in imagination than in reality.', 'Seneca'],
+  ['Be water, my friend.', 'Bruce Lee'],
+  ['Slow is smooth, and smooth is fast.', 'Old military saying'],
+  ['Well begun is half done.', 'Aristotle'],
+  ['It does not matter how slowly you go as long as you do not stop.', 'Confucius'],
+  ['Know thyself.', 'Temple of Apollo at Delphi'],
+  ['No man ever steps in the same river twice.', 'Heraclitus'],
+  ['A journey of a thousand miles begins with a single step.', 'Lao Tzu'],
+  ['Waste no more time arguing what a good man should be. Be one.', 'Marcus Aurelius'],
+  ['Difficulties strengthen the mind, as labor does the body.', 'Seneca'],
+  ['We are what we repeatedly do.', 'Will Durant, on Aristotle'],
+  ['The bamboo that bends is stronger than the oak that resists.', 'Japanese proverb'],
+];
+
+/* Daily ROM — app logic */
+(function () {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const Q = new URLSearchParams(location.search);
+  const SHOT = Q.get('shot');
+  const PREP = 10, KIDS_HOLD = 50, BREATH = [8, 4, 10], CYCLE = 22;
+  const STORE = 'dailyrom.v1';
+  const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  // ---------- storage ----------
+  function load() { try { return Object.assign({ days: [], full: true, kids: false, voice: true }, JSON.parse(localStorage.getItem(STORE) || '{}')); } catch (e) { return { days: [], full: true, kids: false, voice: true }; } }
+  function save() { try { localStorage.setItem(STORE, JSON.stringify(st)); } catch (e) { } }
+  const st = load();
+  const ymd = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  function today() { const d = Q.get('date') ? new Date(Q.get('date') + 'T20:00:00') : new Date(); return d; }
+  function streak() {
+    const set = new Set(st.days); const d = today(); let n = 0;
+    if (!set.has(ymd(d))) d.setDate(d.getDate() - 1);
+    while (set.has(ymd(d))) { n++; d.setDate(d.getDate() - 1); }
+    return n;
+  }
+  if (Q.get('streak')) { // demo seed for screenshots
+    const n = +Q.get('streak'), d = today(); d.setDate(d.getDate() - 1); st.days = [];
+    for (let i = 0; i < n; i++) { st.days.push(ymd(d)); d.setDate(d.getDate() - 1); }
+    st.days.push('2026-09-01', '2026-09-02', '2026-09-04', '2026-09-08', '2026-09-09', '2026-09-12', '2026-09-15', '2026-09-20', '2026-09-22', '2026-09-23', '2026-09-27');
+  }
+
+  // ---------- schedule ----------
+  function dayIndex(d) { const a = new Date(ANCHOR[0], ANCHOR[1], ANCHOR[2]); const b = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    const n = Math.round((b - a) / 864e5); return ((n % 14) + 14) % 14; }
+  const routineFor = d => ROTATION[dayIndex(d)];
+  function quoteFor(d) { const n = Math.round((new Date(d.getFullYear(), d.getMonth(), d.getDate()) - new Date(2026, 0, 1)) / 864e5); return QUOTES[((n % QUOTES.length) + QUOTES.length) % QUOTES.length]; }
+  const holdOf = (h, full, kids) => kids ? KIDS_HOLD : full ? h : Math.max(60, Math.round(h * 0.5 / 30) * 30);
+  function buildSteps(key, full, kids) {
+    const r = ROUTINES[key], steps = [];
+    r.poses.forEach(([p, h], pi) => { const info = POSE_INFO[p]; const hold = holdOf(h, full, kids);
+      (info.side ? [0, 1] : [-1]).forEach(side => steps.push({ p, pi, side, hold })); });
+    return steps;
+  }
+  const totalSec = steps => steps.reduce((s, x) => s + x.hold + PREP, 0);
+  const mins = s => Math.max(1, Math.round(s / 60));
+  const fmt = s => { s = Math.max(0, Math.ceil(s)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+  const holdTxt = (h, side) => (h >= 60 && h % 60 === 0 ? (h / 60) + ':00' : h < 60 ? h + ' s' : fmt(h)) + (side ? '/side' : '');
+
+  // ---------- figure cache ----------
+  const figCache = {};
+  function fig(p, mirror, w, h, extra) {
+    const k = p + (mirror ? 'L' : 'R') + w + 'x' + h + (extra ? 'g' : '');
+    if (!figCache[k]) { const info = POSE_INFO[p];
+      figCache[k] = Mannequin.render(Mannequin.POSES[p], Object.assign({ width: w, height: h, pad: Math.round(Math.min(w, h) * 0.06), mirror },
+        extra ? { glow: [{ at: mirror ? swap(info.glow) : info.glow, r: 2.3, o: .5, tint: .4, tr: 1.0 }] } : {})); }
+    return figCache[k];
+  }
+  const swap = j => j.replace(/^right/, '#').replace(/^left/, 'right').replace(/^#/, 'left');
+
+  // ---------- stage scaling ----------
+  const stage = $('stage');
+  function fit() {
+    const w = window.innerWidth, h = window.innerHeight, portrait = !SHOT && h > w * 1.15;
+    stage.classList.toggle('portrait', portrait);
+    const W = portrait ? 1080 : 1920, H = portrait ? 1920 : 1080, s = Math.min(w / W, h / H);
+    stage.style.transform = `translate(${((w - W * s) / 2).toFixed(1)}px,${((h - H * s) / 2).toFixed(1)}px) scale(${s})`;
+    if (cur === 'player' && P.steps) drawFig(true);
+  }
+  window.addEventListener('resize', fit);
+
+  // ---------- audio ----------
+  let actx = null, voice = null;
+  function unlockAudio() { try { if (!actx) { const A = window.AudioContext || window.webkitAudioContext; if (A) actx = new A(); } if (actx && actx.state === 'suspended') actx.resume(); } catch (e) { actx = null; } }
+  function chime(soft) {
+    if (!st.voice || !actx || SHOT) return;
+    try { const t = actx.currentTime; [[523.25, .14], [784, .09], [1046.5, .05]].forEach(([f, g], i) => {
+      const o = actx.createOscillator(), a = actx.createGain(); o.type = 'sine'; o.frequency.value = f * (soft ? 0.75 : 1);
+      a.gain.setValueAtTime(0.0001, t); a.gain.exponentialRampToValueAtTime(g, t + 0.02 + i * 0.01); a.gain.exponentialRampToValueAtTime(0.0001, t + 2.8);
+      o.connect(a); a.connect(actx.destination); o.start(t); o.stop(t + 3); }); } catch (e) { }
+  }
+  const synth = ('speechSynthesis' in window) ? window.speechSynthesis : null;
+  function pickVoice() { if (!synth) return; try { const vs = synth.getVoices().filter(v => /^en/i.test(v.lang)); if (!vs.length) return;
+    const pref = [/Aria.*Natural/i, /Jenny.*Natural/i, /Natural/i, /Aria|Jenny|Guy/i, /Samantha/i, /Daniel/i, /Google UK English Female/i, /Google US English/i];
+    for (const r of pref) { const v = vs.find(v => r.test(v.name)); if (v) { voice = v; return; } } voice = vs[0]; } catch (e) { } }
+  if (synth) { pickVoice(); try { synth.addEventListener ? synth.addEventListener('voiceschanged', pickVoice) : (synth.onvoiceschanged = pickVoice); } catch (e) { } }
+  function say(text, queue) {
+    if (!st.voice || !synth || SHOT || !text) return;
+    try { if (!queue) synth.cancel(); const u = new SpeechSynthesisUtterance(text); if (voice) u.voice = voice; u.lang = voice ? voice.lang : 'en-US'; u.rate = P.kids ? 0.95 : 0.88; u.pitch = P.kids ? 1.1 : 0.95; u.volume = 1; synth.speak(u); } catch (e) { }
+  }
+  const sayDur = s => s < 60 ? `${s} seconds` : (s % 60 === 0 ? `${s / 60} minute${s === 60 ? '' : 's'}` : `${Math.floor(s / 60)} and a half minutes`);
+
+  // ---------- screens + navigation ----------
+  let cur = null;
+  function show(id, push) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.id === id));
+    if (push && !SHOT) try { history.pushState({ s: id }, ''); } catch (e) { }
+    cur = id; const f = { home: 'bStart', browse: 'bGrid', player: 'cPause', finish: 'fHome' }[id];
+    setTimeout(() => { let el = $(f); if (el && id === 'browse') el = el.querySelector('.today') || el.firstElementChild; if (el && !SHOT) el.focus(); }, 30);
+  }
+  window.addEventListener('popstate', () => { if ($('modal').classList.contains('on')) { closeModal(); history.pushState({}, ''); return; }
+    if (cur === 'player') { history.pushState({}, ''); askEnd(); } else if (cur !== 'home') { stopPlayer(); renderHome(); show('home'); } });
+  function focusables() { const scope = $('modal').classList.contains('on') ? $('modal') : document.querySelector('.screen.on'); return scope ? [...scope.querySelectorAll('[data-f]')].filter(e => e.offsetParent !== null) : []; }
+  function move(dir) {
+    const els = focusables(); if (!els.length) return; const a = document.activeElement;
+    if (!els.includes(a)) { els[0].focus(); return; }
+    const r = a.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    let best = null, bs = Infinity;
+    for (const e of els) { if (e === a) continue; const q = e.getBoundingClientRect(), x = q.left + q.width / 2, y = q.top + q.height / 2, dx = x - cx, dy = y - cy;
+      const along = dir === 'left' ? -dx : dir === 'right' ? dx : dir === 'up' ? -dy : dy, across = dir === 'left' || dir === 'right' ? Math.abs(dy) : Math.abs(dx);
+      if (along <= 4) continue; const sc = along + across * 2.2; if (sc < bs) { bs = sc; best = e; } }
+    if (best) best.focus();
+  }
+  function activate() { const a = document.activeElement; if (a && a.hasAttribute('data-f')) a.click(); }
+
+  // ---------- HOME ----------
+  let sel = null; // selected routine key (null = tonight)
+  function renderHome() {
+    const d = today(), key = sel || routineFor(d), r = ROUTINES[key], q = quoteFor(d);
+    $('hDate').textContent = `${DAYS[d.getDay()]} · ${MON[d.getMonth()]} ${d.getDate()}`;
+    $('hKick').innerHTML = sel && sel !== routineFor(d) ? 'Picked from the library' : r.warrior ? '<b>Sunday Warrior</b> · long session' : 'Tonight’s session';
+    $('hName').textContent = r.name; $('hQuote').innerHTML = `“${q[0]}”<cite>— ${q[1]}</cite>`;
+    const sFull = buildSteps(key, true, st.kids && false), full = totalSec(buildSteps(key, true, false)), short = totalSec(buildSteps(key, false, false)), kidsT = totalSec(buildSteps(key, true, true));
+    const both = r.poses.some(([p]) => POSE_INFO[p].side);
+    $('hDur').innerHTML = `${mins(st.kids ? kidsT : st.full ? full : short)} min <span>· ${r.poses.length} poses${both ? ' · both sides' : ''}</span>`;
+    $('bFullT').textContent = mins(full) + ' min'; $('bShortT').textContent = mins(short) + ' min';
+    $('hTags').innerHTML = r.tags.map(t => `<span class="chip">${t}</span>`).join('');
+    const n = r.poses.length, tw = n > 5 ? 0 : 1;
+    $('hThumbs').innerHTML = r.poses.slice(0, 6).map(([p, h]) => { const i = POSE_INFO[p];
+      return `<div class="thumb"><div class="svg">${fig(p, false, 300, 250)}</div><div class="n">${st.kids ? i.kid : i.name}</div><div class="d">${st.kids ? KIDS_HOLD + ' s' : holdTxt(holdOf(h, st.full, false), i.side)}</div></div>`; }).join('') +
+      (n > 6 ? `<div class="thumb" style="display:flex;align-items:center;justify-content:center"><div class="n" style="font-size:40px;color:var(--muted)">+${n - 6} more</div></div>` : '');
+    $('bFull').classList.toggle('on', st.full && !st.kids); $('bShort').classList.toggle('on', !st.full && !st.kids);
+    $('bAdult').classList.toggle('on', !st.kids); $('bKids').classList.toggle('on', st.kids);
+    $('bVoiceT').textContent = st.voice ? 'on' : 'off';
+    $('hStreak').textContent = streak(); $('hNights').textContent = st.days.length;
+    // week strip Mon..Sun of the current week
+    const mon = new Date(d); mon.setDate(d.getDate() - ((d.getDay() + 6) % 7)); const set = new Set(st.days);
+    let w = ''; for (let i = 0; i < 7; i++) { const x = new Date(mon); x.setDate(mon.getDate() + i); const rk = routineFor(x);
+      w += `<div class="day${ymd(x) === ymd(d) ? ' today' : ''}${set.has(ymd(x)) ? ' done' : ''}"><div class="w">${DAYS[x.getDay()].slice(0, 3)}</div><div class="r">${ROUTINES[rk].name.replace('Warrior: ', '⚔ ')}</div></div>`; }
+    $('hWeek').innerHTML = w;
+    const t = new Date(d); t.setDate(d.getDate() + 1); $('hTomorrow').textContent = ROUTINES[routineFor(t)].name;
+  }
+  function renderBrowse() {
+    const d = today(), mon = new Date(d); mon.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+    const di = dayIndex(mon); // index of this Monday in rotation (0 or 7)
+    let h = '';
+    for (let i = 0; i < 14; i++) { const x = new Date(mon); x.setDate(mon.getDate() + i); const key = routineFor(x), r = ROUTINES[key];
+      const isT = ymd(x) === ymd(d), lbl = isT ? 'Tonight' : (i < 7 ? '' : 'Next ') + DAYS[x.getDay()].slice(0, 3) + ' ' + MON[x.getMonth()] + ' ' + x.getDate();
+      h += `<button data-f class="card${isT ? ' today' : ''}${r.warrior ? ' warrior' : ''}" data-k="${key}"><div class="w">${lbl}</div><div class="n">${r.name}</div>
+        <div class="m">${mins(totalSec(buildSteps(key, true, false)))} min · short ${mins(totalSec(buildSteps(key, false, false)))}</div><div class="p">${r.poses.map(([p]) => POSE_INFO[p].name).join(' · ')}</div></button>`; }
+    $('bGrid').innerHTML = h;
+    $('bGrid').querySelectorAll('.card').forEach(c => c.onclick = () => { sel = c.dataset.k === routineFor(d) ? null : c.dataset.k; renderHome(); show('home'); });
+  }
+
+  // ---------- PLAYER ----------
+  const P = { steps: null, i: 0, phase: 'prep', left: PREP, paused: false, kids: false, key: null, spoke: {}, done: 0, t0: 0 };
+  let timer = null, last = 0;
+  function startSession(key, full, kids) {
+    unlockAudio();
+    Object.assign(P, { steps: buildSteps(key, full, kids), i: 0, phase: 'prep', left: PREP, paused: false, kids, key, full, spoke: {}, held: 0, started: Date.now() });
+    $('player').classList.toggle('kids', kids);
+    const r = ROUTINES[key]; $('pRoutine').textContent = r.name; $('pTags').innerHTML = r.tags.map(t => `<span class="chip">${t}</span>`).join('');
+    $('pCnt').textContent = r.poses.length; $('pStreak').textContent = streak();
+    show('player', true); enterStep(); run();
+  }
+  function run() { stopTimer(); last = performance.now(); timer = setInterval(tick, 100); requestAnimationFrame(frame); }
+  function stopTimer() { if (timer) clearInterval(timer); timer = null; }
+  function stopPlayer() { stopTimer(); P.steps = null; try { synth && synth.cancel(); } catch (e) { } }
+  function enterStep(noVoice) {
+    const s = P.steps[P.i], info = POSE_INFO[s.p], prev = P.steps[P.i - 1];
+    P.phase = 'prep'; P.left = PREP; P.spoke = {};
+    drawStep();
+    if (noVoice) return;
+    const switching = prev && prev.p === s.p;
+    const sideTxt = s.side >= 0 ? info.sideLabel[s.side] : '';
+    if (P.kids) say(switching ? `Other side! ${sideTxt}.` : `${info.kid}! ${info.kidLine}`);
+    else if (switching) say(`Switch sides. ${cap(sideTxt)}. Get into position.`);
+    else say(`${P.i === 0 ? 'First up' : 'Next'}, ${info.name}${sideTxt ? ', ' + sideTxt : ''}. Get into position.`);
+  }
+  const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+  function beginHold() {
+    const s = P.steps[P.i], info = POSE_INFO[s.p]; P.phase = 'hold'; P.left = s.hold; P.holdStart = performance.now(); drawStep(); chime();
+    if (P.kids) say(P.i === 0 ? 'Hold still. Smell the flower… and blow out the candle.' : 'Hold it!');
+    else say(P.i === 0 ? `Hold for ${sayDur(s.hold)}. Breathe in for eight, hold for four, and out for ten.` : `Hold for ${sayDur(s.hold)}.`);
+  }
+  function tick() {
+    const now = performance.now(), dt = (now - last) / 1000; last = now;
+    if (P.paused || !P.steps) return;
+    P.left -= dt;
+    const s = P.steps[P.i], info = POSE_INFO[s.p];
+    if (P.phase === 'hold') { P.held += dt;
+      const el = s.hold - P.left;
+      if (!P.spoke.mid && s.hold >= 50 && el >= s.hold / 2) { P.spoke.mid = 1; say(P.kids ? 'You are doing great. Stay still like a statue.' : info.cues[(P.i + 1) % info.cues.length] + '.', true); }
+      if (!P.spoke.ten && s.hold > 20 && P.left <= 10) { P.spoke.ten = 1; say(P.kids ? 'Ten more seconds!' : 'Ten seconds.'); }
+    }
+    if (P.left <= 0) {
+      if (P.phase === 'prep') beginHold();
+      else { chime(true); P.done = Math.max(P.done, P.i + 1); if (P.i + 1 < P.steps.length) { P.i++; enterStep(); } else return finish(); }
+    }
+    drawTime();
+  }
+  function drawStep() {
+    const s = P.steps[P.i], info = POSE_INFO[s.p], prep = P.phase === 'prep';
+    const pl = $('player'); pl.classList.toggle('prep', prep);
+    const nm = P.kids ? info.kid : info.name, nEl = $('pName'); nEl.textContent = nm.toUpperCase();
+    nEl.className = 'name' + (nm.length > 15 ? ' xlong' : nm.length > 10 ? ' long' : '');
+    const sideName = s.side < 0 ? '' : s.side === 0 ? 'Right side' : 'Left side';
+    if (prep) $('pSub').innerHTML = `<b>Get into position</b>${sideName ? ' · ' + sideName : ''}`;
+    else $('pSub').innerHTML = s.side < 0 ? '<b>Both sides</b> · just breathe' : `<b>${sideName}</b>${s.side === 0 ? ' · then switch' : ' · last side'}`;
+    $('pShown').innerHTML = s.side < 0 ? 'Shown: <b>whole pose</b>' : `Shown: <b>${info.sideLabel[s.side]}</b>`;
+    $('pIdx').textContent = s.pi + 1;
+    const n = ROUTINES[P.key].poses.length; let sg = ''; for (let i = 0; i < n; i++) sg += `<i class="${i < s.pi ? 'd' : i === s.pi ? 'n' : ''}"></i>`; $('pSegs').innerHTML = sg;
+    $('pCues').outerHTML = P.kids ? `<div class="kidline" id="pCues"><b>${info.kid}</b>${info.kidLine}</div>` : `<div class="cues" id="pCues">${info.cues.map(c => `<div class="cue"><i></i>${c}</div>`).join('')}</div>`;
+    const nx = P.steps[P.i + 1];
+    $('pNext').innerHTML = !nx ? 'Finish <span>· last breath</span>' : nx.p === s.p ? `Switch <span>· ${nx.side === 1 ? 'left' : 'right'} side</span>` :
+      `${P.kids ? POSE_INFO[nx.p].kid : POSE_INFO[nx.p].name} <span>· ${P.kids ? KIDS_HOLD + ' s' : holdTxt(nx.hold, POSE_INFO[nx.p].side)}</span>`;
+    $('pOf').textContent = prep ? 'get set' : `left of ${fmt(s.hold)}`;
+    drawFig(); drawTime(); drawPaused();
+  }
+  function drawFig(force) {
+    const s = P.steps[P.i], el = $('pFig'), w = el.offsetWidth || 860, h = el.offsetHeight || 760, k = s.p + s.side + w + h;
+    if (!force && el.dataset.k === k) return; el.dataset.k = k; el.innerHTML = fig(s.p, s.side === 1, w, h, true);
+  }
+  function drawTime() {
+    const s = P.steps[P.i], tot = P.phase === 'prep' ? PREP : s.hold, f = Math.max(0, Math.min(1, P.left / tot));
+    $('pTime').textContent = P.phase === 'prep' ? Math.max(0, Math.ceil(P.left)) : fmt(P.left);
+    $('pArc').setAttribute('stroke-dasharray', `${(917.3 * f).toFixed(1)} 917.3`);
+  }
+  function drawPaused() { $('player').classList.toggle('paused', P.paused); $('cPauseT').textContent = P.paused ? 'Resume' : 'Pause'; $('cMuteT').textContent = st.voice ? 'Mute' : 'Unmute'; }
+  function breathAt(t) { // t seconds into cycle -> [scale, phase]
+    t = ((t % CYCLE) + CYCLE) % CYCLE; const e = x => 0.5 - 0.5 * Math.cos(Math.PI * x);
+    if (t < 8) return [0.45 + 0.88 * e(t / 8), 0, 8 - t]; if (t < 12) return [1.33, 1, 12 - t]; return [1.33 - 0.88 * e((t - 12) / 10), 2, CYCLE - t];
+  }
+  const BL = { a: ['Breathe in', 'Hold', 'Breathe out'], k: ['Smell the flower', 'Hold it', 'Blow the candle'] };
+  let lastB = '';
+  function drawBreath(t) {
+    const [sc, ph, rem] = breathAt(t); $('pOrb').style.transform = `scale(${sc.toFixed(3)})`;
+    const txt = `${(P.kids ? BL.k : BL.a)[ph]} · <span>${Math.ceil(rem)}</span>`;
+    if (txt !== lastB) { lastB = txt; $('pBreath').innerHTML = txt; const ds = $('pPat').children; for (let i = 0; i < 3; i++) ds[i].className = i === ph ? 'on' : ''; }
+  }
+  function frame() {
+    if (cur === 'player' && P.steps) {
+      if (P.phase === 'hold') { if (!P.paused) P.bt = (P.steps[P.i].hold - P.left); drawBreath(P.bt || 0); }
+      else { $('pOrb').style.transform = 'scale(.45)'; if (lastB !== 'r') { lastB = 'r'; $('pBreath').innerHTML = 'Settle in · <span>' + (P.kids ? 'ready?' : 'easy') + '</span>'; [...$('pPat').children].forEach(c => c.className = ''); } }
+    }
+    if (cur === 'finish') { const t = (performance.now() - (finT || 0)) / 1000; const [sc, ph] = breathAt(t); $('fOrb').style.transform = `scale(${sc.toFixed(3)})`;
+      $('fBreath').textContent = t > CYCLE ? 'Rest easy' : ['Breathe in… 8', 'Hold… 4', 'And out… 10'][ph]; }
+    if (cur === 'player' || cur === 'finish') requestAnimationFrame(frame);
+  }
+  function togglePause() { if (!P.steps) return; P.paused = !P.paused; drawPaused(); if (P.paused) { try { synth && synth.cancel(); } catch (e) { } } else say(P.kids ? 'Here we go!' : 'Resuming.'); }
+  function skip() { if (!P.steps) return; if (P.phase === 'prep') { P.left = 0; tick(); return; } P.done = Math.max(P.done, P.i + 1); if (P.i + 1 < P.steps.length) { P.i++; enterStep(); } else finish(); }
+  function prev() { if (!P.steps) return; if (P.phase === 'hold' && P.steps[P.i].hold - P.left > 5) { enterStep(); return; } if (P.i > 0) P.i--; enterStep(); }
+  function toggleMute() { st.voice = !st.voice; save(); if (!st.voice) try { synth && synth.cancel(); } catch (e) { } drawPaused(); renderHome(); }
+  function askEnd() { if ($('modal').classList.contains('on')) { endNow(); return; } P.wasPaused = P.paused; P.paused = true; drawPaused(); try { synth && synth.cancel(); } catch (e) { } $('modal').classList.add('on'); setTimeout(() => $('mKeep').focus(), 30); }
+  function closeModal() { $('modal').classList.remove('on'); P.paused = !!P.wasPaused; drawPaused(); $('cPause').focus(); }
+  function endNow() { $('modal').classList.remove('on'); stopPlayer(); renderHome(); show('home'); }
+
+  // ---------- FINISH ----------
+  let finT = 0;
+  function finish(demo) {
+    const steps = P.steps, key = P.key, kids = P.kids, full = P.full;
+    stopTimer(); const r = ROUTINES[key];
+    const heldMin = demo ? mins(totalSec(steps)) : Math.max(1, Math.round(((Date.now() - P.started) / 1000) / 60));
+    const ok = demo || P.held >= 0.5 * steps.reduce((s, x) => s + x.hold, 0);
+    if (ok && !demo) { const k = ymd(today()); if (!st.days.includes(k)) { st.days.push(k); save(); } }
+    const d = today();
+    $('fRoutine').textContent = r.name; $('fDate').textContent = `${DAYS[d.getDay()]} · ${MON[d.getMonth()]} ${d.getDate()}`;
+    $('fHead').innerHTML = kids ? 'You did it<span>!</span>' : 'Done<span>.</span>';
+    $('fWhat').textContent = kids ? `${r.poses.length} animal poses — every one a star.` : `${r.name} · ${full ? 'full' : 'short'} session · body’s a little longer than it was.`;
+    $('fStats').innerHTML = `<div class="stat"><div class="v acc">${heldMin}</div><div class="k">minutes</div></div><div class="stat"><div class="v">${r.poses.length}</div><div class="k">poses</div></div><div class="stat"><div class="v">${streak()}</div><div class="k">night streak</div></div>`;
+    const star = '<svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z" fill="#FFB02B" stroke="#0B0C0E" stroke-width="1"/></svg>';
+    $('fStars').innerHTML = kids ? star.repeat(r.poses.length) : '';
+    $('fBreathS').textContent = kids ? 'Smell the flower… blow the candle' : 'In for 8 · hold 4 · out for 10';
+    const t = new Date(d); t.setDate(d.getDate() + 1); $('fTomorrow').textContent = ROUTINES[routineFor(t)].name;
+    finT = performance.now(); show('finish');
+    P.steps = null; P.last = { key, full, kids };
+    say(kids ? 'You did it! Every pose a star. Now one big breath in… and blow it all out.' : 'That’s the session. Nice work tonight. One last slow breath in… hold… and let it all go.');
+    chime(true); requestAnimationFrame(frame);
+  }
+
+  // ---------- POSE SHEET ----------
+  function renderSheet() {
+    const ks = Object.keys(POSE_INFO); $('sCount').textContent = ks.length + ' poses · L4/L5-friendly variants';
+    $('sGrid').innerHTML = ks.map(k => `<div class="c"><div class="l">${POSE_INFO[k].name}<small>${POSE_INFO[k].kid}</small></div>${fig(k, false, 360, 190, true)}</div>`).join('');
+  }
+
+  // ---------- wiring ----------
+  $('bFull').onclick = () => { st.full = true; st.kids = false; save(); renderHome(); };
+  $('bShort').onclick = () => { st.full = false; st.kids = false; save(); renderHome(); };
+  $('bAdult').onclick = () => { st.kids = false; save(); renderHome(); };
+  $('bKids').onclick = () => { st.kids = true; save(); renderHome(); };
+  $('bVoice').onclick = () => { st.voice = !st.voice; save(); renderHome(); if (st.voice) { unlockAudio(); say('Voice on.'); } };
+  $('bStart').onclick = () => startSession(sel || routineFor(today()), st.full, st.kids);
+  $('bBrowse').onclick = () => { renderBrowse(); show('browse', true); };
+  $('bBack').onclick = () => back();
+  $('cPause').onclick = togglePause; $('cBack').onclick = askEnd; $('cSkip').onclick = skip; $('cPrev').onclick = prev; $('cMute').onclick = toggleMute;
+  $('mKeep').onclick = closeModal; $('mEnd').onclick = endNow;
+  $('fHome').onclick = () => { sel = null; renderHome(); show('home'); };
+  $('fAgain').onclick = () => { const l = P.last; if (l) startSession(l.key, l.full, l.kids); };
+  function back() {
+    if ($('modal').classList.contains('on')) return endNow();
+    if (cur === 'player') return askEnd();
+    if (cur === 'browse' || cur === 'finish') { renderHome(); show('home'); }
+  }
+  function act(a) {
+    if (a === 'up' || a === 'down') return move(a);
+    if (cur === 'player' && !$('modal').classList.contains('on')) {
+      if (a === 'A') { const el = document.activeElement; if (el && el.id && el.id !== 'cPause' && el.closest('#player')) return el.click(); return togglePause(); }
+      if (a === 'B') return askEnd(); if (a === 'RB') return skip(); if (a === 'LB') return prev(); if (a === 'X') return toggleMute();
+      if (a === 'left' || a === 'right') return move(a);
+      return;
+    }
+    if (a === 'left' || a === 'right') return move(a);
+    if (a === 'A') return activate();
+    if (a === 'B') return back();
+    if (a === 'Y' && cur === 'home') { st.kids = !st.kids; save(); renderHome(); }
+  }
+  // keyboard (+ Xbox Edge legacy gamepad keys when the gamepad drives keyboard emulation)
+  let padActive = 0;
+  const KEYMAP = { ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right', Enter: 'A', ' ': 'space', Escape: 'B', Backspace: 'B', BrowserBack: 'B', m: 'X', M: 'X', n: 'RB', N: 'RB', p: 'LB', P: 'LB', PageDown: 'RB', PageUp: 'LB',
+    GamepadA: 'A', GamepadB: 'B', GamepadX: 'X', GamepadY: 'Y', GamepadRightShoulder: 'RB', GamepadLeftShoulder: 'LB', GamepadDPadUp: 'up', GamepadDPadDown: 'down', GamepadDPadLeft: 'left', GamepadDPadRight: 'right',
+    GamepadLeftThumbstickUp: 'up', GamepadLeftThumbstickDown: 'down', GamepadLeftThumbstickLeft: 'left', GamepadLeftThumbstickRight: 'right' };
+  const CODEMAP = { 195: 'A', 196: 'B', 197: 'X', 198: 'Y', 199: 'RB', 200: 'LB', 203: 'up', 204: 'down', 205: 'left', 206: 'right', 211: 'up', 212: 'down', 213: 'left', 214: 'right' };
+  document.addEventListener('keydown', e => {
+    let a = KEYMAP[e.key] || CODEMAP[e.keyCode];
+    if (!a) return;
+    const isPadKey = /^Gamepad/.test(e.key || '') || CODEMAP[e.keyCode];
+    e.preventDefault();
+    if (isPadKey && performance.now() - padActive < 1500) return; // Gamepad API already handled it
+    if (a === 'space') a = cur === 'player' ? 'A' : 'A';
+    if (cur === 'player' && !$('modal').classList.contains('on') && !isPadKey) {
+      if (e.key === 'ArrowRight') return skip(); if (e.key === 'ArrowLeft') return prev();
+      if (e.key === ' ') return togglePause();
+      if (e.key === 'Enter') { const el = document.activeElement; if (el && el.closest && el.closest('#player') && el.hasAttribute('data-f')) return el.click(); return togglePause(); }
+    }
+    act(a);
+  });
+  // Gamepad API
+  try { if ('gamepadInputEmulation' in navigator) navigator.gamepadInputEmulation = 'gamepad'; } catch (e) { }
+  const prevBtn = {}, rep = {};
+  const BTN = { 0: 'A', 1: 'B', 2: 'X', 3: 'Y', 4: 'LB', 5: 'RB', 12: 'up', 13: 'down', 14: 'left', 15: 'right' };
+  function poll() {
+    let pads = []; try { pads = navigator.getGamepads ? [...navigator.getGamepads()].filter(Boolean) : []; } catch (e) { }
+    const now = performance.now();
+    for (const gp of pads) {
+      const down = {};
+      for (const i in BTN) { const b = gp.buttons[i]; if (b && (b.pressed || b.value > 0.5)) down[BTN[i]] = 1; }
+      const ax = gp.axes || [];
+      if (ax[1] < -0.6) down.up = 1; if (ax[1] > 0.6) down.down = 1; if (ax[0] < -0.6) down.left = 1; if (ax[0] > 0.6) down.right = 1;
+      if (Object.keys(down).length) padActive = now;
+      for (const k of ['A', 'B', 'X', 'Y', 'LB', 'RB', 'up', 'down', 'left', 'right']) {
+        const id = gp.index + k;
+        if (down[k] && !prevBtn[id]) { act(k); rep[id] = now + 420; }
+        else if (down[k] && /up|down|left|right/.test(k) && now > rep[id]) { act(k); rep[id] = now + 160; }
+        prevBtn[id] = !!down[k];
+      }
+    }
+    requestAnimationFrame(poll);
+  }
+  window.addEventListener('gamepadconnected', () => { padActive = performance.now(); });
+  requestAnimationFrame(poll);
+  // first touch/click unlocks audio
+  ['pointerdown', 'keydown'].forEach(ev => document.addEventListener(ev, unlockAudio, { once: true, passive: true }));
+
+  // ---------- boot ----------
+  fit(); renderHome();
+  if (!SHOT) { try { history.replaceState({ s: 'home' }, ''); } catch (e) { } show('home'); }
+  else {
+    if (Q.get('kids')) st.kids = true; if (Q.get('short')) st.full = false; st.voice = true;
+    renderHome();
+    if (SHOT === 'home') show('home');
+    else if (SHOT === 'browse') { renderBrowse(); show('browse'); }
+    else if (SHOT === 'poses') { renderSheet(); show('poses'); }
+    else if (SHOT === 'player' || SHOT === 'finish') {
+      const key = Q.get('routine') || routineFor(today()), kids = !!Q.get('kids');
+      Object.assign(P, { steps: buildSteps(key, !Q.get('short'), kids), i: 0, phase: 'prep', left: PREP, paused: false, kids, key, full: !Q.get('short'), spoke: {}, held: 0, started: Date.now() });
+      if (SHOT === 'finish') { P.started = Date.now() - totalSec(P.steps) * 1000; finish(true); }
+      else {
+        const pose = Q.get('pose'), side = Q.get('side') === 'L' ? 1 : 0;
+        const idx = Math.max(0, P.steps.findIndex(s => s.p === pose && (s.side < 0 || s.side === side)));
+        P.i = idx; $('player').classList.toggle('kids', kids);
+        const r = ROUTINES[key]; $('pRoutine').textContent = r.name; $('pTags').innerHTML = r.tags.map(t => `<span class="chip">${t}</span>`).join('');
+        $('pCnt').textContent = r.poses.length; $('pStreak').textContent = streak();
+        show('player'); enterStep(true);
+        if (Q.get('phase') !== 'prep') { P.phase = 'hold'; P.left = +(Q.get('left') || P.steps[idx].hold * 0.6); drawStep(); P.bt = +(Q.get('bt') || 3); }
+        else { P.left = +(Q.get('left') || 7); drawStep(); }
+        P.paused = false; drawPaused(); P.paused = true; // frozen without the paused tag
+        requestAnimationFrame(frame);
+      }
+    }
+  }
+  window.DailyROM = { P, st, buildSteps, totalSec, routineFor };
+})();
+
+</script>
+</body></html>
