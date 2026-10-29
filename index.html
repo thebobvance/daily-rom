@@ -81,7 +81,7 @@ button.h{background:var(--panel);border:1px solid var(--line)}
 .day.today{border-color:var(--acc);background:var(--acc-dim)}.day.today .w{color:var(--acc)}
 .day.done .w::after{content:' ✓';color:var(--acc)}
 /* ---------- BROWSE ---------- */
-.bgrid{flex:1;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:20px;padding:30px 0 24px;min-height:0}
+.bgrid{flex:1;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:18px;padding:30px 0 24px;min-height:0}
 .card{overflow:hidden;border-radius:22px;background:var(--panel);border:1px solid var(--line);padding:20px 22px;text-align:left;display:flex;flex-direction:column;gap:6px;min-width:0}
 .card .w{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:22px;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
 .card.today{border-color:var(--acc)}.card.today .w{color:var(--acc)}
@@ -265,6 +265,30 @@ button.h{background:var(--panel);border:1px solid var(--line)}
 #player.kids .art .pimg.k{background:#0A2456}
 
 
+/* day picker */
+.dayb{display:flex;align-items:center;gap:14px;height:64px;min-width:0}
+.dnav{height:60px;padding:0 14px;border-radius:16px;background:var(--panel);border:1px solid var(--line);color:#E5E8EB;display:flex;align-items:center;gap:10px;flex:none}
+.dnav .ar{font:800 44px/1 'Barlow Condensed',sans-serif;margin-top:-6px}
+.dlab{display:flex;align-items:center;gap:14px;min-width:0;padding:0 4px}
+.dlab .kick{white-space:nowrap;color:#E5E8EB;letter-spacing:4px}
+.dtag{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:24px;letter-spacing:3px;text-transform:uppercase;padding:5px 14px;border-radius:999px;border:2px solid #6A7078;color:#D5D9DE;white-space:nowrap;flex:none}
+.dtag.now{background:var(--acc);border-color:var(--acc);color:#0B0C0E}
+.dtoday{height:60px;padding:0 20px 0 8px;border-radius:999px;background:var(--panel);border:1px solid var(--line);color:#E5E8EB;font-family:'Barlow Semi Condensed',sans-serif;font-weight:700;font-size:26px;display:flex;align-items:center;gap:12px;flex:none;white-space:nowrap}
+.dtoday.hide{display:none}
+.day.sel{border-color:#F4F5F7;border-width:2px}.day.sel .w{color:#F4F5F7}
+.card{padding:18px 18px}
+.card .n{font-size:36px}
+.card .rel{font-size:20px;font-weight:700;color:#C4C9CF;white-space:nowrap;overflow:hidden}
+.card.today .rel{color:var(--acc)}
+.card.sel{border-color:#F4F5F7;border-width:2px}
+.card.done .w::after{content:' ✓';color:var(--acc)}
+.portrait .dayb{flex-wrap:wrap;height:auto}
+.card .mini{display:flex;gap:6px;margin-top:auto;height:62px;overflow:hidden}
+.card .mini img{flex:1 1 0;min-width:0;max-width:80px;height:58px;border-radius:8px;background:#0E0E0E;object-fit:cover}
+.card .mini.k img{background:#0A2456}
+.card .mini+.p{margin-top:8px}
+.portrait .card .mini{display:none}
+
 </style></head>
 <body>
 <div id="stage"><div class="kdeco"><i style="left:3%;top:8%;width:10px;height:10px;background:#FFD23F"></i><i style="left:14%;top:3%;width:6px;height:6px;background:#fff"></i><i style="left:31%;top:6%;width:8px;height:8px;background:#3EE0C5"></i><i style="left:47%;top:2%;width:6px;height:6px;background:#fff"></i><i style="left:58%;top:7%;width:10px;height:10px;background:#FF6FB5"></i><i style="left:72%;top:3%;width:7px;height:7px;background:#fff"></i><i style="left:88%;top:6%;width:9px;height:9px;background:#FFD23F"></i><i style="left:96%;top:14%;width:6px;height:6px;background:#fff"></i><i style="left:1%;top:52%;width:7px;height:7px;background:#fff"></i><i style="left:98%;top:60%;width:8px;height:8px;background:#3EE0C5"></i><i style="left:2%;top:93%;width:9px;height:9px;background:#FF6FB5"></i><i style="left:97%;top:95%;width:7px;height:7px;background:#FFD23F"></i><i style="left:50%;top:97%;width:6px;height:6px;background:#fff"></i></div>
@@ -280,7 +304,7 @@ button.h{background:var(--panel);border:1px solid var(--line)}
   </header>
   <div class="hmain">
     <div class="hero">
-      <div class="kick" id="hKick">Tonight’s session</div>
+      <div class="dayb"><button data-f class="dnav" id="bDayPrev" aria-label="Previous day"><span class="ar">‹</span><span class="g rb">LB</span></button><div class="dlab"><span class="kick" id="hKick">Tonight</span><span class="dtag now" id="hDayTag">Tonight</span></div><button data-f class="dnav" id="bDayNext" aria-label="Next day"><span class="g rb">RB</span><span class="ar">›</span></button><button data-f class="dtoday hide" id="bToday"><span class="g bb">B</span>Back to today</button></div>
       <h2 id="hName">Hips Don't Lie</h2>
       <div class="quote" id="hQuote"></div>
       <div class="meta"><div class="dur" id="hDur"></div><div class="chips" id="hTags"></div></div>
@@ -293,20 +317,20 @@ button.h{background:var(--panel);border:1px solid var(--line)}
         <div class="seg"><button data-f id="bAdult" class="on">Grown-up<small>long holds</small></button><button data-f id="bKids">Kids<small>50 s · animals</small></button></div></div>
       <button data-f class="btn go" id="bStart"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z" fill="#0B0C0E"/></svg>Start</button>
       <div class="seg"><button data-f id="bBrowse" style="height:84px">Browse<small>sessions</small></button><button data-f id="bVoice" style="height:84px">Voice<small id="bVoiceT">on</small></button><button data-f id="bMusic" style="height:84px">Music<small id="bMusicT">Med</small></button><button data-f id="bSize" style="height:84px">Screen<small id="bSizeT">100%</small></button></div>
-      <div class="opt"><div class="k">This week</div><div class="week" id="hWeek"></div></div>
+      <div class="opt"><div class="k" id="hWeekK">This week</div><div class="week" id="hWeek"></div></div>
     </div>
   </div>
   <footer class="bot">
-    <div class="hints"><div class="h"><span class="g a">A</span>Select</div><div class="h"><span class="g dp">✚</span>Move</div><div class="h"><span class="g y">Y</span>Kids mode</div><div class="h"><span class="g x">X</span>Hold: music</div><div class="h"><span class="g dp">View</span>Screen size</div></div>
+    <div class="hints"><div class="h"><span class="g a">A</span>Select</div><div class="h"><span class="g dp">✚</span>Move</div><div class="h"><span class="g rb">LB</span><span class="g rb">RB</span>Day</div><div class="h"><span class="g y">Y</span>Kids mode</div><div class="h"><span class="g x">X</span>Hold: music</div></div>
     <div class="next"><span class="k">Tomorrow</span><span class="v" id="hTomorrow"></span></div>
   </footer>
 </section>
 <!-- BROWSE -->
 <section id="browse" class="screen">
   <header class="top"><div class="lefttop"><div class="ttl"><div class="eye">Daily ROM · Library</div><h1>Pick a session</h1></div></div>
-    <div class="righttop"><div class="kick">14-day rotation · Sundays are Warrior nights</div></div></header>
+    <div class="righttop"><div class="kick">14-day rotation · Week 1 on top, Week 2 below · Sundays are Warrior nights</div></div></header>
   <div class="bgrid" id="bGrid"></div>
-  <footer class="bot"><div class="hints"><div class="h"><span class="g a">A</span>Choose</div><button data-f class="h" id="bBack"><span class="g bb">B</span>Back</button></div><div></div></footer>
+  <footer class="bot"><div class="hints"><div class="h"><span class="g a">A</span>Choose</div><div class="h"><span class="g dp">✚</span>Move</div><button data-f class="h" id="bBack"><span class="g bb">B</span>Back</button></div><div></div></footer>
 </section>
 <!-- PLAYER -->
 <section id="player" class="screen">
@@ -1077,7 +1101,7 @@ const QUOTES = [
     if (id !== 'player' && id !== 'finish') stage.classList.remove('kidsui');
     if (push && !SHOT) try { history.pushState({ s: id }, ''); } catch (e) { }
     cur = id; const f = { home: 'bStart', browse: 'bGrid', player: 'cPause', finish: 'fHome' }[id];
-    setTimeout(() => { let el = $(f); if (el && id === 'browse') el = el.querySelector('.today') || el.firstElementChild; if (el && !SHOT) el.focus(); }, 30);
+    setTimeout(() => { let el = $(f); if (el && id === 'browse') el = el.querySelector('.sel') || el.querySelector('.today') || el.firstElementChild; if (el && !SHOT) el.focus(); }, 30);
   }
   window.addEventListener('popstate', () => { if ($('modal').classList.contains('on')) { closeModal(); history.pushState({}, ''); return; }
     if (cur === 'player') { history.pushState({}, ''); askEnd(); } else if (cur !== 'home') { stopPlayer(); renderHome(); show('home'); } });
@@ -1095,42 +1119,57 @@ const QUOTES = [
   function activate() { const a = document.activeElement; if (a && a.hasAttribute('data-f')) a.click(); }
 
   // ---------- HOME ----------
-  let sel = null; // selected routine key (null = tonight)
+  // day picker: offset from today within the fixed 14-day rotation (-6..+7, wraps)
+  let selOff = 0;
+  const normOff = o => { o = ((o % 14) + 14) % 14; return o > 7 ? o - 14 : o; };
+  function offDate(o) { const d = today(); d.setDate(d.getDate() + o); return d; }
+  const selKey = () => routineFor(offDate(selOff));
+  const relTxt = o => o === 0 ? 'Today' : o === 1 ? 'Tomorrow' : o === -1 ? 'Yesterday' : o > 0 ? `In ${o} days` : `${-o} days ago`;
+  const dayLbl = x => `${DAYS[x.getDay()].slice(0, 3)} · Week ${dayIndex(x) < 7 ? 1 : 2}`;
+  function stepDay(n, keepFocus) { selOff = normOff(selOff + n); renderHome(); if (!keepFocus && !SHOT) $('bStart').focus(); }
+  function goToday() { if (!selOff) return; selOff = 0; renderHome(); if (!SHOT) $('bStart').focus(); }
   function renderHome() {
-    const d = today(), key = sel || routineFor(d), r = ROUTINES[key], q = quoteFor(d);
+    const d = today(), x = offDate(selOff), key = selKey(), r = ROUTINES[key], q = quoteFor(x);
     $('hDate').textContent = `${DAYS[d.getDay()]} · ${MON[d.getMonth()]} ${d.getDate()}`;
-    $('hKick').innerHTML = sel && sel !== routineFor(d) ? 'Picked from the library' : r.warrior ? '<b>Sunday Warrior</b> · long session' : 'Tonight’s session';
+    $('hKick').innerHTML = `${dayLbl(x)} · ${MON[x.getMonth()]} ${x.getDate()}${r.warrior ? ' · <b>Warrior</b>' : ''}`;
+    const tag = $('hDayTag'); tag.textContent = selOff === 0 ? 'Tonight' : relTxt(selOff); tag.classList.toggle('now', selOff === 0);
+    $('bToday').classList.toggle('hide', selOff === 0);
     $('hName').textContent = r.name; $('hQuote').innerHTML = `“${q[0]}”<cite>— ${q[1]}</cite>`;
-    const sFull = buildSteps(key, true, st.kids && false), full = totalSec(buildSteps(key, true, false)), short = totalSec(buildSteps(key, false, false)), kidsT = totalSec(buildSteps(key, true, true));
+    const full = totalSec(buildSteps(key, true, false)), short = totalSec(buildSteps(key, false, false)), kidsT = totalSec(buildSteps(key, true, true));
     const both = r.poses.some(([p]) => POSE_INFO[p].side);
     $('hDur').innerHTML = `${mins(st.kids ? kidsT : st.full ? full : short)} min <span>· ${r.poses.length} poses${both ? ' · both sides' : ''}</span>`;
     $('bFullT').textContent = mins(full) + ' min'; $('bShortT').textContent = mins(short) + ' min';
     $('hTags').innerHTML = r.tags.map(t => `<span class="chip">${t}</span>`).join('');
-    const n = r.poses.length, tw = n > 5 ? 0 : 1;
+    const n = r.poses.length;
     $('hThumbs').innerHTML = r.poses.slice(0, 6).map(([p, h]) => { const i = POSE_INFO[p];
       return `<div class="thumb"><div class="svg">${fig(p, false, 300, 250, false, st.kids)}</div><div class="n">${st.kids ? i.kid : i.name}</div><div class="d">${st.kids ? KIDS_HOLD + ' s' : holdTxt(holdOf(h, st.full, false), i.side)}</div></div>`; }).join('') +
-      (n > 6 ? `<div class="thumb" style="display:flex;align-items:center;justify-content:center"><div class="n" style="font-size:40px;color:var(--muted)">+${n - 6} more</div></div>` : '');
+      (n > 6 ? `<div class="thumb" style="display:flex;align-items:center;justify-content:center"><div class="n" style="font-size:40px;color:var(--muted);text-align:center;line-height:1.1">+${n - 6}<br>more</div></div>` : '');
     $('bFull').classList.toggle('on', st.full && !st.kids); $('bShort').classList.toggle('on', !st.full && !st.kids);
     $('bAdult').classList.toggle('on', !st.kids); $('bKids').classList.toggle('on', st.kids);
     $('bVoiceT').textContent = st.voice ? 'on' : 'off'; $('bMusicT').textContent = MNAME[st.music] || 'Med'; $('bSizeT').textContent = Math.round((+st.size || 1) * 100) + '%';
     $('hStreak').textContent = streak(); $('hNights').textContent = st.days.length;
-    // week strip Mon..Sun of the current week
-    const mon = new Date(d); mon.setDate(d.getDate() - ((d.getDay() + 6) % 7)); const set = new Set(st.days);
-    let w = ''; for (let i = 0; i < 7; i++) { const x = new Date(mon); x.setDate(mon.getDate() + i); const rk = routineFor(x);
-      w += `<div class="day${ymd(x) === ymd(d) ? ' today' : ''}${set.has(ymd(x)) ? ' done' : ''}"><div class="w">${DAYS[x.getDay()].slice(0, 3)}</div><div class="r">${ROUTINES[rk].name.replace('Warrior: ', '⚔ ')}</div></div>`; }
+    // week strip Mon..Sun of the week containing the selected day
+    const mon = new Date(x); mon.setDate(x.getDate() - ((x.getDay() + 6) % 7)); const set = new Set(st.days);
+    const m0 = new Date(d); m0.setDate(d.getDate() - ((d.getDay() + 6) % 7));
+    const wk = Math.round((new Date(mon.getFullYear(), mon.getMonth(), mon.getDate()) - new Date(m0.getFullYear(), m0.getMonth(), m0.getDate())) / 864e5 / 7);
+    $('hWeekK').textContent = (wk === 0 ? 'This week' : wk === 1 ? 'Next week' : wk === -1 ? 'Last week' : 'Week of ' + MON[mon.getMonth()] + ' ' + mon.getDate()) + ` · rotation week ${dayIndex(mon) < 7 ? 1 : 2}`;
+    let w = ''; for (let i = 0; i < 7; i++) { const y = new Date(mon); y.setDate(mon.getDate() + i); const rk = routineFor(y);
+      w += `<div class="day${ymd(y) === ymd(d) ? ' today' : ''}${selOff && ymd(y) === ymd(x) ? ' sel' : ''}${set.has(ymd(y)) ? ' done' : ''}"><div class="w">${DAYS[y.getDay()].slice(0, 3)}</div><div class="r">${ROUTINES[rk].name.replace('Warrior: ', '⚔ ')}</div></div>`; }
     $('hWeek').innerHTML = w;
     const t = new Date(d); t.setDate(d.getDate() + 1); $('hTomorrow').textContent = ROUTINES[routineFor(t)].name;
   }
+  function miniImgs(r) { const mode = st.kids ? 'kids' : 'adult', lst = (typeof POSE_IMG !== 'undefined' && POSE_IMG[mode]) || [];
+    return r.poses.filter(([p]) => lst.indexOf(p) >= 0).slice(0, 4).map(([p]) => `<img src="img/${mode}/${p}.webp" alt="" onerror="this.parentNode.removeChild(this)">`).join(''); }
+  // 14-day grid in rotation order: row 1 = Week 1 Mon..Sun, row 2 = Week 2 Mon..Sun
   function renderBrowse() {
-    const d = today(), mon = new Date(d); mon.setDate(d.getDate() - ((d.getDay() + 6) % 7));
-    const di = dayIndex(mon); // index of this Monday in rotation (0 or 7)
+    const d = today(), ti = dayIndex(d), set = new Set(st.days);
     let h = '';
-    for (let i = 0; i < 14; i++) { const x = new Date(mon); x.setDate(mon.getDate() + i); const key = routineFor(x), r = ROUTINES[key];
-      const isT = ymd(x) === ymd(d), lbl = isT ? 'Tonight' : (i < 7 ? '' : 'Next ') + DAYS[x.getDay()].slice(0, 3) + ' ' + MON[x.getMonth()] + ' ' + x.getDate();
-      h += `<button data-f class="card${isT ? ' today' : ''}${r.warrior ? ' warrior' : ''}" data-k="${key}"><div class="w">${lbl}</div><div class="n">${r.name}</div>
-        <div class="m">${mins(totalSec(buildSteps(key, true, false)))} min · short ${mins(totalSec(buildSteps(key, false, false)))}</div><div class="p">${r.poses.map(([p]) => POSE_INFO[p].name).join(' · ')}</div></button>`; }
+    for (let j = 0; j < 14; j++) { const off = normOff(j - ti), x = offDate(off), key = ROTATION[j], r = ROUTINES[key];
+      const rel = off === 0 ? 'Tonight' : relTxt(off) + ' · ' + MON[x.getMonth()] + ' ' + x.getDate();
+      h += `<button data-f class="card${off === 0 ? ' today' : ''}${off === selOff && off !== 0 ? ' sel' : ''}${r.warrior ? ' warrior' : ''}${set.has(ymd(x)) ? ' done' : ''}" data-o="${off}"><div class="w">${dayLbl(x)}</div><div class="rel">${rel}</div><div class="n">${r.name}</div>
+        <div class="m">${st.kids ? mins(totalSec(buildSteps(key, true, true))) + ' min · kids' : mins(totalSec(buildSteps(key, true, false))) + ' min · short ' + mins(totalSec(buildSteps(key, false, false)))}</div><div class="mini${st.kids ? ' k' : ''}">${miniImgs(r)}</div><div class="p">${r.poses.map(([p]) => st.kids ? POSE_INFO[p].kid : POSE_INFO[p].name).join(' · ')}</div></button>`; }
     $('bGrid').innerHTML = h;
-    $('bGrid').querySelectorAll('.card').forEach(c => c.onclick = () => { sel = c.dataset.k === routineFor(d) ? null : c.dataset.k; renderHome(); show('home'); });
+    $('bGrid').querySelectorAll('.card').forEach(c => c.onclick = () => { selOff = +c.dataset.o; renderHome(); show('home'); });
   }
 
   // ---------- PLAYER ----------
@@ -1248,6 +1287,7 @@ const QUOTES = [
     stopTimer(); const r = ROUTINES[key];
     const heldMin = demo ? mins(totalSec(steps)) : Math.max(1, Math.round(((Date.now() - P.started) / 1000) / 60));
     const ok = demo || P.held >= 0.5 * steps.reduce((s, x) => s + x.hold, 0);
+    // streak counts the calendar night, whichever rotation day was played
     if (ok && !demo) { const k = ymd(today()); if (!st.days.includes(k)) { st.days.push(k); save(); } }
     const d = today();
     $('fRoutine').textContent = r.name; $('fDate').textContent = `${DAYS[d.getDay()]} · ${MON[d.getMonth()]} ${d.getDate()}`;
@@ -1278,19 +1318,21 @@ const QUOTES = [
   $('bAdult').onclick = () => { st.kids = false; save(); renderHome(); };
   $('bKids').onclick = () => { st.kids = true; save(); renderHome(); };
   $('bVoice').onclick = () => { st.voice = !st.voice; save(); renderHome(); if (st.voice) { unlockAudio(); say('Voice on.'); } };
-  $('bStart').onclick = () => startSession(sel || routineFor(today()), st.full, st.kids);
+  $('bStart').onclick = () => startSession(selKey(), st.full, st.kids);
+  $('bDayPrev').onclick = () => stepDay(-1, true); $('bDayNext').onclick = () => stepDay(1, true); $('bToday').onclick = goToday;
   $('bSize').onclick = cycleSize;
   $('bMusic').onclick = cycleMusic;
   $('bBrowse').onclick = () => { renderBrowse(); show('browse', true); };
   $('bBack').onclick = () => back();
   $('cPause').onclick = togglePause; $('cBack').onclick = askEnd; $('cSkip').onclick = skip; $('cPrev').onclick = prev; $('cMute').onclick = toggleMute;
   $('mKeep').onclick = closeModal; $('mEnd').onclick = endNow;
-  $('fHome').onclick = () => { stopMusic(1); stopVoice(); sel = null; renderHome(); show('home'); };
+  $('fHome').onclick = () => { stopMusic(1); stopVoice(); selOff = 0; renderHome(); show('home'); };
   $('fAgain').onclick = () => { const l = P.last; if (l) startSession(l.key, l.full, l.kids); };
   function back() {
     if ($('modal').classList.contains('on')) return endNow();
     if (cur === 'player') return askEnd();
-    if (cur === 'browse' || cur === 'finish') { renderHome(); show('home'); }
+    if (cur === 'browse' || cur === 'finish') { renderHome(); show('home'); return; }
+    if (cur === 'home') goToday();
   }
   function act(a) {
     if (a === 'VIEW') return cycleSize();
@@ -1301,6 +1343,9 @@ const QUOTES = [
       if (a === 'left' || a === 'right') return move(a);
       return;
     }
+    if (cur === 'home' && (a === 'LB' || a === 'RB')) return stepDay(a === 'RB' ? 1 : -1);
+    if (cur === 'home' && (a === 'left' || a === 'right')) { const el = document.activeElement;
+      if (!el || !el.id || ['bStart', 'bDayPrev', 'bDayNext', 'bToday'].indexOf(el.id) >= 0 || !el.closest('#home')) return stepDay(a === 'right' ? 1 : -1); }
     if (a === 'left' || a === 'right') return move(a);
     if (a === 'A') return activate();
     if (a === 'B') return back();
@@ -1371,7 +1416,7 @@ const QUOTES = [
   fit(); renderHome();
   if (!SHOT) { try { history.replaceState({ s: 'home' }, ''); } catch (e) { } show('home'); }
   else {
-    if (Q.get('kids')) st.kids = true; if (Q.get('short')) st.full = false; st.voice = true;
+    if (Q.get('kids')) st.kids = true; if (Q.get('short')) st.full = false; st.voice = true; if (Q.get('off')) selOff = normOff(+Q.get('off'));
     renderHome();
     if (SHOT === 'home') show('home');
     else if (SHOT === 'browse') { renderBrowse(); show('browse'); }
