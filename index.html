@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0B0C0E"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#0B0C0E"><link rel="icon" href="data:,"><meta name="apple-mobile-web-app-capable" content="yes">
 <title>Daily ROM · Evening</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700&family=Barlow+Condensed:wght@600;700;800&family=Barlow+Semi+Condensed:ital,wght@0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600;700&family=Fredoka:wght@500;600;700&family=Barlow+Condensed:wght@600;700;800&family=Barlow+Semi+Condensed:ital,wght@0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#0B0C0E;--panel:#14171C;--panel2:#1C2027;--line:#262A31;--text:#F4F5F7;--muted:#9AA0A8;--acc:#C8FF2E;--acc2:#FFB02B;--acc-dim:rgba(200,255,46,.14)}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -97,7 +97,6 @@ button.h{background:var(--panel);border:1px solid var(--line)}
 .art .side b{color:var(--acc)}
 .art .ready{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:34px;letter-spacing:6px;text-transform:uppercase;color:#0B0C0E;background:var(--acc2);padding:8px 28px;border-radius:12px;display:none;white-space:nowrap}
 .prep .art .ready{display:block}
-.prep .art .fig{opacity:.8}
 .right{display:flex;flex-direction:column;min-height:0;min-width:0}
 .name{font-weight:800;font-size:150px;line-height:.85;letter-spacing:2px;text-transform:uppercase}
 .name.long{font-size:112px}.name.xlong{font-size:92px}
@@ -115,7 +114,7 @@ button.h{background:var(--panel);border:1px solid var(--line)}
 .breath{flex:1;min-width:0;height:300px;border-radius:24px;background:var(--panel);border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:18px}
 .orb{position:relative;width:150px;height:150px;flex:none;display:flex;align-items:center;justify-content:center}
 .orb .gd{position:absolute;inset:0;border-radius:50%;border:3px dashed #343A42}
-.orb .b{width:108px;height:108px;border-radius:50%;background:radial-gradient(circle at 40% 35%,rgba(200,255,46,.55),rgba(200,255,46,.16) 70%);border:3px solid var(--acc);box-shadow:0 0 50px rgba(200,255,46,.25);transform:scale(.45);will-change:transform}
+.orb .b{width:108px;height:108px;border-radius:50%;background:radial-gradient(circle at 40% 35%,rgba(200,255,46,.55),rgba(200,255,46,.16) 70%);border:3px solid var(--acc);box-shadow:0 0 50px rgba(200,255,46,.25);transform:scale(.45)}
 .bt{text-align:center}.bt .now{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:46px;line-height:1;margin-top:2px;white-space:nowrap}
 .bt .now span{color:var(--acc)}
 .pat{display:flex;gap:8px;margin-top:12px;justify-content:center}
@@ -146,7 +145,7 @@ button.h{background:var(--panel);border:1px solid var(--line)}
 .stat .v.acc{color:var(--acc)}
 .stat .k{font-size:22px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-top:4px}
 .stars{display:flex;gap:18px;margin-top:40px;flex-wrap:wrap}
-.stars svg{width:96px;height:96px;filter:drop-shadow(0 0 18px rgba(255,176,43,.45))}
+.stars svg{width:96px;height:96px}
 .closing{display:flex;flex-direction:column;align-items:center;gap:26px;padding:44px;border-radius:30px;background:var(--panel);border:1px solid var(--line)}
 .closing .orb{width:260px;height:260px}.closing .orb .b{width:190px;height:190px}
 .closing .t{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:54px;text-align:center;line-height:1}
@@ -180,9 +179,95 @@ button.h{background:var(--panel);border:1px solid var(--line)}
 .portrait .ttl h1{white-space:normal}
 .portrait #home .bot{display:none}.portrait #home .thumb svg{height:210px}
 
+/* ---------- toast (screen size) ---------- */
+#toast{position:absolute;left:50%;top:40px;transform:translateX(-50%);z-index:20;display:none;padding:22px 40px;border-radius:22px;background:#F4F5F7;color:#0B0C0E;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:44px;text-align:center;line-height:1.1;white-space:nowrap}
+#toast.on{display:block}#toast small{display:block;font-family:'Barlow Semi Condensed',sans-serif;font-weight:600;font-size:22px;color:#4A5058;margin-top:4px}
+.kdeco,.kbrand,.kstars,.kmoon{display:none}
+
+/* =================== KIDS SKIN =================== */
+#stage.kidsui{background:linear-gradient(180deg,#22205E 0%,#2B2A78 55%,#1E3A7A 100%);
+  --kf:'Fredoka','Baloo 2','Nunito','Segoe UI','Arial Rounded MT Bold',system-ui,sans-serif;--ky:#FFD23F;--kp:#FF6FB5;--kt:#3EE0C5;--ko:#FF9F1C;--kink:#1B1E4B}
+.kidsui .kdeco{display:block;position:absolute;inset:0;pointer-events:none}
+.kidsui .kdeco i{position:absolute;border-radius:50%;opacity:.85}
+.kidsui .screen{font-family:var(--kf)}
+.kidsui [data-f]:focus{box-shadow:0 0 0 6px var(--kink),0 0 0 14px var(--ky);transform:scale(1.04)}
+/* header */
+#player.kids .ttl,#player.kids .chips,#player.kids .prog,#player.kids .streak{display:none}
+#player.kids .top{border-bottom:0;padding-bottom:10px}
+#player.kids .kbrand{display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-width:0}
+.kpill{font-family:var(--kf);font-weight:600;font-size:30px;color:var(--kink);background:var(--kt);padding:4px 22px;border-radius:999px;letter-spacing:.5px}
+.kname{font-family:var(--kf);font-weight:700;font-size:112px;line-height:1;color:var(--ky);white-space:nowrap;text-shadow:0 7px 0 #14124A;letter-spacing:.5px}
+.kname.long{font-size:92px}
+#player.kids .kstars{display:flex;gap:14px;align-items:center}
+.kstars i{display:block;width:70px;height:70px}
+.kstars svg{width:100%;height:100%;fill:#3A3F8F;stroke:#5A60B8;stroke-width:1.2}
+.kstars i.d svg{fill:var(--ky);stroke:#C99A00}
+.kstars i.n{width:96px;height:96px}.kstars i.n svg{fill:var(--kp);stroke:#FFFFFF;stroke-width:1.4}
+/* main */
+#player.kids .pmain{grid-template-columns:1000px 1fr;gap:56px;padding-top:20px}
+#player.kids .art{border-radius:56px;background:linear-gradient(180deg,#2C3A96 0%,#26308A 100%);border:10px solid var(--ky)}
+#player.kids .art .side{display:none}
+#player.kids .art .ready{display:none !important;font-family:var(--kf);font-weight:700;font-size:48px;letter-spacing:1px;text-transform:none;color:#fff;background:var(--kp);padding:6px 40px;border-radius:999px;bottom:28px}
+#player.kids .right{align-items:center;justify-content:center;gap:28px}
+#player.kids .name,#player.kids .sub,#player.kids .breath{display:none}
+#player.kids .meters{margin-top:0;justify-content:center}
+#player.kids .ring{width:540px;height:540px}
+#player.kids .ring circle:first-child{stroke:#1A1D5C}
+#player.kids .arc{stroke:var(--kt)}
+#player.kids.prep .arc{stroke:var(--ko)}
+#player.kids .tm{font-family:var(--kf);font-weight:700;font-size:270px;line-height:.9;color:#fff;text-shadow:0 8px 0 #14124A}
+#player.kids .ring .of{font-family:var(--kf);font-size:44px;font-weight:600;color:var(--ky);margin-top:6px}
+#player.kids .kidline{margin:0;width:100%;font-family:var(--kf);font-size:40px;font-weight:500;line-height:1.22;color:var(--kink);background:#fff;border:0;border-radius:40px;padding:22px 34px;text-align:center}
+#player.kids .paused-tag{font-family:var(--kf);font-size:40px;letter-spacing:2px;border-radius:999px;padding:6px 30px;background:var(--ky);color:var(--kink);right:36px;top:30px}
+/* footer: only the three big controls */
+#player.kids .bot{border-top:0;padding-top:14px}
+#player.kids #cPrev,#player.kids #cMute,#player.kids .next{display:none}
+.kidsui button.h{background:#33388F;border:0;color:#fff;font-family:var(--kf);font-weight:600;font-size:32px;padding:8px 26px 8px 8px}
+.kidsui .g{font-family:var(--kf)}
+/* finish */
+#finish.kids .top{border-bottom:0}
+#finish.kids .eye{font-family:var(--kf);color:var(--kt);letter-spacing:1px;text-transform:none;font-weight:600;font-size:32px}
+#finish.kids .ttl h1{font-family:var(--kf);font-weight:600;font-size:52px}
+#finish.kids .kick{font-family:var(--kf);text-transform:none;letter-spacing:1px;color:#C9CCF5}
+#finish.kids .done h2{font-family:var(--kf);font-weight:700;font-size:180px;line-height:.95;color:var(--ky);text-shadow:0 10px 0 #14124A}
+#finish.kids .done h2 span{color:var(--kp)}
+#finish.kids .done .what{font-size:48px;color:#fff;font-weight:500}
+#finish.kids .stat{background:var(--kt);border:0;border-radius:36px;color:var(--kink)}
+#finish.kids .stat+.stat{background:var(--kp);color:#fff}
+#finish.kids .stat .v{font-family:var(--kf);font-weight:700;color:inherit}
+#finish.kids .stat .k{color:inherit;font-weight:600;font-size:28px;letter-spacing:1px;text-transform:none}
+#finish.kids .stars svg{width:120px;height:120px}
+#finish.kids .stars path{fill:var(--ky);stroke:#C99A00}
+#finish.kids .closing{background:#2E3A87;border:8px solid var(--ky);border-radius:56px}
+#finish.kids .closing .orb{display:none}
+#finish.kids .kmoon{display:block;width:260px;height:260px}
+#finish.kids .closing .t{font-family:var(--kf);font-weight:700;font-size:58px;color:#fff}
+#finish.kids .closing .s{font-family:var(--kf);font-size:32px;color:#C9CCF5}
+#finish.kids .btn{font-family:var(--kf);text-transform:none;letter-spacing:1px;border-radius:999px;background:#3A3F9A;border:0;color:#fff}
+#finish.kids .btn.go{background:var(--ky);color:var(--kink);box-shadow:none}
+#finish.kids .bot{border-top:0}
+#finish.kids .next .k,#finish.kids .next .v{font-family:var(--kf);text-transform:none;letter-spacing:1px}
+/* portrait phones in kids skin */
+.portrait #player.kids .pmain{grid-template-columns:1fr;grid-template-rows:760px 1fr}
+.portrait .kname{font-size:84px;white-space:normal}.portrait .kname.long{font-size:72px}
+.portrait #player.kids .ring{width:460px;height:460px}.portrait #player.kids .tm{font-size:220px}
+
+/* ---------- pose illustrations (image over mannequin fallback; Xbox-safe: transform only) ---------- */
+.pimg{position:relative;width:100%;height:100%;overflow:hidden}
+.pimg.a{background:#0E0E0E}.pimg.k{background:#0A2456}
+.pimg>img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:contain;display:block}
+.pimg.mir>img{transform:scaleX(-1)}
+.pimg>img+svg{display:none}
+.pimg.off{background:transparent}
+.sheet .c .pimg{position:absolute;left:0;right:0;bottom:0;top:34px;width:auto;height:auto}
+.sheet .c .pimg svg{top:0;height:100%}
+.thumb .svg .pimg{border-radius:0}
+#player.kids .art .pimg.k{background:#0A2456}
+
+
 </style></head>
 <body>
-<div id="stage">
+<div id="stage"><div class="kdeco"><i style="left:3%;top:8%;width:10px;height:10px;background:#FFD23F"></i><i style="left:14%;top:3%;width:6px;height:6px;background:#fff"></i><i style="left:31%;top:6%;width:8px;height:8px;background:#3EE0C5"></i><i style="left:47%;top:2%;width:6px;height:6px;background:#fff"></i><i style="left:58%;top:7%;width:10px;height:10px;background:#FF6FB5"></i><i style="left:72%;top:3%;width:7px;height:7px;background:#fff"></i><i style="left:88%;top:6%;width:9px;height:9px;background:#FFD23F"></i><i style="left:96%;top:14%;width:6px;height:6px;background:#fff"></i><i style="left:1%;top:52%;width:7px;height:7px;background:#fff"></i><i style="left:98%;top:60%;width:8px;height:8px;background:#3EE0C5"></i><i style="left:2%;top:93%;width:9px;height:9px;background:#FF6FB5"></i><i style="left:97%;top:95%;width:7px;height:7px;background:#FFD23F"></i><i style="left:50%;top:97%;width:6px;height:6px;background:#fff"></i></div>
 <!-- HOME -->
 <section id="home" class="screen">
   <header class="top">
@@ -207,12 +292,12 @@ button.h{background:var(--panel);border:1px solid var(--line)}
       <div class="opt"><div class="k">Mode</div>
         <div class="seg"><button data-f id="bAdult" class="on">Grown-up<small>long holds</small></button><button data-f id="bKids">Kids<small>50 s · animals</small></button></div></div>
       <button data-f class="btn go" id="bStart"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z" fill="#0B0C0E"/></svg>Start</button>
-      <div class="seg"><button data-f id="bBrowse" style="height:84px">Browse sessions</button><button data-f id="bVoice" style="height:84px;flex:.7">Voice <small id="bVoiceT">on</small></button></div>
+      <div class="seg"><button data-f id="bBrowse" style="height:84px">Browse<small>sessions</small></button><button data-f id="bVoice" style="height:84px">Voice<small id="bVoiceT">on</small></button><button data-f id="bMusic" style="height:84px">Music<small id="bMusicT">Med</small></button><button data-f id="bSize" style="height:84px">Screen<small id="bSizeT">100%</small></button></div>
       <div class="opt"><div class="k">This week</div><div class="week" id="hWeek"></div></div>
     </div>
   </div>
   <footer class="bot">
-    <div class="hints"><div class="h"><span class="g a">A</span>Select</div><div class="h"><span class="g dp">✚</span>Move</div><div class="h"><span class="g y">Y</span>Kids mode</div></div>
+    <div class="hints"><div class="h"><span class="g a">A</span>Select</div><div class="h"><span class="g dp">✚</span>Move</div><div class="h"><span class="g y">Y</span>Kids mode</div><div class="h"><span class="g x">X</span>Hold: music</div><div class="h"><span class="g dp">View</span>Screen size</div></div>
     <div class="next"><span class="k">Tomorrow</span><span class="v" id="hTomorrow"></span></div>
   </footer>
 </section>
@@ -226,12 +311,12 @@ button.h{background:var(--panel);border:1px solid var(--line)}
 <!-- PLAYER -->
 <section id="player" class="screen">
   <header class="top">
-    <div class="lefttop"><div class="ttl"><div class="eye">Daily ROM · Evening<span class="kidsbadge">KIDS</span></div><h1 id="pRoutine"></h1></div><div class="chips" id="pTags"></div></div>
-    <div class="righttop"><div class="prog"><div class="lbl">Pose <b id="pIdx">1</b> of <span id="pCnt">4</span></div><div class="segs" id="pSegs"></div></div>
+    <div class="lefttop"><div class="ttl"><div class="eye">Daily ROM · Evening<span class="kidsbadge">KIDS</span></div><h1 id="pRoutine"></h1></div><div class="chips" id="pTags"></div><div class="kbrand"><span class="kpill">Stretch Time</span><h1 class="kname" id="kName"></h1></div></div>
+    <div class="righttop"><div class="kstars" id="kStars"></div><div class="prog"><div class="lbl">Pose <b id="pIdx">1</b> of <span id="pCnt">4</span></div><div class="segs" id="pSegs"></div></div>
       <div class="streak"><svg width="30" height="38" viewBox="0 0 30 38"><path d="M15 2c2 7 11 11 11 21a11 11 0 0 1-22 0c0-6 4-9 5-14 2 3 3 5 3 8 3-4 4-9 3-15z" fill="#C8FF2E"/></svg><div><div class="n" id="pStreak">0</div><div class="t">night streak</div></div></div></div>
   </header>
   <section class="pmain">
-    <div class="art"><div class="side" id="pShown"></div><div class="paused-tag">PAUSED</div><div class="fig" id="pFig"></div><div class="ready">Get into position</div></div>
+    <div class="art"><div class="side" id="pShown"></div><div class="paused-tag">PAUSED</div><div class="fig" id="pFig"></div><div class="ready" id="pReady">Get into position</div></div>
     <div class="right">
       <div class="name" id="pName">PIGEON</div>
       <div class="sub" id="pSub"></div>
@@ -263,7 +348,7 @@ button.h{background:var(--panel);border:1px solid var(--line)}
   <div class="fmain">
     <div class="done"><h2 id="fHead">Done<span>.</span></h2><div class="what" id="fWhat"></div>
       <div class="stats" id="fStats"></div><div class="stars" id="fStars"></div></div>
-    <div class="closing"><div class="orb"><div class="gd"></div><div class="b" id="fOrb"></div></div>
+    <div class="closing"><svg class="kmoon" viewBox="0 0 200 200"><circle cx="100" cy="100" r="92" fill="#2E3A87"/><path d="M128 40a62 62 0 1 0 34 92 52 52 0 1 1-34-92z" fill="#FFD23F"/><circle cx="58" cy="58" r="6" fill="#FFFFFF"/><circle cx="150" cy="150" r="4" fill="#FFFFFF"/><circle cx="44" cy="140" r="4" fill="#3EE0C5"/></svg><div class="orb"><div class="gd"></div><div class="b" id="fOrb"></div></div>
       <div class="t" id="fBreath">One last breath</div><div class="s" id="fBreathS">In for 8 · hold 4 · out for 10</div>
       <div class="fbtns"><button data-f class="btn go" id="fHome" style="height:110px;font-size:44px">Home</button><button data-f class="btn" id="fAgain" style="height:110px">Again</button></div></div>
   </div>
@@ -274,11 +359,15 @@ button.h{background:var(--panel);border:1px solid var(--line)}
   <header class="top"><div class="lefttop"><div class="ttl"><div class="eye">Daily ROM · Pose library</div><h1>Every pose, right side shown</h1></div></div><div class="righttop"><div class="kick" id="sCount"></div></div></header>
   <div class="sheet" id="sGrid"></div>
 </section>
+<div id="toast"></div>
 <div id="modal"><div class="box"><h3>End session?</h3><p>Press B again to end, or A to keep going.</p>
   <div class="row"><button data-f class="btn go" id="mKeep" style="height:110px;font-size:44px">Keep going</button><button data-f class="btn" id="mEnd" style="height:110px">End session</button></div></div></div>
 </div>
 
 <script>
+const POSE_IMG = {"adult": ["boundAngle", "childWide", "couch", "dragon", "figure4", "halfSaddle", "legsWall", "lizard", "pigeon", "puppy", "sphinx", "strapHamstring", "sumo", "supineTwist", "toeSquat", "twistedCross"], "kids": ["boundAngle", "childWide", "couch", "dragon", "figure4", "frog", "halfSaddle", "legsWall", "lizard", "pigeon", "puppy", "sphinx", "strapHamstring", "sumo", "supineTwist", "toeSquat", "twistedCross", "wrist"]};
+const VOICE = {"adult": {"Arm straight out, palm down.": "audio/voice/adult/d6d39fda24a8.mp3", "Arms long, forehead or chin down.": "audio/voice/adult/9b269425ab64.mp3", "Arms long, forehead rests.": "audio/voice/adult/8746efb94a6c.mp3", "Arms out in a T, shoulders heavy.": "audio/voice/adult/3c4ae6ff7c29.mp3", "Arms out, palms up.": "audio/voice/adult/872f32e7c827.mp3", "Back flat on the floor, head down.": "audio/voice/adult/69d5558263f5.mp3", "Back flat — pull the bottom knee in only if it stays flat.": "audio/voice/adult/6e0fffc1127a.mp3", "Back off to a lower prop if it pinches.": "audio/voice/adult/72f457ec188f.mp3", "Breathe into the ribs.": "audio/voice/adult/cc82d3e391f9.mp3", "Chest up, spine long.": "audio/voice/adult/4f8918b66f95.mp3", "Elbows under the shoulders.": "audio/voice/adult/db03f08c2bff.mp3", "First up, Bound Angle. Get into position.": "audio/voice/adult/14b10d35d20e.mp3", "First up, Couch Stretch, right knee back. Get into position.": "audio/voice/adult/94db085139cf.mp3", "First up, Low Dragon, right foot forward. Get into position.": "audio/voice/adult/aa93be913e99.mp3", "First up, Pigeon, right leg forward. Get into position.": "audio/voice/adult/f8ecbd3708c3.mp3", "First up, Sphinx. Get into position.": "audio/voice/adult/ce5c69e796c9.mp3", "First up, Toe Squat. Get into position.": "audio/voice/adult/2ba6f8febb01.mp3", "First up, Wrist Stretch. Get into position.": "audio/voice/adult/d0d05cb19657.mp3", "Flex the crossed foot.": "audio/voice/adult/a5b03a43a285.mp3", "Forearms down, knees wide, shins parallel.": "audio/voice/adult/c3c4f8f9877a.mp3", "Front foot outside the hands.": "audio/voice/adult/2ddb83388c3b.mp3", "Front shin as parallel as your hips allow.": "audio/voice/adult/0058a1a43008.mp3", "Hands down inside the front foot.": "audio/voice/adult/ef67081f9eb5.mp3", "Hands on the thighs, chest tall.": "audio/voice/adult/d593cdaa30be.mp3", "Hands or a block — keep the back flat.": "audio/voice/adult/f584dfcd2fce.mp3", "Hips back toward the heels.": "audio/voice/adult/453de66497b1.mp3", "Hips stacked over knees.": "audio/voice/adult/9fdec4f661cf.mp3", "Hold for 1 and a half minutes.": "audio/voice/adult/f486c304aacb.mp3", "Hold for 1 and a half minutes. Breathe in for eight, hold for four, and out for ten.": "audio/voice/adult/46f9d0871787.mp3", "Hold for 1 minute.": "audio/voice/adult/1da678e0a79f.mp3", "Hold for 1 minute. Breathe in for eight, hold for four, and out for ten.": "audio/voice/adult/6043e5b240aa.mp3", "Hold for 2 and a half minutes.": "audio/voice/adult/41091f280838.mp3", "Hold for 2 and a half minutes. Breathe in for eight, hold for four, and out for ten.": "audio/voice/adult/5baa6118fff2.mp3", "Hold for 2 minutes.": "audio/voice/adult/3bdafe199331.mp3", "Hold for 2 minutes. Breathe in for eight, hold for four, and out for ten.": "audio/voice/adult/6c92c074ad15.mp3", "Hold for 3 and a half minutes.": "audio/voice/adult/ada0ca9128d7.mp3", "Hold for 3 minutes.": "audio/voice/adult/6280645dc2e2.mp3", "Hold for 3 minutes. Breathe in for eight, hold for four, and out for ten.": "audio/voice/adult/54c831017498.mp3", "Hold for 4 and a half minutes.": "audio/voice/adult/afc4d887b87b.mp3", "Hold for 4 minutes.": "audio/voice/adult/7774653798b7.mp3", "Hold for 4 minutes. Breathe in for eight, hold for four, and out for ten.": "audio/voice/adult/22bcd4056d33.mp3", "Hold for 5 minutes.": "audio/voice/adult/b00a74eb3972.mp3", "Hold for 5 minutes. Breathe in for eight, hold for four, and out for ten.": "audio/voice/adult/aae274c22d4b.mp3", "Keep a soft belly — no low-back sag.": "audio/voice/adult/ef654fc031dc.mp3", "Keep the chest long — no slump.": "audio/voice/adult/252413db8493.mp3", "Knee in the corner, shin up the wall.": "audio/voice/adult/86440bc416bb.mp3", "Knees wide, big toes together.": "audio/voice/adult/17b23cc457cd.mp3", "Lean back slowly, palms flat.": "audio/voice/adult/3c7c0867c70e.mp3", "Leg straight-ish — bend the knee before the back rounds.": "audio/voice/adult/01ace350004a.mp3", "Let the crossed knee open.": "audio/voice/adult/d7fe6a13ec1b.mp3", "Let the front knee fall open a little.": "audio/voice/adult/b560e76751ab.mp3", "Let the legs go heavy.": "audio/voice/adult/261bb95ab513.mp3", "Let the low back sag only gently.": "audio/voice/adult/93bb561b6ce6.mp3", "Melt on every exhale.": "audio/voice/adult/0f025a14511d.mp3", "Next, Bound Angle. Get into position.": "audio/voice/adult/887712122a62.mp3", "Next, Couch Stretch, right knee back. Get into position.": "audio/voice/adult/3e2f9a36b7ab.mp3", "Next, Frog. Get into position.": "audio/voice/adult/4750ba5f1729.mp3", "Next, Half Saddle, right leg folded. Get into position.": "audio/voice/adult/4f6df172abae.mp3", "Next, Legs Up the Wall. Get into position.": "audio/voice/adult/cb1c93fe4575.mp3", "Next, Lizard, right foot forward. Get into position.": "audio/voice/adult/0650d93c154f.mp3", "Next, Low Dragon, right foot forward. Get into position.": "audio/voice/adult/1d6a6f352ae0.mp3", "Next, Pigeon, right leg forward. Get into position.": "audio/voice/adult/720c328af500.mp3", "Next, Puppy Dog. Get into position.": "audio/voice/adult/feb535402a00.mp3", "Next, Reclined Figure-4, right ankle crossed. Get into position.": "audio/voice/adult/43733fde1aa3.mp3", "Next, Sphinx. Get into position.": "audio/voice/adult/c36e7fc2c490.mp3", "Next, Strap Hamstring, right leg up. Get into position.": "audio/voice/adult/f4d85a3cea6b.mp3", "Next, Sumo Squat. Get into position.": "audio/voice/adult/604d860cc20e.mp3", "Next, Supine Twist, knees to the left. Get into position.": "audio/voice/adult/6bb93ddc177c.mp3", "Next, Thread the Needle, right arm under. Get into position.": "audio/voice/adult/883f9f133ae6.mp3", "Next, Twisted Cross, right arm out. Get into position.": "audio/voice/adult/462504537aa8.mp3", "Next, Wide-Knee Child's Pose. Get into position.": "audio/voice/adult/d740799f2043.mp3", "No folding — let gravity do it.": "audio/voice/adult/965832ef2f01.mp3", "Rest the head — let the shoulder open.": "audio/voice/adult/43cfea18da44.mp3", "Resuming.": "audio/voice/adult/67c1cdc1cba2.mp3", "Ribs down — don’t arch the low back.": "audio/voice/adult/51043e8ecbad.mp3", "Rock back only as far as feels good.": "audio/voice/adult/c101fa8abcab.mp3", "Shoulder and temple rest down.": "audio/voice/adult/619e13cbf2d1.mp3", "Sink the hips, back knee heavy.": "audio/voice/adult/c34d045148a1.mp3", "Sit tall against the wall.": "audio/voice/adult/70b74252ce2e.mp3", "Soles together, knees fall open.": "audio/voice/adult/09105911202b.mp3", "Squeeze the glute on the down leg.": "audio/voice/adult/119f04968f7f.mp3", "Squeeze the glutes to protect the low back.": "audio/voice/adult/23d566d284b7.mp3", "Stack the knees — a pillow under them is fine.": "audio/voice/adult/5f5812174c83.mp3", "Stay tall on your hands — no folding forward.": "audio/voice/adult/8421a738653c.mp3", "Stop where the knee is happy.": "audio/voice/adult/333a43dc08c5.mp3", "Strap around the ball of the foot.": "audio/voice/adult/a1d458f1104e.mp3", "Supported: elbows or a bolster under your back.": "audio/voice/adult/edb470895593.mp3", "Switch sides. Knees to the right. Get into position.": "audio/voice/adult/538934bcbdb9.mp3", "Switch sides. Left ankle crossed. Get into position.": "audio/voice/adult/275d6234e5be.mp3", "Switch sides. Left arm out. Get into position.": "audio/voice/adult/d1a937a68c50.mp3", "Switch sides. Left arm under. Get into position.": "audio/voice/adult/77a733311f87.mp3", "Switch sides. Left foot forward. Get into position.": "audio/voice/adult/bb494cbb5eae.mp3", "Switch sides. Left knee back. Get into position.": "audio/voice/adult/09827645bfea.mp3", "Switch sides. Left leg folded. Get into position.": "audio/voice/adult/dc9d7e2f4625.mp3", "Switch sides. Left leg forward. Get into position.": "audio/voice/adult/bafbe0c708e6.mp3", "Switch sides. Left leg up. Get into position.": "audio/voice/adult/7b3abcfc479d.mp3", "Ten seconds.": "audio/voice/adult/a81e2ce99ace.mp3", "That’s the session. Nice work tonight. One last slow breath in… hold… and let it all go.": "audio/voice/adult/37816c032c47.mp3", "Top hand presses to deepen the twist.": "audio/voice/adult/c98dfd95d449.mp3", "Voice on.": "audio/voice/adult/5038752a2339.mp3"}, "kids": {"Butterfly! Butterfly wings! Feet together, knees open, and flap your wings very slowly.": "audio/voice/kids/e0158588e008.mp3", "Candle! Be a candle! Legs up the wall and stay so still your flame does not flicker.": "audio/voice/kids/fc7f6a3b6fb2.mp3", "Couch Potato! Couch potato! Knee by the wall, foot up the wall, and sit up tall like a potato king.": "audio/voice/kids/ce7f606fd997.mp3", "Freeze like a statue! Hold it.": "audio/voice/kids/08a6a62e4e5c.mp3", "Freeze!": "audio/voice/kids/5dc0f6c14cc2.mp3", "Froggy! Froggy time! Knees wide, belly low, and give a big froggy croak.": "audio/voice/kids/1545341d4511.mp3", "Here we go!": "audio/voice/kids/3c6dcfc8f228.mp3", "Hold it!": "audio/voice/kids/ed9e41007e47.mp3", "Lion! Be a big lion resting in the sun. Chest proud, and let out a quiet roar.": "audio/voice/kids/075fc92ebe0e.mp3", "Ninja Toes! Ninja toes! Sit on your heels, toes tucked, and be a silent ninja.": "audio/voice/kids/14422ee3b2fb.mp3", "Noodle Twist! Wiggle into a noodle twist. Knees fall to one side, arms out wide like a noodle.": "audio/voice/kids/d643feda2560.mp3", "Number Four! Make a number four with your legs! Can you hold your four still?": "audio/voice/kids/3154260a13fa.mp3", "Other side! knees to the right.": "audio/voice/kids/49990c5a7c2b.mp3", "Other side! left ankle crossed.": "audio/voice/kids/4d687f6df6f6.mp3", "Other side! left arm out.": "audio/voice/kids/ff155a3728d3.mp3", "Other side! left arm under.": "audio/voice/kids/aa6f0b4234f1.mp3", "Other side! left foot forward.": "audio/voice/kids/122267385514.mp3", "Other side! left knee back.": "audio/voice/kids/c090ad458ed5.mp3", "Other side! left leg folded.": "audio/voice/kids/021dbdd43135.mp3", "Other side! left leg forward.": "audio/voice/kids/0016d9de85ec.mp3", "Other side! left leg up.": "audio/voice/kids/cfbe466a4495.mp3", "Paws Back! Paws back! Turn your hands around like a kitty and lean back slowly.": "audio/voice/kids/56588cd56e83.mp3", "Peek-a-Boo! Peek-a-boo! Slide your arm under like a secret tunnel and peek out the other side.": "audio/voice/kids/cccdaea1d9f7.mp3", "Pigeon on a Branch! Be a pigeon on a branch. Sit tall, puff your chest, and coo quietly.": "audio/voice/kids/2f6bd8e5be49.mp3", "Puppy Stretch! Puppy stretch! Tail up high, arms reach long, and give a tiny happy wag.": "audio/voice/kids/99e633012b23.mp3", "Rocket Leg! Rocket leg! Point one leg up to space and hold your rocket with the strap.": "audio/voice/kids/fa6718bd981b.mp3", "Saddle Up! Saddle up, cowboy! One leg tucked back, lean back on your elbows and look at the sky.": "audio/voice/kids/5a228446a001.mp3", "Sleepy Dragon! Be a sleepy dragon. Sink your tummy toward the floor and let your back knee rest.": "audio/voice/kids/6611d0c40005.mp3", "Sneaky Lizard! Sneaky lizard! Front foot wide, hands down low, and stay very, very still.": "audio/voice/kids/97e8c4cbf226.mp3", "Starfish Roll! Starfish roll! One arm out like a starfish arm, then roll gently onto it.": "audio/voice/kids/19f922289d7b.mp3", "Statue time!": "audio/voice/kids/a15871a579d2.mp3", "Sumo Wrestler! Sumo wrestler! Big wide squat, stomp your feet, and push your knees out.": "audio/voice/kids/8943c9903a2e.mp3", "Ten more seconds!": "audio/voice/kids/a4f32d291430.mp3", "Turtle Shell! Turtle shell! Tuck in under your shell and rest, nice and cozy.": "audio/voice/kids/72b24934bb99.mp3", "Voice on.": "audio/voice/kids/5038752a2339.mp3", "You are doing great. Stay still like a statue.": "audio/voice/kids/009983417160.mp3", "You did it! Every pose a star. Great job tonight, sweet dreams.": "audio/voice/kids/dbb708e878ab.mp3"}};
+const MUSIC = {"adult": {"src": "audio/music/grownup-pad-loop.mp3", "loop": 150.0}, "kids": {"src": "audio/music/kids-marimba-loop.mp3", "loop": 151.578957}};
 /* Swole · Daily ROM — parametric 3D wooden-mannequin renderer (SVG)  v3
  * Pose: absolute 3D direction per segment in world frame [forward, up, right].
  *   pelvis/chest/neck/head = spine directions; pelvisRight/chestRight = the body's right-hand vector (lets the torso lie, roll, twist).
@@ -516,8 +605,11 @@ button.h{background:var(--panel);border:1px solid var(--line)}
       let mx0 = Infinity, mx1 = -Infinity, mz0 = Infinity, mz1 = -Infinity;
       for (const k in J) { mx0 = Math.min(mx0, J[k][0]); mx1 = Math.max(mx1, J[k][0]); mz0 = Math.min(mz0, J[k][2]); mz1 = Math.max(mz1, J[k][2]); }
       const m = pose.mat || {}; const ex = (m.x || 0.7) * H, ez = (m.z || 0.9) * H;
-      const cn = [[mx0 - ex, mz0 - ez], [mx1 + ex, mz0 - ez], [mx1 + ex, mz1 + ez], [mx0 - ex, mz1 + ez]].map(([x, zz]) => M([x, floorY, zz]));
-      under += `<path d="${P2(cn)}" fill="#171B14" stroke="#3B4430" stroke-width="2" stroke-linejoin="round"/>`;
+      let cn = [[mx0 - ex, mz0 - ez], [mx1 + ex, mz0 - ez], [mx1 + ex, mz1 + ez], [mx0 - ex, mz1 + ez]].map(([x, zz]) => M([x, floorY, zz]));
+      // keep the mat inside the card so it never reads as a box/frame running off the edges
+      const mpad = pad * 0.6; cn = cn.map(([x, y]) => [Math.max(mpad, Math.min(W - mpad, x)), Math.max(mpad, Math.min(Hh - mpad, y))]);
+      const mf = opts.matFill || '#181D15';
+      under += `<path d="${P2(cn)}" fill="${mf}" stroke="${opts.matStroke || mf}" stroke-width="${Math.max(8, 0.14 * H * s).toFixed(1)}" stroke-linejoin="round"/>`;
       defs.push(`<radialGradient id="${id}sh"><stop offset="0" stop-color="#000" stop-opacity=".5"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>`);
       for (const k in J) if (J[k][1] - floorY < 0.6 * H && !/glute|belly|chestC/.test(k)) { const q = M([J[k][0], floorY, J[k][2]]);
         under += `<ellipse cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" rx="${(0.7 * H * s).toFixed(1)}" ry="${(0.22 * H * s).toFixed(1)}" fill="url(#${id}sh)"/>`; }
@@ -526,13 +618,13 @@ button.h{background:var(--panel);border:1px solid var(--line)}
       const q = wallPts.splice(0, 4).map(Ms);
       under = `<path d="${P2([q[0], q[1], q[3], q[2]])}" fill="#1A1E22" stroke="#353B43" stroke-width="2"/>` + under;
     }
+    const GC = opts.glowColor || '#C8FF2E';
     for (const g of (opts.glow || [])) {
       const c = M(J[g.at]); const r = (g.r || 1.6) * H * s;
       const gid = `${id}gl${g.at}`;
-      defs.push(`<radialGradient id="${gid}"><stop offset="0" stop-color="#C8FF2E" stop-opacity="${g.o || .5}"/><stop offset=".45" stop-color="#C8FF2E" stop-opacity="${(g.o || .5) * .35}"/><stop offset="1" stop-color="#C8FF2E" stop-opacity="0"/></radialGradient>`);
+      defs.push(`<radialGradient id="${gid}"><stop offset="0" stop-color="${GC}" stop-opacity="${g.o || .5}"/><stop offset=".45" stop-color="${GC}" stop-opacity="${(g.o || .5) * .35}"/><stop offset="1" stop-color="${GC}" stop-opacity="0"/></radialGradient>`);
       under += `<circle cx="${c[0].toFixed(1)}" cy="${c[1].toFixed(1)}" r="${r.toFixed(1)}" fill="url(#${gid})"/>`;
-      if (g.tint) { defs.push(`<radialGradient id="${gid}t"><stop offset="0" stop-color="#C8FF2E" stop-opacity="${g.tint}"/><stop offset=".6" stop-color="#C8FF2E" stop-opacity="${g.tint * .4}"/><stop offset="1" stop-color="#C8FF2E" stop-opacity="0"/></radialGradient>`);
-        tint += `<circle cx="${c[0].toFixed(1)}" cy="${c[1].toFixed(1)}" r="${((g.tr || 1.0) * H * s).toFixed(1)}" fill="url(#${gid}t)" style="mix-blend-mode:multiply"/>`; }
+      // (no blend-mode tint over the body: mix-blend-mode caused GPU tile artifacts on Xbox Edge)
     }
     for (const lb of (opts.labels || [])) {
       const c = M(J[opts.mirror ? swapLR(lb.at) : lb.at]); const e = [c[0] + (lb.dx || 0), c[1] + (lb.dy || 0)];
@@ -705,7 +797,7 @@ const POSE_INFO = {
     cues: ['Stay tall on your hands — no folding forward', 'Front shin as parallel as your hips allow', 'Melt on every exhale'] },
   halfSaddle:   { name: 'Half Saddle', kid: 'Saddle Up', kidLine: 'Saddle up, cowboy! One leg tucked back, lean back on your elbows and look at the sky.', side: true, sideLabel: ['right leg folded', 'left leg folded'], tags: ['Quads', 'Hip flexors', 'Knees'], glow: 'rightKnee',
     cues: ['Supported: elbows or a bolster under your back', 'Squeeze the glutes to protect the low back', 'Stop where the knee is happy'] },
-  frog:         { name: 'Frog', kid: 'Froggy', kidLine: 'Froggy time! Knees wide, belly low, and croak on the out breath.', side: false, tags: ['Groin', 'Adductors', 'Hips'], glow: 'root',
+  frog:         { name: 'Frog', kid: 'Froggy', kidLine: 'Froggy time! Knees wide, belly low, and give a big froggy croak.', side: false, tags: ['Groin', 'Adductors', 'Hips'], glow: 'root',
     cues: ['Forearms down, knees wide, shins parallel', 'Ankles in line with the knees', 'Rock back only as far as feels good'] },
   twistedCross: { name: 'Twisted Cross', kid: 'Starfish Roll', kidLine: 'Starfish roll! One arm out like a starfish arm, then roll gently onto it.', side: true, sideLabel: ['right arm out', 'left arm out'], tags: ['Shoulders', 'Chest', 'Upper back'], glow: 'rightShoulder',
     cues: ['Arm straight out, palm down', 'Use the top foot to roll in slowly', 'Rest the head — let the shoulder open'] },
@@ -786,7 +878,7 @@ const QUOTES = [
   const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   // ---------- storage ----------
-  function load() { try { return Object.assign({ days: [], full: true, kids: false, voice: true }, JSON.parse(localStorage.getItem(STORE) || '{}')); } catch (e) { return { days: [], full: true, kids: false, voice: true }; } }
+  function load() { try { return Object.assign({ days: [], full: true, kids: false, voice: true, size: 1, music: 'med' }, JSON.parse(localStorage.getItem(STORE) || '{}')); } catch (e) { return { days: [], full: true, kids: false, voice: true, music: 'med' }; } }
   function save() { try { localStorage.setItem(STORE, JSON.stringify(st)); } catch (e) { } }
   const st = load();
   const ymd = d => d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
@@ -822,25 +914,52 @@ const QUOTES = [
 
   // ---------- figure cache ----------
   const figCache = {};
-  function fig(p, mirror, w, h, extra) {
-    const k = p + (mirror ? 'L' : 'R') + w + 'x' + h + (extra ? 'g' : '');
+  function fig(p, mirror, w, h, extra, kids) {
+    const k = p + (mirror ? 'L' : 'R') + w + 'x' + h + (extra ? 'g' : '') + (kids ? 'k' : '');
     if (!figCache[k]) { const info = POSE_INFO[p];
       figCache[k] = Mannequin.render(Mannequin.POSES[p], Object.assign({ width: w, height: h, pad: Math.round(Math.min(w, h) * 0.06), mirror },
-        extra ? { glow: [{ at: mirror ? swap(info.glow) : info.glow, r: 2.3, o: .5, tint: .4, tr: 1.0 }] } : {})); }
+        extra ? { glow: [{ at: mirror ? swap(info.glow) : info.glow, r: 2.3, o: kids ? .75 : .5 }] } : {},
+        kids ? { glowColor: '#FFD23F', matFill: '#34449E' } : {}));
+      // Illustrated pose image (img/<mode>/<pose>.webp) on top of the mannequin; the mannequin shows if the image is missing or fails.
+      const mode = kids ? 'kids' : 'adult', lst = (typeof POSE_IMG !== 'undefined' && POSE_IMG[mode]) || [];
+      if (lst.indexOf(p) >= 0) figCache[k] = `<div class="pimg ${kids ? 'k' : 'a'}${mirror ? ' mir' : ''}"><img src="img/${mode}/${p}.webp" alt="" onerror="var d=this.parentNode;d.removeChild(this);d.className+=' off'">${figCache[k]}</div>`; }
     return figCache[k];
   }
   const swap = j => j.replace(/^right/, '#').replace(/^left/, 'right').replace(/^#/, 'left');
 
   // ---------- stage scaling ----------
   const stage = $('stage');
-  function fit() {
-    const w = window.innerWidth, h = window.innerHeight, portrait = !SHOT && h > w * 1.15;
+  // Visible area = the smallest of the layout viewport, the document client box and the visual viewport.
+  // (Xbox Edge can report an innerWidth wider than what is actually on screen, which pushed the right panel off the TV.)
+  function viewport() {
+    let w = window.innerWidth || 1920, h = window.innerHeight || 1080, ox = 0, oy = 0;
+    const de = document.documentElement;
+    if (de && de.clientWidth > 0) w = Math.min(w, de.clientWidth);
+    if (de && de.clientHeight > 0) h = Math.min(h, de.clientHeight);
+    const vv = window.visualViewport;
+    if (vv && vv.width > 0 && vv.height > 0) { if (vv.width < w) { w = vv.width; ox = vv.offsetLeft || 0; } if (vv.height < h) { h = vv.height; oy = vv.offsetTop || 0; } }
+    return { w, h, ox, oy };
+  }
+  const SIZES = [1, 0.95, 0.9, 0.85, 0.8];
+  let fitKey = '';
+  function fit(force) {
+    const v = viewport(), w = v.w, h = v.h, portrait = !SHOT && h > w * 1.15, z = +(Q.get('size') || st.size || 1);
+    const key = [w, h, v.ox, v.oy, z].join(); if (!force && key === fitKey) return; fitKey = key;
     stage.classList.toggle('portrait', portrait);
-    const W = portrait ? 1080 : 1920, H = portrait ? 1920 : 1080, s = Math.min(w / W, h / H);
-    stage.style.transform = `translate(${((w - W * s) / 2).toFixed(1)}px,${((h - H * s) / 2).toFixed(1)}px) scale(${s})`;
+    const W = portrait ? 1080 : 1920, H = portrait ? 1920 : 1080, s = Math.min(w / W, h / H) * z;
+    stage.style.transform = `translate(${(v.ox + (w - W * s) / 2).toFixed(1)}px,${(v.oy + (h - H * s) / 2).toFixed(1)}px) scale(${s.toFixed(5)})`;
+    document.documentElement.scrollLeft = 0; document.documentElement.scrollTop = 0;
     if (cur === 'player' && P.steps) drawFig(true);
   }
-  window.addEventListener('resize', fit);
+  window.addEventListener('resize', () => fit());
+  window.addEventListener('orientationchange', () => setTimeout(fit, 200));
+  try { window.visualViewport && window.visualViewport.addEventListener('resize', () => fit()); window.visualViewport && window.visualViewport.addEventListener('scroll', () => fit()); } catch (e) { }
+  setInterval(() => fit(), 1500); // some TV browsers never fire resize after the chrome/zoom settles
+  let toastT = 0;
+  function toast(msg) { const t = $('toast'); if (!t) return; t.innerHTML = msg; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 3500); }
+  function cycleSize() { const i = SIZES.indexOf(+st.size || 1); st.size = SIZES[(i + 1) % SIZES.length]; save(); fit(true);
+    const v = viewport(); toast(`Screen size <b>${Math.round(st.size * 100)}%</b><small>${Math.round(v.w)}×${Math.round(v.h)} · press View again to change</small>`);
+    const b = $('bSizeT'); if (b) b.textContent = Math.round(st.size * 100) + '%'; }
 
   // ---------- audio ----------
   let actx = null, voice = null;
@@ -857,9 +976,97 @@ const QUOTES = [
     const pref = [/Aria.*Natural/i, /Jenny.*Natural/i, /Natural/i, /Aria|Jenny|Guy/i, /Samantha/i, /Daniel/i, /Google UK English Female/i, /Google US English/i];
     for (const r of pref) { const v = vs.find(v => r.test(v.name)); if (v) { voice = v; return; } } voice = vs[0]; } catch (e) { } }
   if (synth) { pickVoice(); try { synth.addEventListener ? synth.addEventListener('voiceschanged', pickVoice) : (synth.onvoiceschanged = pickVoice); } catch (e) { } }
+  // pre-rendered voice (VOICE manifest) with speechSynthesis fallback
+  const VOICE_M = (typeof VOICE !== 'undefined' && VOICE) || {}, MUSIC_M = (typeof MUSIC !== 'undefined' && MUSIC) || {};
+  let vEl = null, vQ = [], synthBusy = false;
+  function voiceKids() { return P.steps ? P.kids : (cur === 'finish' ? finKids : st.kids); }
+  function stopVoice() {
+    vQ = []; const a = vEl; vEl = null;
+    if (a) { try { a.onended = a.onerror = null; a.pause(); } catch (e) { } }
+    synthBusy = false; try { synth && synth.cancel(); } catch (e) { }
+    duck(false);
+  }
   function say(text, queue) {
-    if (!st.voice || !synth || SHOT || !text) return;
-    try { if (!queue) synth.cancel(); const u = new SpeechSynthesisUtterance(text); if (voice) u.voice = voice; u.lang = voice ? voice.lang : 'en-US'; u.rate = P.kids ? 0.95 : 0.88; u.pitch = P.kids ? 1.1 : 0.95; u.volume = 1; synth.speak(u); } catch (e) { }
+    if (!st.voice || SHOT || !text) return;
+    const kids = voiceKids();
+    if (!queue) stopVoice();
+    if (queue && (vEl || synthBusy)) { vQ.push([text, kids]); return; }
+    speakNow(text, kids);
+  }
+  function nextVoice() { const n = vQ.shift(); if (n && st.voice) speakNow(n[0], n[1]); else duck(false); }
+  function speakNow(text, kids) {
+    const src = (VOICE_M[kids ? 'kids' : 'adult'] || {})[text];
+    if (src && window.Audio) {
+      try {
+        const a = new Audio(src); vEl = a; a.volume = 1; duck(true);
+        const fail = () => { if (vEl === a) { vEl = null; synthSay(text, kids); } };
+        a.onended = () => { if (vEl === a) { vEl = null; nextVoice(); } };
+        a.onerror = fail;
+        const pr = a.play(); if (pr && pr.catch) pr.catch(fail);
+        return;
+      } catch (e) { vEl = null; }
+    }
+    synthSay(text, kids);
+  }
+  function synthSay(text, kids) {
+    if (!synth) { nextVoice(); return; }
+    try {
+      const u = new SpeechSynthesisUtterance(text); if (voice) u.voice = voice; u.lang = voice ? voice.lang : 'en-US';
+      u.rate = kids ? 0.95 : 0.88; u.pitch = kids ? 1.1 : 0.95; u.volume = 1;
+      u.onend = u.onerror = () => { if (u._done) return; u._done = 1; synthBusy = false; nextVoice(); };
+      synthBusy = true; duck(true); synth.speak(u);
+    } catch (e) { synthBusy = false; duck(false); }
+  }
+  // background music: seamless loop, fades, ducks ~12 dB under the voice
+  const MLEV = { off: 0, low: 0.15, med: 0.3 }, MORDER = ['off', 'low', 'med'], MNAME = { off: 'Off', low: 'Low', med: 'Med' };
+  if (!(st.music in MLEV)) st.music = 'med';
+  let mus = null, duckOn = false;
+  function musTarget(M) { return M.paused || M.dead ? 0 : MLEV[st.music] * (duckOn ? 0.25 : 1); }
+  function elFade(M, to, sec) {
+    if (M.iv) clearInterval(M.iv);
+    const from = M.el.volume, t0 = performance.now(), d = Math.max(0.05, sec) * 1000;
+    M.iv = setInterval(() => { const k = Math.min(1, (performance.now() - t0) / d); try { M.el.volume = Math.max(0, Math.min(1, from + (to - from) * k)); } catch (e) { }
+      if (k >= 1) { clearInterval(M.iv); M.iv = null; if (M.dead) { try { M.el.pause(); } catch (e) { } } } }, 50);
+  }
+  function rampMusic(sec, M) {
+    M = M || mus; if (!M) return; const v = musTarget(M);
+    try {
+      if (M.gain) { const t = actx.currentTime, g = M.gain.gain; g.cancelScheduledValues(t); g.setValueAtTime(g.value, t); g.linearRampToValueAtTime(v, t + sec); }
+      else if (M.el) elFade(M, v, sec);
+    } catch (e) { }
+  }
+  function duck(on) { if (duckOn === on) return; duckOn = on; rampMusic(on ? 0.25 : 0.9); }
+  function startMusic(kids) {
+    stopMusic(0.4);
+    const m = MUSIC_M[kids ? 'kids' : 'adult']; if (!m || SHOT) return;
+    const M = { kids, gain: null, el: null, src: null, dead: false, paused: false }; mus = M;
+    const fallback = () => {
+      if (M.dead || M.el || M.gain) return;
+      try { const a = new Audio(m.src); a.loop = true; a.volume = 0; M.el = a; const pr = a.play(); if (pr && pr.catch) pr.catch(() => { }); rampMusic(3, M); } catch (e) { }
+    };
+    if (actx && window.fetch && location.protocol !== 'file:') {
+      fetch(m.src).then(r => { if (!r.ok) throw new Error('music ' + r.status); return r.arrayBuffer(); })
+        .then(b => new Promise((res, rej) => { const pr = actx.decodeAudioData(b, res, rej); if (pr && pr.then) pr.then(res, rej); }))
+        .then(buf => {
+          if (M.dead) return;
+          const s = actx.createBufferSource(), g = actx.createGain(); s.buffer = buf; s.loop = true;
+          s.loopStart = 0.05; s.loopEnd = Math.min(buf.duration, m.loop + 0.05);
+          g.gain.value = 0; s.connect(g); g.connect(actx.destination); s.start(0, 0.05);
+          M.src = s; M.gain = g; rampMusic(3, M);
+        }).catch(fallback);
+    } else fallback();
+  }
+  function stopMusic(sec) {
+    const M = mus; mus = null; if (!M) return; M.dead = true; sec = sec || 0.4;
+    try {
+      if (M.gain) { const t = actx.currentTime, g = M.gain.gain; g.cancelScheduledValues(t); g.setValueAtTime(g.value, t); g.linearRampToValueAtTime(0, t + sec); M.src.stop(t + sec + 0.1); }
+      else if (M.el) elFade(M, 0, sec);
+    } catch (e) { }
+  }
+  function pauseMusic(p) { if (mus) { mus.paused = p; rampMusic(p ? 0.8 : 1.5); } }
+  function cycleMusic() {
+    st.music = MORDER[(MORDER.indexOf(st.music) + 1) % MORDER.length]; save();
+    rampMusic(0.8); renderHome(); toast('Music: ' + MNAME[st.music]);
   }
   const sayDur = s => s < 60 ? `${s} seconds` : (s % 60 === 0 ? `${s / 60} minute${s === 60 ? '' : 's'}` : `${Math.floor(s / 60)} and a half minutes`);
 
@@ -867,6 +1074,7 @@ const QUOTES = [
   let cur = null;
   function show(id, push) {
     document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.id === id));
+    if (id !== 'player' && id !== 'finish') stage.classList.remove('kidsui');
     if (push && !SHOT) try { history.pushState({ s: id }, ''); } catch (e) { }
     cur = id; const f = { home: 'bStart', browse: 'bGrid', player: 'cPause', finish: 'fHome' }[id];
     setTimeout(() => { let el = $(f); if (el && id === 'browse') el = el.querySelector('.today') || el.firstElementChild; if (el && !SHOT) el.focus(); }, 30);
@@ -900,11 +1108,11 @@ const QUOTES = [
     $('hTags').innerHTML = r.tags.map(t => `<span class="chip">${t}</span>`).join('');
     const n = r.poses.length, tw = n > 5 ? 0 : 1;
     $('hThumbs').innerHTML = r.poses.slice(0, 6).map(([p, h]) => { const i = POSE_INFO[p];
-      return `<div class="thumb"><div class="svg">${fig(p, false, 300, 250)}</div><div class="n">${st.kids ? i.kid : i.name}</div><div class="d">${st.kids ? KIDS_HOLD + ' s' : holdTxt(holdOf(h, st.full, false), i.side)}</div></div>`; }).join('') +
+      return `<div class="thumb"><div class="svg">${fig(p, false, 300, 250, false, st.kids)}</div><div class="n">${st.kids ? i.kid : i.name}</div><div class="d">${st.kids ? KIDS_HOLD + ' s' : holdTxt(holdOf(h, st.full, false), i.side)}</div></div>`; }).join('') +
       (n > 6 ? `<div class="thumb" style="display:flex;align-items:center;justify-content:center"><div class="n" style="font-size:40px;color:var(--muted)">+${n - 6} more</div></div>` : '');
     $('bFull').classList.toggle('on', st.full && !st.kids); $('bShort').classList.toggle('on', !st.full && !st.kids);
     $('bAdult').classList.toggle('on', !st.kids); $('bKids').classList.toggle('on', st.kids);
-    $('bVoiceT').textContent = st.voice ? 'on' : 'off';
+    $('bVoiceT').textContent = st.voice ? 'on' : 'off'; $('bMusicT').textContent = MNAME[st.music] || 'Med'; $('bSizeT').textContent = Math.round((+st.size || 1) * 100) + '%';
     $('hStreak').textContent = streak(); $('hNights').textContent = st.days.length;
     // week strip Mon..Sun of the current week
     const mon = new Date(d); mon.setDate(d.getDate() - ((d.getDay() + 6) % 7)); const set = new Set(st.days);
@@ -931,14 +1139,14 @@ const QUOTES = [
   function startSession(key, full, kids) {
     unlockAudio();
     Object.assign(P, { steps: buildSteps(key, full, kids), i: 0, phase: 'prep', left: PREP, paused: false, kids, key, full, spoke: {}, held: 0, started: Date.now() });
-    $('player').classList.toggle('kids', kids);
+    $('player').classList.toggle('kids', kids); stage.classList.toggle('kidsui', kids);
     const r = ROUTINES[key]; $('pRoutine').textContent = r.name; $('pTags').innerHTML = r.tags.map(t => `<span class="chip">${t}</span>`).join('');
     $('pCnt').textContent = r.poses.length; $('pStreak').textContent = streak();
-    show('player', true); enterStep(); run();
+    show('player', true); enterStep(); run(); startMusic(kids);
   }
   function run() { stopTimer(); last = performance.now(); timer = setInterval(tick, 100); requestAnimationFrame(frame); }
   function stopTimer() { if (timer) clearInterval(timer); timer = null; }
-  function stopPlayer() { stopTimer(); P.steps = null; try { synth && synth.cancel(); } catch (e) { } }
+  function stopPlayer() { stopTimer(); P.steps = null; stopVoice(); }
   function enterStep(noVoice) {
     const s = P.steps[P.i], info = POSE_INFO[s.p], prev = P.steps[P.i - 1];
     P.phase = 'prep'; P.left = PREP; P.spoke = {};
@@ -953,7 +1161,7 @@ const QUOTES = [
   const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
   function beginHold() {
     const s = P.steps[P.i], info = POSE_INFO[s.p]; P.phase = 'hold'; P.left = s.hold; P.holdStart = performance.now(); drawStep(); chime();
-    if (P.kids) say(P.i === 0 ? 'Hold still. Smell the flower… and blow out the candle.' : 'Hold it!');
+    if (P.kids) say(P.i === 0 ? 'Freeze like a statue! Hold it.' : ['Hold it!', 'Freeze!', 'Statue time!'][P.i % 3]);
     else say(P.i === 0 ? `Hold for ${sayDur(s.hold)}. Breathe in for eight, hold for four, and out for ten.` : `Hold for ${sayDur(s.hold)}.`);
   }
   function tick() {
@@ -977,26 +1185,30 @@ const QUOTES = [
     const pl = $('player'); pl.classList.toggle('prep', prep);
     const nm = P.kids ? info.kid : info.name, nEl = $('pName'); nEl.textContent = nm.toUpperCase();
     nEl.className = 'name' + (nm.length > 15 ? ' xlong' : nm.length > 10 ? ' long' : '');
+    if (P.kids) { const kn = $('kName'); kn.textContent = info.kid; kn.className = 'kname' + (info.kid.length > 15 ? ' long' : '');
+      $('pReady').textContent = prep ? (s.side === 1 ? 'Other side!' : 'Get ready!') : 'Get ready!';
+      const n = ROUTINES[P.key].poses.length, ST = '<svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg>';
+      let ks = ''; for (let i = 0; i < n; i++) ks += `<i class="${i < s.pi ? 'd' : i === s.pi ? 'n' : ''}">${ST}</i>`; $('kStars').innerHTML = ks; }
     const sideName = s.side < 0 ? '' : s.side === 0 ? 'Right side' : 'Left side';
     if (prep) $('pSub').innerHTML = `<b>Get into position</b>${sideName ? ' · ' + sideName : ''}`;
     else $('pSub').innerHTML = s.side < 0 ? '<b>Both sides</b> · just breathe' : `<b>${sideName}</b>${s.side === 0 ? ' · then switch' : ' · last side'}`;
     $('pShown').innerHTML = s.side < 0 ? 'Shown: <b>whole pose</b>' : `Shown: <b>${info.sideLabel[s.side]}</b>`;
     $('pIdx').textContent = s.pi + 1;
     const n = ROUTINES[P.key].poses.length; let sg = ''; for (let i = 0; i < n; i++) sg += `<i class="${i < s.pi ? 'd' : i === s.pi ? 'n' : ''}"></i>`; $('pSegs').innerHTML = sg;
-    $('pCues').outerHTML = P.kids ? `<div class="kidline" id="pCues"><b>${info.kid}</b>${info.kidLine}</div>` : `<div class="cues" id="pCues">${info.cues.map(c => `<div class="cue"><i></i>${c}</div>`).join('')}</div>`;
+    $('pCues').outerHTML = P.kids ? `<div class="kidline" id="pCues">${info.kidLine}</div>` : `<div class="cues" id="pCues">${info.cues.map(c => `<div class="cue"><i></i>${c}</div>`).join('')}</div>`;
     const nx = P.steps[P.i + 1];
     $('pNext').innerHTML = !nx ? 'Finish <span>· last breath</span>' : nx.p === s.p ? `Switch <span>· ${nx.side === 1 ? 'left' : 'right'} side</span>` :
       `${P.kids ? POSE_INFO[nx.p].kid : POSE_INFO[nx.p].name} <span>· ${P.kids ? KIDS_HOLD + ' s' : holdTxt(nx.hold, POSE_INFO[nx.p].side)}</span>`;
-    $('pOf').textContent = prep ? 'get set' : `left of ${fmt(s.hold)}`;
+    $('pOf').textContent = P.kids ? (prep ? (s.side === 1 ? 'other side!' : 'get ready') : 'seconds') : prep ? 'get set' : `left of ${fmt(s.hold)}`;
     drawFig(); drawTime(); drawPaused();
   }
   function drawFig(force) {
-    const s = P.steps[P.i], el = $('pFig'), w = el.offsetWidth || 860, h = el.offsetHeight || 760, k = s.p + s.side + w + h;
-    if (!force && el.dataset.k === k) return; el.dataset.k = k; el.innerHTML = fig(s.p, s.side === 1, w, h, true);
+    const s = P.steps[P.i], el = $('pFig'), w = el.offsetWidth || 860, h = el.offsetHeight || 760, k = s.p + s.side + w + h + (P.kids ? 'k' : '');
+    if (!force && el.dataset.k === k) return; el.dataset.k = k; el.innerHTML = fig(s.p, s.side === 1, w, h, true, P.kids);
   }
   function drawTime() {
     const s = P.steps[P.i], tot = P.phase === 'prep' ? PREP : s.hold, f = Math.max(0, Math.min(1, P.left / tot));
-    $('pTime').textContent = P.phase === 'prep' ? Math.max(0, Math.ceil(P.left)) : fmt(P.left);
+    $('pTime').textContent = P.phase === 'prep' || P.kids ? Math.max(0, Math.ceil(P.left)) : fmt(P.left);
     $('pArc').setAttribute('stroke-dasharray', `${(917.3 * f).toFixed(1)} 917.3`);
   }
   function drawPaused() { $('player').classList.toggle('paused', P.paused); $('cPauseT').textContent = P.paused ? 'Resume' : 'Pause'; $('cMuteT').textContent = st.voice ? 'Mute' : 'Unmute'; }
@@ -1013,23 +1225,24 @@ const QUOTES = [
   }
   function frame() {
     if (cur === 'player' && P.steps) {
-      if (P.phase === 'hold') { if (!P.paused) P.bt = (P.steps[P.i].hold - P.left); drawBreath(P.bt || 0); }
+      if (P.kids) { /* kids skin: no breathing guide */ }
+      else if (P.phase === 'hold') { if (!P.paused) P.bt = (P.steps[P.i].hold - P.left); drawBreath(P.bt || 0); }
       else { $('pOrb').style.transform = 'scale(.45)'; if (lastB !== 'r') { lastB = 'r'; $('pBreath').innerHTML = 'Settle in · <span>' + (P.kids ? 'ready?' : 'easy') + '</span>'; [...$('pPat').children].forEach(c => c.className = ''); } }
     }
-    if (cur === 'finish') { const t = (performance.now() - (finT || 0)) / 1000; const [sc, ph] = breathAt(t); $('fOrb').style.transform = `scale(${sc.toFixed(3)})`;
+    if (cur === 'finish' && !finKids) { const t = (performance.now() - (finT || 0)) / 1000; const [sc, ph] = breathAt(t); $('fOrb').style.transform = `scale(${sc.toFixed(3)})`;
       $('fBreath').textContent = t > CYCLE ? 'Rest easy' : ['Breathe in… 8', 'Hold… 4', 'And out… 10'][ph]; }
     if (cur === 'player' || cur === 'finish') requestAnimationFrame(frame);
   }
-  function togglePause() { if (!P.steps) return; P.paused = !P.paused; drawPaused(); if (P.paused) { try { synth && synth.cancel(); } catch (e) { } } else say(P.kids ? 'Here we go!' : 'Resuming.'); }
+  function togglePause() { if (!P.steps) return; P.paused = !P.paused; drawPaused(); pauseMusic(P.paused); if (P.paused) { stopVoice(); } else say(P.kids ? 'Here we go!' : 'Resuming.'); }
   function skip() { if (!P.steps) return; if (P.phase === 'prep') { P.left = 0; tick(); return; } P.done = Math.max(P.done, P.i + 1); if (P.i + 1 < P.steps.length) { P.i++; enterStep(); } else finish(); }
   function prev() { if (!P.steps) return; if (P.phase === 'hold' && P.steps[P.i].hold - P.left > 5) { enterStep(); return; } if (P.i > 0) P.i--; enterStep(); }
-  function toggleMute() { st.voice = !st.voice; save(); if (!st.voice) try { synth && synth.cancel(); } catch (e) { } drawPaused(); renderHome(); }
-  function askEnd() { if ($('modal').classList.contains('on')) { endNow(); return; } P.wasPaused = P.paused; P.paused = true; drawPaused(); try { synth && synth.cancel(); } catch (e) { } $('modal').classList.add('on'); setTimeout(() => $('mKeep').focus(), 30); }
-  function closeModal() { $('modal').classList.remove('on'); P.paused = !!P.wasPaused; drawPaused(); $('cPause').focus(); }
-  function endNow() { $('modal').classList.remove('on'); stopPlayer(); renderHome(); show('home'); }
+  function toggleMute() { st.voice = !st.voice; save(); if (!st.voice) stopVoice(); drawPaused(); renderHome(); if (cur === 'player') toast(st.voice ? 'Voice on' : 'Voice muted'); }
+  function askEnd() { if ($('modal').classList.contains('on')) { endNow(); return; } P.wasPaused = P.paused; P.paused = true; drawPaused(); stopVoice(); pauseMusic(true); $('modal').classList.add('on'); setTimeout(() => $('mKeep').focus(), 30); }
+  function closeModal() { $('modal').classList.remove('on'); P.paused = !!P.wasPaused; drawPaused(); pauseMusic(P.paused); $('cPause').focus(); }
+  function endNow() { $('modal').classList.remove('on'); stopPlayer(); stopMusic(1.5); renderHome(); show('home'); }
 
   // ---------- FINISH ----------
-  let finT = 0;
+  let finT = 0, finKids = false;
   function finish(demo) {
     const steps = P.steps, key = P.key, kids = P.kids, full = P.full;
     stopTimer(); const r = ROUTINES[key];
@@ -1038,23 +1251,25 @@ const QUOTES = [
     if (ok && !demo) { const k = ymd(today()); if (!st.days.includes(k)) { st.days.push(k); save(); } }
     const d = today();
     $('fRoutine').textContent = r.name; $('fDate').textContent = `${DAYS[d.getDay()]} · ${MON[d.getMonth()]} ${d.getDate()}`;
+    finKids = kids; $('finish').classList.toggle('kids', kids);
     $('fHead').innerHTML = kids ? 'You did it<span>!</span>' : 'Done<span>.</span>';
-    $('fWhat').textContent = kids ? `${r.poses.length} animal poses — every one a star.` : `${r.name} · ${full ? 'full' : 'short'} session · body’s a little longer than it was.`;
-    $('fStats').innerHTML = `<div class="stat"><div class="v acc">${heldMin}</div><div class="k">minutes</div></div><div class="stat"><div class="v">${r.poses.length}</div><div class="k">poses</div></div><div class="stat"><div class="v">${streak()}</div><div class="k">night streak</div></div>`;
+    $('fWhat').textContent = kids ? `${r.poses.length} animal poses. Every one a star!` : `${r.name} · ${full ? 'full' : 'short'} session · body’s a little longer than it was.`;
+    $('fStats').innerHTML = kids ? `<div class="stat"><div class="v">${heldMin}</div><div class="k">minutes</div></div><div class="stat"><div class="v">${r.poses.length}</div><div class="k">animals</div></div>` : `<div class="stat"><div class="v acc">${heldMin}</div><div class="k">minutes</div></div><div class="stat"><div class="v">${r.poses.length}</div><div class="k">poses</div></div><div class="stat"><div class="v">${streak()}</div><div class="k">night streak</div></div>`;
     const star = '<svg viewBox="0 0 24 24"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z" fill="#FFB02B" stroke="#0B0C0E" stroke-width="1"/></svg>';
     $('fStars').innerHTML = kids ? star.repeat(r.poses.length) : '';
-    $('fBreathS').textContent = kids ? 'Smell the flower… blow the candle' : 'In for 8 · hold 4 · out for 10';
+    if (kids) { $('fBreath').textContent = 'Goodnight, superstars!'; }
+    $('fBreathS').textContent = kids ? 'Lights out. Big hug. Sweet dreams.' : 'In for 8 · hold 4 · out for 10';
     const t = new Date(d); t.setDate(d.getDate() + 1); $('fTomorrow').textContent = ROUTINES[routineFor(t)].name;
-    finT = performance.now(); show('finish');
+    stage.classList.toggle('kidsui', kids); finT = performance.now(); show('finish');
     P.steps = null; P.last = { key, full, kids };
-    say(kids ? 'You did it! Every pose a star. Now one big breath in… and blow it all out.' : 'That’s the session. Nice work tonight. One last slow breath in… hold… and let it all go.');
-    chime(true); requestAnimationFrame(frame);
+    say(kids ? 'You did it! Every pose a star. Great job tonight, sweet dreams.' : 'That’s the session. Nice work tonight. One last slow breath in… hold… and let it all go.');
+    chime(true); requestAnimationFrame(frame); stopMusic(10);
   }
 
   // ---------- POSE SHEET ----------
   function renderSheet() {
     const ks = Object.keys(POSE_INFO); $('sCount').textContent = ks.length + ' poses · L4/L5-friendly variants';
-    $('sGrid').innerHTML = ks.map(k => `<div class="c"><div class="l">${POSE_INFO[k].name}<small>${POSE_INFO[k].kid}</small></div>${fig(k, false, 360, 190, true)}</div>`).join('');
+    $('sGrid').innerHTML = ks.map(k => `<div class="c"><div class="l">${POSE_INFO[k].name}<small>${POSE_INFO[k].kid}</small></div>${fig(k, false, 360, 190, true, st.kids)}</div>`).join('');
   }
 
   // ---------- wiring ----------
@@ -1064,11 +1279,13 @@ const QUOTES = [
   $('bKids').onclick = () => { st.kids = true; save(); renderHome(); };
   $('bVoice').onclick = () => { st.voice = !st.voice; save(); renderHome(); if (st.voice) { unlockAudio(); say('Voice on.'); } };
   $('bStart').onclick = () => startSession(sel || routineFor(today()), st.full, st.kids);
+  $('bSize').onclick = cycleSize;
+  $('bMusic').onclick = cycleMusic;
   $('bBrowse').onclick = () => { renderBrowse(); show('browse', true); };
   $('bBack').onclick = () => back();
   $('cPause').onclick = togglePause; $('cBack').onclick = askEnd; $('cSkip').onclick = skip; $('cPrev').onclick = prev; $('cMute').onclick = toggleMute;
   $('mKeep').onclick = closeModal; $('mEnd').onclick = endNow;
-  $('fHome').onclick = () => { sel = null; renderHome(); show('home'); };
+  $('fHome').onclick = () => { stopMusic(1); stopVoice(); sel = null; renderHome(); show('home'); };
   $('fAgain').onclick = () => { const l = P.last; if (l) startSession(l.key, l.full, l.kids); };
   function back() {
     if ($('modal').classList.contains('on')) return endNow();
@@ -1076,6 +1293,7 @@ const QUOTES = [
     if (cur === 'browse' || cur === 'finish') { renderHome(); show('home'); }
   }
   function act(a) {
+    if (a === 'VIEW') return cycleSize();
     if (a === 'up' || a === 'down') return move(a);
     if (cur === 'player' && !$('modal').classList.contains('on')) {
       if (a === 'A') { const el = document.activeElement; if (el && el.id && el.id !== 'cPause' && el.closest('#player')) return el.click(); return togglePause(); }
@@ -1087,19 +1305,23 @@ const QUOTES = [
     if (a === 'A') return activate();
     if (a === 'B') return back();
     if (a === 'Y' && cur === 'home') { st.kids = !st.kids; save(); renderHome(); }
+    if (a === 'X' && cur === 'home') $('bVoice').click();
   }
+  // X: tap = voice mute, hold ≥ 0.6 s = cycle music Off/Low/Med
+  const HOLD_MS = 600; let xKey = null;
   // keyboard (+ Xbox Edge legacy gamepad keys when the gamepad drives keyboard emulation)
   let padActive = 0;
   const KEYMAP = { ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right', Enter: 'A', ' ': 'space', Escape: 'B', Backspace: 'B', BrowserBack: 'B', m: 'X', M: 'X', n: 'RB', N: 'RB', p: 'LB', P: 'LB', PageDown: 'RB', PageUp: 'LB',
-    GamepadA: 'A', GamepadB: 'B', GamepadX: 'X', GamepadY: 'Y', GamepadRightShoulder: 'RB', GamepadLeftShoulder: 'LB', GamepadDPadUp: 'up', GamepadDPadDown: 'down', GamepadDPadLeft: 'left', GamepadDPadRight: 'right',
+    GamepadA: 'A', GamepadView: 'VIEW', z: 'VIEW', Z: 'VIEW', GamepadB: 'B', GamepadX: 'X', GamepadY: 'Y', GamepadRightShoulder: 'RB', GamepadLeftShoulder: 'LB', GamepadDPadUp: 'up', GamepadDPadDown: 'down', GamepadDPadLeft: 'left', GamepadDPadRight: 'right',
     GamepadLeftThumbstickUp: 'up', GamepadLeftThumbstickDown: 'down', GamepadLeftThumbstickLeft: 'left', GamepadLeftThumbstickRight: 'right' };
-  const CODEMAP = { 195: 'A', 196: 'B', 197: 'X', 198: 'Y', 199: 'RB', 200: 'LB', 203: 'up', 204: 'down', 205: 'left', 206: 'right', 211: 'up', 212: 'down', 213: 'left', 214: 'right' };
+  const CODEMAP = { 208: 'VIEW', 195: 'A', 196: 'B', 197: 'X', 198: 'Y', 199: 'RB', 200: 'LB', 203: 'up', 204: 'down', 205: 'left', 206: 'right', 211: 'up', 212: 'down', 213: 'left', 214: 'right' };
   document.addEventListener('keydown', e => {
     let a = KEYMAP[e.key] || CODEMAP[e.keyCode];
     if (!a) return;
     const isPadKey = /^Gamepad/.test(e.key || '') || CODEMAP[e.keyCode];
     e.preventDefault();
     if (isPadKey && performance.now() - padActive < 1500) return; // Gamepad API already handled it
+    if (a === 'X') { if (e.repeat || xKey) return; const X = { fired: false }; X.t = setTimeout(() => { X.fired = true; cycleMusic(); }, HOLD_MS); xKey = X; return; }
     if (a === 'space') a = cur === 'player' ? 'A' : 'A';
     if (cur === 'player' && !$('modal').classList.contains('on') && !isPadKey) {
       if (e.key === 'ArrowRight') return skip(); if (e.key === 'ArrowLeft') return prev();
@@ -1108,10 +1330,14 @@ const QUOTES = [
     }
     act(a);
   });
+  document.addEventListener('keyup', e => {
+    const a = KEYMAP[e.key] || CODEMAP[e.keyCode]; if (a !== 'X' || !xKey) return;
+    const X = xKey; xKey = null; clearTimeout(X.t); if (!X.fired) act('X');
+  });
   // Gamepad API
   try { if ('gamepadInputEmulation' in navigator) navigator.gamepadInputEmulation = 'gamepad'; } catch (e) { }
-  const prevBtn = {}, rep = {};
-  const BTN = { 0: 'A', 1: 'B', 2: 'X', 3: 'Y', 4: 'LB', 5: 'RB', 12: 'up', 13: 'down', 14: 'left', 15: 'right' };
+  const prevBtn = {}, rep = {}, xPad = {};
+  const BTN = { 0: 'A', 1: 'B', 2: 'X', 3: 'Y', 4: 'LB', 5: 'RB', 8: 'VIEW', 12: 'up', 13: 'down', 14: 'left', 15: 'right' };
   function poll() {
     let pads = []; try { pads = navigator.getGamepads ? [...navigator.getGamepads()].filter(Boolean) : []; } catch (e) { }
     const now = performance.now();
@@ -1121,8 +1347,14 @@ const QUOTES = [
       const ax = gp.axes || [];
       if (ax[1] < -0.6) down.up = 1; if (ax[1] > 0.6) down.down = 1; if (ax[0] < -0.6) down.left = 1; if (ax[0] > 0.6) down.right = 1;
       if (Object.keys(down).length) padActive = now;
-      for (const k of ['A', 'B', 'X', 'Y', 'LB', 'RB', 'up', 'down', 'left', 'right']) {
+      for (const k of ['A', 'B', 'X', 'Y', 'LB', 'RB', 'VIEW', 'up', 'down', 'left', 'right']) {
         const id = gp.index + k;
+        if (k === 'X') {
+          if (down.X && !prevBtn[id]) xPad[id] = { t: now, fired: false };
+          else if (down.X && xPad[id] && !xPad[id].fired && now - xPad[id].t >= HOLD_MS) { xPad[id].fired = true; cycleMusic(); }
+          else if (!down.X && prevBtn[id] && xPad[id]) { if (!xPad[id].fired) act('X'); xPad[id] = null; }
+          prevBtn[id] = !!down.X; continue;
+        }
         if (down[k] && !prevBtn[id]) { act(k); rep[id] = now + 420; }
         else if (down[k] && /up|down|left|right/.test(k) && now > rep[id]) { act(k); rep[id] = now + 160; }
         prevBtn[id] = !!down[k];
@@ -1151,7 +1383,7 @@ const QUOTES = [
       else {
         const pose = Q.get('pose'), side = Q.get('side') === 'L' ? 1 : 0;
         const idx = Math.max(0, P.steps.findIndex(s => s.p === pose && (s.side < 0 || s.side === side)));
-        P.i = idx; $('player').classList.toggle('kids', kids);
+        P.i = idx; $('player').classList.toggle('kids', kids); stage.classList.toggle('kidsui', kids);
         const r = ROUTINES[key]; $('pRoutine').textContent = r.name; $('pTags').innerHTML = r.tags.map(t => `<span class="chip">${t}</span>`).join('');
         $('pCnt').textContent = r.poses.length; $('pStreak').textContent = streak();
         show('player'); enterStep(true);
